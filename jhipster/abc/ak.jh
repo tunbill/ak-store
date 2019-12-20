@@ -1,0 +1,90 @@
+entity Company {
+	name String required
+	address String
+	logo ImageBlob
+	email String
+	startDate LocalDate
+	numOfUsers Integer min(1)
+	type String
+	isActive Boolean
+	timeCreated Instant
+	timeModified Instant
+	userId Long
+}
+
+entity Industry	{
+	name String required
+}
+
+entity Province {
+	name String required
+}
+
+
+entity CustomerVendor	{
+	isCustomer Boolean
+	isVendor Boolean
+	code String required
+	companyName String required
+	address String
+	phone String
+	mobile String
+	fax String
+	email String
+	taxCode String
+	account String
+	bankAccount String
+	bankName String
+	openBalance Double
+	openBalanceDate Instant
+	balance Double
+	notes String
+	contactName String
+	isActive Boolean
+	timeCreated Instant
+	timeModified Instant
+	userIdCreated Long
+	userIdModified Long
+}
+
+entity CustomerVendorType	{
+	name String required
+	description String
+	isActive Boolean
+}
+
+/*
+
+entity Terms {
+	code String 
+	name String required
+	dayOfMonthDue Integer
+	dueNextMonthDays Integer
+	discountDayOfMonth Integer
+	discountPct Double
+}
+
+*/
+
+relationship OneToMany {
+	Industry{company} to Company
+	Province{company} to Company
+	Company{customerVendorType} to CustomerVendorType
+	Company{customerVendor} to CustomerVendor
+	CustomerVendorType{customerVendor} to CustomerVendor{type}
+	//Terms{customerVendor} to CustomerVendor{terms}
+}
+
+// Set pagination options
+paginate Industry, Province  with infinite-scroll
+paginate Company, CustomerVendor, CustomerVendorType with pagination
+
+// Use Data Transfert Objects (DTO)
+
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except Province, Industry
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
