@@ -1,0 +1,92 @@
+entity Company {
+	name String required,
+	address String,
+	logo ImageBlob,
+	email String,
+	startDate LocalDate,
+	numOfUsers Integer min(1),
+	type String maxlength(10),
+	isActive Boolean,
+	timeCreated Instant,
+	timeModified Instant,
+	userId Long
+}
+
+entity Industry	{
+	name String maxlength(100) required
+}
+
+entity Province {
+	name String maxlength(50) required
+}
+
+entity CustomerVendor	{
+	isCustomer Boolean,
+	isVendor Boolean,
+	code String required maxlength(20),
+	companyName String required,
+	address String,
+	phone String maxlength(50),
+	mobile String maxlength(50),
+	fax String maxlength(50),
+	email String maxlength(50),
+	taxCode String maxlength(30),
+	accountNumber String maxlength(20),
+	bankAccount String maxlength(20),
+	bankName String,
+	openBalance Double,
+	openBalanceDate Instant,
+	balance Double,
+	notes String,
+	contactName String maxlength(50),
+	isActive Boolean,
+	timeCreated Instant,
+	timeModified Instant,
+	userIdCreated Long,
+	userIdModified Long
+}
+
+entity CustomerVendorType	{
+	name String required maxlength(100),
+	description String,
+	isActive Boolean
+}
+
+
+entity Terms {
+	code String maxlength(10),
+	name String required maxlength(100),
+	dayOfMonthDue Integer,
+	dueNextMonthDays Integer,
+	discountDayOfMonth Integer,
+	discountPct Double
+}
+
+
+relationship OneToMany {
+	Industry{company} to Company,
+	Province{company} to Company
+}
+
+relationship OneToMany {
+	Company{customerVendorType} to CustomerVendorType,
+	Company{customerVendor} to CustomerVendor,
+	CustomerVendorType{customerVendor} to CustomerVendor,
+	Terms{customerVendor} to CustomerVendor
+}
+
+// Set pagination options
+paginate Province, Industry, Terms  with infinite-scroll
+paginate Company, CustomerVendor, CustomerVendorType with pagination
+
+// Use Data Transfert Objects (DTO)
+dto CustomerVendor with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except Province, Industry, Terms
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
+
+// filter
+filter CustomerVendor, CustomerVendorType
