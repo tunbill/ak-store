@@ -7,7 +7,7 @@ import { Account } from 'app/core/user/account.model';
 import { PasswordService } from './password.service';
 
 @Component({
-  selector: 'true-password',
+  selector: 'ak-password',
   templateUrl: './password.component.html'
 })
 export class PasswordComponent implements OnInit {

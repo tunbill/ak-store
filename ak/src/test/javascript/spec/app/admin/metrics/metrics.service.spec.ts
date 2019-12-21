@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TrueMetricsService } from 'app/admin/metrics/metrics.service';
+import { AkMetricsService } from 'app/admin/metrics/metrics.service';
 import { SERVER_API_URL } from 'app/app.constants';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('Service Tests', () => {
   describe('Logs Service', () => {
-    let service: TrueMetricsService;
+    let service: AkMetricsService;
     let httpMock;
     let expectedResult;
 
@@ -16,7 +16,7 @@ describe('Service Tests', () => {
       });
 
       expectedResult = {};
-      service = TestBed.get(TrueMetricsService);
+      service = TestBed.get(AkMetricsService);
       httpMock = TestBed.get(HttpTestingController);
     });
 

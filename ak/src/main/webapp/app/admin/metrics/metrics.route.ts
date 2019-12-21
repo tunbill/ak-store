@@ -1,10 +1,10 @@
 import { Route } from '@angular/router';
 
-import { TrueMetricsMonitoringComponent } from './metrics.component';
+import { AkMetricsMonitoringComponent } from './metrics.component';
 
 export const metricsRoute: Route = {
   path: '',
-  component: TrueMetricsMonitoringComponent,
+  component: AkMetricsMonitoringComponent,
   data: {
     pageTitle: 'metrics.title'
   }

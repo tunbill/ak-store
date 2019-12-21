@@ -36,7 +36,10 @@
     "otherModules": [],
     "enableTranslation": true,
     "nativeLanguage": "vi",
-    "languages": ["vi", "en"],
+    "languages": [
+      "vi",
+      "en"
+    ],
     "blueprints": []
   }
 }

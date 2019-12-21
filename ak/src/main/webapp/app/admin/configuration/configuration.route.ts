@@ -1,10 +1,10 @@
 import { Route } from '@angular/router';
 
-import { TrueConfigurationComponent } from './configuration.component';
+import { AkConfigurationComponent } from './configuration.component';
 
 export const configurationRoute: Route = {
   path: '',
-  component: TrueConfigurationComponent,
+  component: AkConfigurationComponent,
   data: {
     pageTitle: 'configuration.title'
   }

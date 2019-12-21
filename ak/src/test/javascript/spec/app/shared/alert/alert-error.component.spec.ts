@@ -4,19 +4,19 @@ import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { AkTestModule } from '../../../test.module';
-import { TrueAlertErrorComponent } from 'app/shared/alert/alert-error.component';
+import { AkAlertErrorComponent } from 'app/shared/alert/alert-error.component';
 import { MockAlertService } from '../../../helpers/mock-alert.service';
 
 describe('Component Tests', () => {
   describe('Alert Error Component', () => {
-    let comp: TrueAlertErrorComponent;
-    let fixture: ComponentFixture<TrueAlertErrorComponent>;
+    let comp: AkAlertErrorComponent;
+    let fixture: ComponentFixture<AkAlertErrorComponent>;
     let eventManager: JhiEventManager;
 
     beforeEach(async(() => {
       TestBed.configureTestingModule({
         imports: [AkTestModule, TranslateModule.forRoot()],
-        declarations: [TrueAlertErrorComponent],
+        declarations: [AkAlertErrorComponent],
         providers: [
           JhiEventManager,
           {
@@ -25,12 +25,12 @@ describe('Component Tests', () => {
           }
         ]
       })
-        .overrideTemplate(TrueAlertErrorComponent, '')
+        .overrideTemplate(AkAlertErrorComponent, '')
         .compileComponents();
     }));
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(TrueAlertErrorComponent);
+      fixture = TestBed.createComponent(AkAlertErrorComponent);
       comp = fixture.componentInstance;
       eventManager = fixture.debugElement.injector.get(JhiEventManager);
     });

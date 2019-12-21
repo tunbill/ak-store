@@ -8,10 +8,10 @@ import { LoginService } from 'app/core/login/login.service';
 import { StateStorageService } from 'app/core/auth/state-storage.service';
 
 @Component({
-  selector: 'true-login-modal',
+  selector: 'ak-login-modal',
   templateUrl: './login.component.html'
 })
-export class TrueLoginModalComponent implements AfterViewInit {
+export class AkLoginModalComponent implements AfterViewInit {
   authenticationError: boolean;
 
   loginForm = this.fb.group({

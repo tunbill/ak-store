@@ -4,10 +4,10 @@ import { Router, ActivatedRouteSnapshot, NavigationEnd, NavigationError } from '
 import { JhiLanguageHelper } from 'app/core/language/language.helper';
 
 @Component({
-  selector: 'true-main',
+  selector: 'ak-main',
   templateUrl: './main.component.html'
 })
-export class TrueMainComponent implements OnInit {
+export class AkMainComponent implements OnInit {
   constructor(private jhiLanguageHelper: JhiLanguageHelper, private router: Router) {}
 
   private getPageTitle(routeSnapshot: ActivatedRouteSnapshot) {

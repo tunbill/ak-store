@@ -4,7 +4,7 @@ import { Log } from './log.model';
 import { LogsService } from './logs.service';
 
 @Component({
-  selector: 'true-logs',
+  selector: 'ak-logs',
   templateUrl: './logs.component.html'
 })
 export class LogsComponent implements OnInit {

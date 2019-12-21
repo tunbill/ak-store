@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { TrueConfigurationService } from './configuration.service';
+import { AkConfigurationService } from './configuration.service';
 
 @Component({
-  selector: 'true-configuration',
+  selector: 'ak-configuration',
   templateUrl: './configuration.component.html'
 })
-export class TrueConfigurationComponent implements OnInit {
+export class AkConfigurationComponent implements OnInit {
   allConfiguration: any = null;
   configuration: any = null;
   configKeys: any[];
@@ -14,7 +14,7 @@ export class TrueConfigurationComponent implements OnInit {
   orderProp: string;
   reverse: boolean;
 
-  constructor(private configurationService: TrueConfigurationService) {
+  constructor(private configurationService: AkConfigurationService) {
     this.configKeys = [];
     this.filter = '';
     this.orderProp = 'prefix';

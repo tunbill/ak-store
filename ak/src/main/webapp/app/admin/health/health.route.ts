@@ -1,10 +1,10 @@
 import { Route } from '@angular/router';
 
-import { TrueHealthCheckComponent } from './health.component';
+import { AkHealthCheckComponent } from './health.component';
 
 export const healthRoute: Route = {
   path: '',
-  component: TrueHealthCheckComponent,
+  component: AkHealthCheckComponent,
   data: {
     pageTitle: 'health.title'
   }

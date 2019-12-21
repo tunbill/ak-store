@@ -17,26 +17,31 @@
     "databaseType": "sql",
     "devDatabaseType": "mysql",
     "prodDatabaseType": "mysql",
-    "searchEngine": "elasticsearch",
+    "searchEngine": false,
     "messageBroker": false,
     "serviceDiscoveryType": false,
     "buildTool": "gradle",
     "enableSwaggerCodegen": false,
-    "jwtSecretKey": "OGZmYmY1MjQ3YmM0ZjY0M2M3OWU1YmUzYzQyZTUyYTQxZDc2ZjdjY2Y3NDIyYzQ3ZTg2MjRhNWMxNmM2NmM3YmU0MjJiZTgyMzAxYTIxY2M1ZjdkNjc5MTE4NTljOGE3Y2IzNDllOTY5NDE1OTY4N2Q4ZGI1MDFjMTdmM2I2NTE=",
+    "jwtSecretKey": "ZDQzZjY1MjJlMDNhMGUzMjc3MTJkOTdkZTk1ZTQ0ZGUwMTQ4YWU0MDcyMDk0MjIwYjMwODYyYzFlMjM5YWE3M2UxZjk1Njg5NGRiNzQ0ZmYzMDZmNTg0MDhhZTZkOTFmMDEwYWEwMGNiY2QwMjBlMjdhMTI2NzU1YThlM2IyOGQ=",
     "embeddableLaunchScript": false,
     "useSass": true,
     "clientPackageManager": "npm",
     "clientFramework": "angularX",
     "clientTheme": "none",
     "clientThemeVariant": "",
-    "testFrameworks": ["protractor"],
-    "jhiPrefix": "true",
+    "testFrameworks": [
+      "protractor"
+    ],
+    "jhiPrefix": "ak",
     "entitySuffix": "",
     "dtoSuffix": "DTO",
     "otherModules": [],
     "enableTranslation": true,
     "nativeLanguage": "vi",
-    "languages": ["vi", "en"],
+    "languages": [
+      "vi",
+      "en"
+    ],
     "blueprints": []
   }
 }

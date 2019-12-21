@@ -2,29 +2,29 @@ import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { AkTestModule } from '../../../test.module';
-import { TrueConfigurationComponent } from 'app/admin/configuration/configuration.component';
-import { TrueConfigurationService } from 'app/admin/configuration/configuration.service';
+import { AkConfigurationComponent } from 'app/admin/configuration/configuration.component';
+import { AkConfigurationService } from 'app/admin/configuration/configuration.service';
 
 describe('Component Tests', () => {
-  describe('TrueConfigurationComponent', () => {
-    let comp: TrueConfigurationComponent;
-    let fixture: ComponentFixture<TrueConfigurationComponent>;
-    let service: TrueConfigurationService;
+  describe('AkConfigurationComponent', () => {
+    let comp: AkConfigurationComponent;
+    let fixture: ComponentFixture<AkConfigurationComponent>;
+    let service: AkConfigurationService;
 
     beforeEach(async(() => {
       TestBed.configureTestingModule({
         imports: [AkTestModule],
-        declarations: [TrueConfigurationComponent],
-        providers: [TrueConfigurationService]
+        declarations: [AkConfigurationComponent],
+        providers: [AkConfigurationService]
       })
-        .overrideTemplate(TrueConfigurationComponent, '')
+        .overrideTemplate(AkConfigurationComponent, '')
         .compileComponents();
     }));
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(TrueConfigurationComponent);
+      fixture = TestBed.createComponent(AkConfigurationComponent);
       comp = fixture.componentInstance;
-      service = fixture.debugElement.injector.get(TrueConfigurationService);
+      service = fixture.debugElement.injector.get(AkConfigurationService);
     });
 
     describe('OnInit', () => {

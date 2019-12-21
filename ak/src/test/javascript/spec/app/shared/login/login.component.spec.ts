@@ -5,7 +5,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { LoginService } from 'app/core/login/login.service';
-import { TrueLoginModalComponent } from 'app/shared/login/login.component';
+import { AkLoginModalComponent } from 'app/shared/login/login.component';
 import { StateStorageService } from 'app/core/auth/state-storage.service';
 import { AkTestModule } from '../../../test.module';
 import { MockLoginService } from '../../../helpers/mock-login.service';
@@ -13,8 +13,8 @@ import { MockStateStorageService } from '../../../helpers/mock-state-storage.ser
 
 describe('Component Tests', () => {
   describe('LoginComponent', () => {
-    let comp: TrueLoginModalComponent;
-    let fixture: ComponentFixture<TrueLoginModalComponent>;
+    let comp: AkLoginModalComponent;
+    let fixture: ComponentFixture<AkLoginModalComponent>;
     let mockLoginService: any;
     let mockStateStorageService: any;
     let mockRouter: any;
@@ -24,7 +24,7 @@ describe('Component Tests', () => {
     beforeEach(async(() => {
       TestBed.configureTestingModule({
         imports: [AkTestModule],
-        declarations: [TrueLoginModalComponent],
+        declarations: [AkLoginModalComponent],
         providers: [
           FormBuilder,
           {
@@ -37,12 +37,12 @@ describe('Component Tests', () => {
           }
         ]
       })
-        .overrideTemplate(TrueLoginModalComponent, '')
+        .overrideTemplate(AkLoginModalComponent, '')
         .compileComponents();
     }));
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(TrueLoginModalComponent);
+      fixture = TestBed.createComponent(AkLoginModalComponent);
       comp = fixture.componentInstance;
       mockLoginService = fixture.debugElement.injector.get(LoginService);
       mockStateStorageService = fixture.debugElement.injector.get(StateStorageService);

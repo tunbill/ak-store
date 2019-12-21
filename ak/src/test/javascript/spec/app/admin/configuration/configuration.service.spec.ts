@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TrueConfigurationService } from 'app/admin/configuration/configuration.service';
+import { AkConfigurationService } from 'app/admin/configuration/configuration.service';
 import { SERVER_API_URL } from 'app/app.constants';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('Service Tests', () => {
   describe('Logs Service', () => {
-    let service: TrueConfigurationService;
+    let service: AkConfigurationService;
     let httpMock;
     let expectedResult;
 
@@ -16,7 +16,7 @@ describe('Service Tests', () => {
       });
 
       expectedResult = {};
-      service = TestBed.get(TrueConfigurationService);
+      service = TestBed.get(AkConfigurationService);
       httpMock = TestBed.get(HttpTestingController);
     });
 

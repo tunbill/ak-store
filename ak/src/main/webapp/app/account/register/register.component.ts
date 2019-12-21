@@ -9,7 +9,7 @@ import { LoginModalService } from 'app/core/login/login-modal.service';
 import { Register } from './register.service';
 
 @Component({
-  selector: 'true-register',
+  selector: 'ak-register',
   templateUrl: './register.component.html'
 })
 export class RegisterComponent implements OnInit, AfterViewInit {

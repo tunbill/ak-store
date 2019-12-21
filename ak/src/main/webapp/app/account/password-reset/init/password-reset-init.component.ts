@@ -5,7 +5,7 @@ import { EMAIL_NOT_FOUND_TYPE } from 'app/shared/constants/error.constants';
 import { PasswordResetInitService } from './password-reset-init.service';
 
 @Component({
-  selector: 'true-password-reset-init',
+  selector: 'ak-password-reset-init',
   templateUrl: './password-reset-init.component.html'
 })
 export class PasswordResetInitComponent implements AfterViewInit {

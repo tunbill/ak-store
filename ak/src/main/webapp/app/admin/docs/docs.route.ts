@@ -1,10 +1,10 @@
 import { Route } from '@angular/router';
 
-import { TrueDocsComponent } from './docs.component';
+import { AkDocsComponent } from './docs.component';
 
 export const docsRoute: Route = {
   path: '',
-  component: TrueDocsComponent,
+  component: AkDocsComponent,
   data: {
     pageTitle: 'global.menu.admin.apidocs'
   }

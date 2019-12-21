@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, Renderer } from '@angular/core';
 
 @Component({
-  selector: 'true-password-strength-bar',
+  selector: 'ak-password-strength-bar',
   template: `
     <div id="strength">
       <small jhiTranslate="global.messages.validate.newpassword.strength">Password strength:</small>

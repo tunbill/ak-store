@@ -82,7 +82,7 @@
                 });
 
                 function addApiKeyAuthorization() {
-                    var authToken = JSON.parse(localStorage.getItem("true-authenticationtoken") || sessionStorage.getItem("true-authenticationtoken"));
+                    var authToken = JSON.parse(localStorage.getItem("ak-authenticationtoken") || sessionStorage.getItem("ak-authenticationtoken"));
                     var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization("Authorization", "Bearer " + authToken, "header");
                     window.swaggerUi.api.clientAuthorizations.add("jwt", apiKeyAuth);
                 }

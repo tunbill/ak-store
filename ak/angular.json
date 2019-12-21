@@ -25,7 +25,7 @@
           "skipTests": true
         }
       },
-      "prefix": "true",
+      "prefix": "ak",
       "architect": {}
     }
   },

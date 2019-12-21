@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { TrueHealthService } from './health.service';
-import { TrueHealthModalComponent } from './health-modal.component';
+import { AkHealthService } from './health.service';
+import { AkHealthModalComponent } from './health-modal.component';
 
 @Component({
-  selector: 'true-health',
+  selector: 'ak-health',
   templateUrl: './health.component.html'
 })
-export class TrueHealthCheckComponent implements OnInit {
+export class AkHealthCheckComponent implements OnInit {
   healthData: any;
   updatingHealth: boolean;
 
-  constructor(private modalService: NgbModal, private healthService: TrueHealthService) {}
+  constructor(private modalService: NgbModal, private healthService: AkHealthService) {}
 
   ngOnInit() {
     this.refresh();
@@ -48,7 +48,7 @@ export class TrueHealthCheckComponent implements OnInit {
   }
 
   showHealth(health: any) {
-    const modalRef = this.modalService.open(TrueHealthModalComponent);
+    const modalRef = this.modalService.open(AkHealthModalComponent);
     modalRef.componentInstance.currentHealth = health;
   }
 

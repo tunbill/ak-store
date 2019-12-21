@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 
-import { TrueMetricsService } from './metrics.service';
+import { AkMetricsService } from './metrics.service';
 
 @Component({
-  selector: 'true-metrics',
+  selector: 'ak-metrics',
   templateUrl: './metrics.component.html'
 })
-export class TrueMetricsMonitoringComponent implements OnInit {
+export class AkMetricsMonitoringComponent implements OnInit {
   metrics: any = {};
   threadData: any = {};
   updatingMetrics = true;
   JCACHE_KEY: string;
 
-  constructor(private metricsService: TrueMetricsService) {
+  constructor(private metricsService: AkMetricsService) {
     this.JCACHE_KEY = 'jcache.statistics';
   }
 

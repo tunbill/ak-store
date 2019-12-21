@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { SERVER_API_URL } from 'app/app.constants';
 
 @Injectable({ providedIn: 'root' })
-export class TrueConfigurationService {
+export class AkConfigurationService {
   constructor(private http: HttpClient) {}
 
   get(): Observable<any> {

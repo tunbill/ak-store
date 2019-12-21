@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'true-docs',
+  selector: 'ak-docs',
   templateUrl: './docs.component.html'
 })
-export class TrueDocsComponent {
+export class AkDocsComponent {
   constructor() {}
 }

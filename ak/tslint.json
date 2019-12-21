@@ -1,8 +1,8 @@
 {
   "rulesDirectory": ["node_modules/codelyzer"],
   "rules": {
-    "directive-selector": [true, "attribute", "true", "camelCase"],
-    "component-selector": [true, "element", "true", "kebab-case"],
+    "directive-selector": [true, "attribute", "ak", "camelCase"],
+    "component-selector": [true, "element", "ak", "kebab-case"],
     "no-inputs-metadata-property": true,
     "no-outputs-metadata-property": true,
     "no-host-metadata-property": true,

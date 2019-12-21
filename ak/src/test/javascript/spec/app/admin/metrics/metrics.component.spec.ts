@@ -2,28 +2,28 @@ import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { AkTestModule } from '../../../test.module';
-import { TrueMetricsMonitoringComponent } from 'app/admin/metrics/metrics.component';
-import { TrueMetricsService } from 'app/admin/metrics/metrics.service';
+import { AkMetricsMonitoringComponent } from 'app/admin/metrics/metrics.component';
+import { AkMetricsService } from 'app/admin/metrics/metrics.service';
 
 describe('Component Tests', () => {
-  describe('TrueMetricsMonitoringComponent', () => {
-    let comp: TrueMetricsMonitoringComponent;
-    let fixture: ComponentFixture<TrueMetricsMonitoringComponent>;
-    let service: TrueMetricsService;
+  describe('AkMetricsMonitoringComponent', () => {
+    let comp: AkMetricsMonitoringComponent;
+    let fixture: ComponentFixture<AkMetricsMonitoringComponent>;
+    let service: AkMetricsService;
 
     beforeEach(async(() => {
       TestBed.configureTestingModule({
         imports: [AkTestModule],
-        declarations: [TrueMetricsMonitoringComponent]
+        declarations: [AkMetricsMonitoringComponent]
       })
-        .overrideTemplate(TrueMetricsMonitoringComponent, '')
+        .overrideTemplate(AkMetricsMonitoringComponent, '')
         .compileComponents();
     }));
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(TrueMetricsMonitoringComponent);
+      fixture = TestBed.createComponent(AkMetricsMonitoringComponent);
       comp = fixture.componentInstance;
-      service = fixture.debugElement.injector.get(TrueMetricsService);
+      service = fixture.debugElement.injector.get(AkMetricsService);
     });
 
     describe('refresh', () => {
