@@ -82,6 +82,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Column(name = "reset_date")
     private Instant resetDate = null;
+    
+    @Column(name = "company_id")
+    private Long company_id = null;
+
 
     @JsonIgnore
     @ManyToMany
@@ -188,6 +192,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setLangKey(String langKey) {
         this.langKey = langKey;
+    }
+    
+    public Long getCompanyId() {
+        return company_id;
+    }
+
+    public void setCompanyId(Long company_id) {
+        this.company_id = company_id;
     }
 
     public Set<Authority> getAuthorities() {
