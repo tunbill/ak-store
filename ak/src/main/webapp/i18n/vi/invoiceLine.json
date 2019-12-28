@@ -1,0 +1,33 @@
+{
+  "akApp": {
+    "invoiceLine": {
+      "home": {
+        "title": "Invoice Lines",
+        "createLabel": "Thêm mới một Invoice Line",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Invoice Line",
+        "notFound": "No Invoice Lines found"
+      },
+      "created": "Một Invoice Line mới được tạo với định danh {{ param }}",
+      "updated": "Một Invoice Line cập nhật với định danh {{ param }}",
+      "deleted": "Một Invoice Line đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Invoice Line {{ id }}?"
+      },
+      "detail": {
+        "title": "Invoice Line"
+      },
+      "displayOrder": "Display Order",
+      "itemName": "Item Name",
+      "unitName": "Unit Name",
+      "quantity": "Quantity",
+      "rate": "Rate",
+      "amount": "Amount",
+      "discountPct": "Discount Pct",
+      "accountNumber": "Account Number",
+      "status": "Status",
+      "invoice": "Invoice",
+      "item": "Item",
+      "company": "Company"
+    }
+  }
+}

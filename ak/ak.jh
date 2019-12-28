@@ -1,0 +1,286 @@
+entity Company {
+	name String required,
+	address String,
+	logo ImageBlob,
+	email String maxlength(50) pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/),
+	startDate LocalDate,
+	numOfUsers Integer min(1),
+	type String maxlength(10),
+	isActive Boolean,
+	timeCreated Instant,
+	timeModified Instant,
+	userId Long
+}
+
+entity Industry	{
+	name String maxlength(100) required
+}
+
+entity Province {
+	name String maxlength(50) required
+}
+
+entity Customer	{
+	isVendor Boolean,
+	vendorId Long,
+	code String required maxlength(20) unique,
+	companyName String required,
+	address String,
+	phone String maxlength(50),
+	mobile String maxlength(50),
+	fax String maxlength(50),
+	email String maxlength(50) pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/),
+	taxCode String maxlength(30),
+	accountNumber String maxlength(20),
+	bankAccount String maxlength(20),
+	bankName String,
+	balance Double,
+	totalBalance Double,
+	openBalance Double,
+	openBalanceDate Instant,
+	creditLimit Double,
+	notes String,
+	contactName String maxlength(50),
+	isActive Boolean,
+	timeCreated Instant,
+	timeModified Instant,
+	userIdCreated Long,
+	userIdModified Long
+}
+
+entity CustomerType	{
+	name String required maxlength(100),
+	description String,
+	isActive Boolean
+}
+
+
+entity Terms {
+	code String maxlength(10),
+	name String required maxlength(100),
+	dayOfMonthDue Integer,
+	dueNextMonthDays Integer,
+	discountDayOfMonth Integer,
+	discountPct Double
+}
+
+entity Store	{
+	code String maxlength(20),
+	name String maxlength(50),
+	address String maxlength(100)
+}
+
+entity Department	{
+	code String maxlength(20),
+	name String maxlength(100) required
+}
+
+entity Jobs	{
+	code String maxlength(20),
+	name String maxlength(100),
+	status Integer,
+	startDate LocalDate,
+	endDate LocalDate,
+	estimate Double,
+	investor String maxlength(100),
+	address String maxlength(200),
+	notes String
+}
+
+entity JobType	{
+	code String maxlength(20),
+	name String maxlength(100) required
+}
+
+entity Employee	{
+	code String maxlength(20),
+	fullName String maxlength(80),
+	sex Integer,
+	birthday LocalDate,
+	identityCard String maxlength(20),
+	identityDate LocalDate,
+	identityIssue String maxlength(100),
+	position String maxlength(50),
+	taxCode String maxlength(20),
+	salary Double,
+	salaryRate Double,
+	salarySecurity Double,
+	numOfDepends Integer,
+	phone String maxlength(20),
+	mobile String maxlength(20),
+	email String maxlength(100) pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/),
+	bankAccount String maxlength(20),
+	bankName String maxlength(200),
+	nodes String,
+	isActive Boolean,
+	timeCreated Instant,
+	timeModified Instant,
+	userIdCreated Long,
+	userIdModified Long
+}
+
+entity Item {
+	code String maxlength(20),
+	name String maxlength(150) required,
+	description String maxlength(200),
+	type ItemType required,
+	skuNum Double,
+	vatTax VATTax,
+	importTax Double,
+	exportTax Double,
+	inventoryPriceMethod PriceMethod,
+	accountItem String maxlength(10),
+	isAllowModified Boolean,
+	accountCost String maxlength(10),
+	accountRevenue String maxlength(10),
+	accountInternalRevenue String maxlength(10),
+	accountSaleReturn String maxlength(10),
+	accountSalePrice String maxlength(10),
+	accountAgency String maxlength(10),
+	accountRawProduct String maxlength(10),
+	accountCostDifference String maxlength(10),
+	accountDiscount String maxlength(10),
+	saleDesc String maxlength(100),
+	purchaseDesc String maxlength(100),
+	weight Double,
+	lenght Double,
+	wide Double,
+	height Double,
+	color String,
+	specification String,
+	itemImage ImageBlob,
+	isActive Boolean,
+	timeCreated Instant,
+	timeModified Instant,
+	userIdCreated Long,
+	userIdModified Long
+}
+
+enum ItemType {
+	PRODUCT,
+	SERVICE
+}
+
+enum VATTax {
+  VAT5,
+  VAT10
+}
+
+enum PriceMethod {
+	AVERAGE,
+	FIFO
+}
+
+entity Unit {
+	code String maxlength(10),
+	name String maxlength(10) required
+}
+
+entity ItemGroup {
+	code String maxlength(10),
+	name String maxlength(200) required
+}
+
+entity Invoice {
+	invoiceNo String maxlength(20),
+	invoiceDate LocalDate,
+	dueDate LocalDate,
+	billingAddress String,
+	accountNumber String maxlength(10),
+	poNumber String maxlength(20),
+	notes String,
+	productTotal Double,
+	vatTotal Double,
+	discountTotal Double,
+	total Double,
+	status ProcessStatus,
+	timeCreated Instant,
+	timeModified Instant,
+	userIdCreated Long,
+	userIdModified Long
+}
+
+enum ProcessStatus	{
+	OPEN,
+	CLOSE
+}
+
+entity InvoiceLine {
+	displayOrder Integer,
+	itemName String maxlength(150),
+	unitName String maxlength(10),
+	quantity Double,
+	rate Double,
+	amount Double,
+	discountPct Double,
+	accountNumber String,
+	status ProcessStatus
+}
+
+relationship OneToMany {
+	Industry{company} to Company,
+	Province{company} to Company
+}
+
+relationship OneToMany {
+	CustomerType{customer} to Customer,
+	Terms{customer} to Customer
+}
+
+relationship OneToMany {
+	Department{employee} to Employee
+}
+
+relationship OneToMany {
+	JobType{jobs} to Jobs
+}
+
+relationship OneToMany {
+	Unit{item} to Item,
+	ItemGroup{item} to Item,
+	Store{item} to Item
+}
+
+relationship OneToMany {
+	Customer{invoice} to Invoice,
+	Terms{invoice} to Invoice,
+	Employee{invoice} to Invoice
+}
+
+relationship OneToMany {
+	Invoice{invoiceLine} to InvoiceLine,
+	Item{invoiceLine} to InvoiceLine
+}
+
+relationship OneToMany {
+	Company{customerType} to CustomerType,
+	Company{customer} to Customer,
+	Company{store} to Store,
+	Company{department} to Department,
+	Company{jobs} to Jobs,
+	Company{jobType} to JobType,
+	Company{employee} to Employee,
+	Company{item} to Item,
+	Company{ItemGroup} to ItemGroup,
+	Company{unit} to Unit
+	Company{invoice} to Invoice
+	Company{invoiceLine} to InvoiceLine
+}
+
+
+// Set pagination options
+paginate Terms, Unit, ItemGroup, InvoiceLine  with infinite-scroll
+paginate Company, Customer, CustomerType, Store, Department, Jobs, Employee, Item, Invoice with pagination
+
+// Use Data Transfert Objects (DTO)
+//dto all with mapstruct except Province, Industry, Terms, Unit, CustomerType, Department, InvoiceLine
+
+
+// Set service options to all except few
+service all with serviceImpl except Province, Industry, Terms, Unit, CustomerType, Department, InvoiceLine
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
+
+// filter
+filter Company, Customer, CustomerType, Employee, Item, Invoice, InvoiceLine

@@ -1,0 +1,65 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="akApp.terms.home.title">Terms</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-terms" [routerLink]="['/terms/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="akApp.terms.home.createLabel">
+            Create a new Terms
+            </span>
+        </button>
+    </h2>
+    <ak-alert-error></ak-alert-error>
+    <ak-alert></ak-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="terms?.length === 0">
+        <span jhiTranslate="akApp.terms.home.notFound">No terms found</span>
+    </div>
+    <div class="table-responsive" *ngIf="terms?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="code"><span jhiTranslate="akApp.terms.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="name"><span jhiTranslate="akApp.terms.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="dayOfMonthDue"><span jhiTranslate="akApp.terms.dayOfMonthDue">Day Of Month Due</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="dueNextMonthDays"><span jhiTranslate="akApp.terms.dueNextMonthDays">Due Next Month Days</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="discountDayOfMonth"><span jhiTranslate="akApp.terms.discountDayOfMonth">Discount Day Of Month</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="discountPct"><span jhiTranslate="akApp.terms.discountPct">Discount Pct</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let terms of terms ;trackBy: trackId">
+                <td><a [routerLink]="['/terms', terms.id, 'view' ]">{{terms.id}}</a></td>
+                <td>{{terms.code}}</td>
+                <td>{{terms.name}}</td>
+                <td>{{terms.dayOfMonthDue}}</td>
+                <td>{{terms.dueNextMonthDays}}</td>
+                <td>{{terms.discountDayOfMonth}}</td>
+                <td>{{terms.discountPct}}</td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/terms', terms.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/terms', terms.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(terms)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

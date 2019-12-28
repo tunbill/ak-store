@@ -1,0 +1,111 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="invoice">
+            <h2><span jhiTranslate="akApp.invoice.detail.title">Invoice</span> {{invoice.id}}</h2>
+            <hr>
+            <ak-alert-error></ak-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="akApp.invoice.invoiceNo">Invoice No</span></dt>
+                <dd>
+                    <span>{{invoice.invoiceNo}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.invoice.invoiceDate">Invoice Date</span></dt>
+                <dd>
+                    <span>{{invoice.invoiceDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.invoice.dueDate">Due Date</span></dt>
+                <dd>
+                    <span>{{invoice.dueDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.invoice.billingAddress">Billing Address</span></dt>
+                <dd>
+                    <span>{{invoice.billingAddress}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.invoice.accountNumber">Account Number</span></dt>
+                <dd>
+                    <span>{{invoice.accountNumber}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.invoice.poNumber">Po Number</span></dt>
+                <dd>
+                    <span>{{invoice.poNumber}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.invoice.notes">Notes</span></dt>
+                <dd>
+                    <span>{{invoice.notes}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.invoice.productTotal">Product Total</span></dt>
+                <dd>
+                    <span>{{invoice.productTotal}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.invoice.vatTotal">Vat Total</span></dt>
+                <dd>
+                    <span>{{invoice.vatTotal}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.invoice.discountTotal">Discount Total</span></dt>
+                <dd>
+                    <span>{{invoice.discountTotal}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.invoice.total">Total</span></dt>
+                <dd>
+                    <span>{{invoice.total}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.invoice.status">Status</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'akApp.ProcessStatus.' + invoice.status}}">{{invoice.status}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.invoice.timeCreated">Time Created</span></dt>
+                <dd>
+                    <span>{{invoice.timeCreated}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.invoice.timeModified">Time Modified</span></dt>
+                <dd>
+                    <span>{{invoice.timeModified}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.invoice.userIdCreated">User Id Created</span></dt>
+                <dd>
+                    <span>{{invoice.userIdCreated}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.invoice.userIdModified">User Id Modified</span></dt>
+                <dd>
+                    <span>{{invoice.userIdModified}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.invoice.customer">Customer</span></dt>
+                <dd>
+                    <div *ngIf="invoice.customer">
+                        <a [routerLink]="['/customer', invoice.customer?.id, 'view']">{{invoice.customer?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="akApp.invoice.terms">Terms</span></dt>
+                <dd>
+                    <div *ngIf="invoice.terms">
+                        <a [routerLink]="['/terms', invoice.terms?.id, 'view']">{{invoice.terms?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="akApp.invoice.employee">Employee</span></dt>
+                <dd>
+                    <div *ngIf="invoice.employee">
+                        <a [routerLink]="['/employee', invoice.employee?.id, 'view']">{{invoice.employee?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="akApp.invoice.company">Company</span></dt>
+                <dd>
+                    <div *ngIf="invoice.company">
+                        <a [routerLink]="['/company', invoice.company?.id, 'view']">{{invoice.company?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/invoice', invoice.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

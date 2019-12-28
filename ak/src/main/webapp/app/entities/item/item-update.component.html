@@ -1,0 +1,342 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="ak-item-heading" jhiTranslate="akApp.item.home.createOrEditLabel">Create or edit a Item</h2>
+            <div>
+                <ak-alert-error></ak-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.code" for="field_code">Code</label>
+                    <input type="text" class="form-control" name="code" id="field_code"
+                           formControlName="code"/>
+                    <div *ngIf="editForm.get('code').invalid && (editForm.get('code').dirty || editForm.get('code').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('code').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           formControlName="name"/>
+                    <div *ngIf="editForm.get('name').invalid && (editForm.get('name').dirty || editForm.get('name').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 150 }">
+                        This field cannot be longer than 150 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.description" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                           formControlName="description"/>
+                    <div *ngIf="editForm.get('description').invalid && (editForm.get('description').dirty || editForm.get('description').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('description').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 200 }">
+                        This field cannot be longer than 200 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.type" for="field_type">Type</label>
+                    <select class="form-control" name="type" formControlName="type" id="field_type">
+                        <option value="PRODUCT">{{'akApp.ItemType.PRODUCT' | translate}}</option>
+                        <option value="SERVICE">{{'akApp.ItemType.SERVICE' | translate}}</option>
+                    </select>
+                    <div *ngIf="editForm.get('type').invalid && (editForm.get('type').dirty || editForm.get('type').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('type').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.skuNum" for="field_skuNum">Sku Num</label>
+                    <input type="number" class="form-control" name="skuNum" id="field_skuNum"
+                           formControlName="skuNum"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.vatTax" for="field_vatTax">Vat Tax</label>
+                    <select class="form-control" name="vatTax" formControlName="vatTax" id="field_vatTax">
+                        <option value="VAT5">{{'akApp.VATTax.VAT5' | translate}}</option>
+                        <option value="VAT10">{{'akApp.VATTax.VAT10' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.importTax" for="field_importTax">Import Tax</label>
+                    <input type="number" class="form-control" name="importTax" id="field_importTax"
+                           formControlName="importTax"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.exportTax" for="field_exportTax">Export Tax</label>
+                    <input type="number" class="form-control" name="exportTax" id="field_exportTax"
+                           formControlName="exportTax"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.inventoryPriceMethod" for="field_inventoryPriceMethod">Inventory Price Method</label>
+                    <select class="form-control" name="inventoryPriceMethod" formControlName="inventoryPriceMethod" id="field_inventoryPriceMethod">
+                        <option value="AVERAGE">{{'akApp.PriceMethod.AVERAGE' | translate}}</option>
+                        <option value="FIFO">{{'akApp.PriceMethod.FIFO' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.accountItem" for="field_accountItem">Account Item</label>
+                    <input type="text" class="form-control" name="accountItem" id="field_accountItem"
+                           formControlName="accountItem"/>
+                    <div *ngIf="editForm.get('accountItem').invalid && (editForm.get('accountItem').dirty || editForm.get('accountItem').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('accountItem').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 10 }">
+                        This field cannot be longer than 10 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.isAllowModified" for="field_isAllowModified">Is Allow Modified</label>
+                    <input type="checkbox" class="form-control" name="isAllowModified" id="field_isAllowModified"
+                           formControlName="isAllowModified"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.accountCost" for="field_accountCost">Account Cost</label>
+                    <input type="text" class="form-control" name="accountCost" id="field_accountCost"
+                           formControlName="accountCost"/>
+                    <div *ngIf="editForm.get('accountCost').invalid && (editForm.get('accountCost').dirty || editForm.get('accountCost').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('accountCost').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 10 }">
+                        This field cannot be longer than 10 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.accountRevenue" for="field_accountRevenue">Account Revenue</label>
+                    <input type="text" class="form-control" name="accountRevenue" id="field_accountRevenue"
+                           formControlName="accountRevenue"/>
+                    <div *ngIf="editForm.get('accountRevenue').invalid && (editForm.get('accountRevenue').dirty || editForm.get('accountRevenue').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('accountRevenue').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 10 }">
+                        This field cannot be longer than 10 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.accountInternalRevenue" for="field_accountInternalRevenue">Account Internal Revenue</label>
+                    <input type="text" class="form-control" name="accountInternalRevenue" id="field_accountInternalRevenue"
+                           formControlName="accountInternalRevenue"/>
+                    <div *ngIf="editForm.get('accountInternalRevenue').invalid && (editForm.get('accountInternalRevenue').dirty || editForm.get('accountInternalRevenue').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('accountInternalRevenue').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 10 }">
+                        This field cannot be longer than 10 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.accountSaleReturn" for="field_accountSaleReturn">Account Sale Return</label>
+                    <input type="text" class="form-control" name="accountSaleReturn" id="field_accountSaleReturn"
+                           formControlName="accountSaleReturn"/>
+                    <div *ngIf="editForm.get('accountSaleReturn').invalid && (editForm.get('accountSaleReturn').dirty || editForm.get('accountSaleReturn').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('accountSaleReturn').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 10 }">
+                        This field cannot be longer than 10 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.accountSalePrice" for="field_accountSalePrice">Account Sale Price</label>
+                    <input type="text" class="form-control" name="accountSalePrice" id="field_accountSalePrice"
+                           formControlName="accountSalePrice"/>
+                    <div *ngIf="editForm.get('accountSalePrice').invalid && (editForm.get('accountSalePrice').dirty || editForm.get('accountSalePrice').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('accountSalePrice').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 10 }">
+                        This field cannot be longer than 10 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.accountAgency" for="field_accountAgency">Account Agency</label>
+                    <input type="text" class="form-control" name="accountAgency" id="field_accountAgency"
+                           formControlName="accountAgency"/>
+                    <div *ngIf="editForm.get('accountAgency').invalid && (editForm.get('accountAgency').dirty || editForm.get('accountAgency').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('accountAgency').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 10 }">
+                        This field cannot be longer than 10 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.accountRawProduct" for="field_accountRawProduct">Account Raw Product</label>
+                    <input type="text" class="form-control" name="accountRawProduct" id="field_accountRawProduct"
+                           formControlName="accountRawProduct"/>
+                    <div *ngIf="editForm.get('accountRawProduct').invalid && (editForm.get('accountRawProduct').dirty || editForm.get('accountRawProduct').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('accountRawProduct').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 10 }">
+                        This field cannot be longer than 10 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.accountCostDifference" for="field_accountCostDifference">Account Cost Difference</label>
+                    <input type="text" class="form-control" name="accountCostDifference" id="field_accountCostDifference"
+                           formControlName="accountCostDifference"/>
+                    <div *ngIf="editForm.get('accountCostDifference').invalid && (editForm.get('accountCostDifference').dirty || editForm.get('accountCostDifference').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('accountCostDifference').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 10 }">
+                        This field cannot be longer than 10 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.accountDiscount" for="field_accountDiscount">Account Discount</label>
+                    <input type="text" class="form-control" name="accountDiscount" id="field_accountDiscount"
+                           formControlName="accountDiscount"/>
+                    <div *ngIf="editForm.get('accountDiscount').invalid && (editForm.get('accountDiscount').dirty || editForm.get('accountDiscount').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('accountDiscount').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 10 }">
+                        This field cannot be longer than 10 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.saleDesc" for="field_saleDesc">Sale Desc</label>
+                    <input type="text" class="form-control" name="saleDesc" id="field_saleDesc"
+                           formControlName="saleDesc"/>
+                    <div *ngIf="editForm.get('saleDesc').invalid && (editForm.get('saleDesc').dirty || editForm.get('saleDesc').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('saleDesc').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 100 }">
+                        This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.purchaseDesc" for="field_purchaseDesc">Purchase Desc</label>
+                    <input type="text" class="form-control" name="purchaseDesc" id="field_purchaseDesc"
+                           formControlName="purchaseDesc"/>
+                    <div *ngIf="editForm.get('purchaseDesc').invalid && (editForm.get('purchaseDesc').dirty || editForm.get('purchaseDesc').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('purchaseDesc').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 100 }">
+                        This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.weight" for="field_weight">Weight</label>
+                    <input type="number" class="form-control" name="weight" id="field_weight"
+                           formControlName="weight"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.lenght" for="field_lenght">Lenght</label>
+                    <input type="number" class="form-control" name="lenght" id="field_lenght"
+                           formControlName="lenght"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.wide" for="field_wide">Wide</label>
+                    <input type="number" class="form-control" name="wide" id="field_wide"
+                           formControlName="wide"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.height" for="field_height">Height</label>
+                    <input type="number" class="form-control" name="height" id="field_height"
+                           formControlName="height"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.color" for="field_color">Color</label>
+                    <input type="text" class="form-control" name="color" id="field_color"
+                           formControlName="color"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.specification" for="field_specification">Specification</label>
+                    <input type="text" class="form-control" name="specification" id="field_specification"
+                           formControlName="specification"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.itemImage" for="field_itemImage">Item Image</label>
+                    <div>
+                        <img [src]="'data:' + editForm.get('itemImageContentType').value + ';base64,' + editForm.get('itemImage').value" style="max-height: 100px;" *ngIf="editForm.get('itemImage').value" alt="item image"/>
+                        <div *ngIf="editForm.get('itemImage').value" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{editForm.get('itemImageContentType').value}}, {{byteSize(editForm.get('itemImage').value)}}</span>
+                            <button type="button" (click)="clearInputImage('itemImage', 'itemImageContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_itemImage" (change)="setFileData($event, 'itemImage', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="itemImage" id="field_itemImage"
+                           formControlName="itemImage"/>
+                    <input type="hidden" class="form-control" name="itemImageContentType" id="field_itemImageContentType"
+                           formControlName="itemImageContentType" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.isActive" for="field_isActive">Is Active</label>
+                    <input type="checkbox" class="form-control" name="isActive" id="field_isActive"
+                           formControlName="isActive"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.timeCreated" for="field_timeCreated">Time Created</label>
+                    <div class="d-flex">
+                        <input id="field_timeCreated" type="datetime-local" class="form-control" name="timeCreated" formControlName="timeCreated" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.timeModified" for="field_timeModified">Time Modified</label>
+                    <div class="d-flex">
+                        <input id="field_timeModified" type="datetime-local" class="form-control" name="timeModified" formControlName="timeModified" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.userIdCreated" for="field_userIdCreated">User Id Created</label>
+                    <input type="number" class="form-control" name="userIdCreated" id="field_userIdCreated"
+                           formControlName="userIdCreated"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.userIdModified" for="field_userIdModified">User Id Modified</label>
+                    <input type="number" class="form-control" name="userIdModified" id="field_userIdModified"
+                           formControlName="userIdModified"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.unit" for="field_unit">Unit</label>
+                    <select class="form-control" id="field_unit" name="unit" formControlName="unit">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="unitOption.id === editForm.get('unit').value?.id ? editForm.get('unit').value : unitOption" *ngFor="let unitOption of units; trackBy: trackUnitById">{{unitOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.itemGroup" for="field_itemGroup">Item Group</label>
+                    <select class="form-control" id="field_itemGroup" name="itemGroup" formControlName="itemGroup">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="itemGroupOption.id === editForm.get('itemGroup').value?.id ? editForm.get('itemGroup').value : itemGroupOption" *ngFor="let itemGroupOption of itemgroups; trackBy: trackItemGroupById">{{itemGroupOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.store" for="field_store">Store</label>
+                    <select class="form-control" id="field_store" name="store" formControlName="store">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="storeOption.id === editForm.get('store').value?.id ? editForm.get('store').value : storeOption" *ngFor="let storeOption of stores; trackBy: trackStoreById">{{storeOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.item.company" for="field_company">Company</label>
+                    <select class="form-control" id="field_company" name="company" formControlName="company">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="companyOption.id === editForm.get('company').value?.id ? editForm.get('company').value : companyOption" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

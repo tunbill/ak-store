@@ -1,0 +1,29 @@
+{
+  "akApp": {
+    "terms": {
+      "home": {
+        "title": "Terms",
+        "createLabel": "Create a new Terms",
+        "createOrEditLabel": "Create or edit a Terms",
+        "notFound": "No Terms found"
+      },
+      "created": "A new Terms is created with identifier {{ param }}",
+      "updated": "A Terms is updated with identifier {{ param }}",
+      "deleted": "A Terms is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Terms {{ id }}?"
+      },
+      "detail": {
+        "title": "Terms"
+      },
+      "code": "Code",
+      "name": "Name",
+      "dayOfMonthDue": "Day Of Month Due",
+      "dueNextMonthDays": "Due Next Month Days",
+      "discountDayOfMonth": "Discount Day Of Month",
+      "discountPct": "Discount Pct",
+      "customer": "Customer",
+      "invoice": "Invoice"
+    }
+  }
+}

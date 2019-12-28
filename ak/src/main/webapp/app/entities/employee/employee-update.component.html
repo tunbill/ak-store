@@ -1,0 +1,238 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="ak-employee-heading" jhiTranslate="akApp.employee.home.createOrEditLabel">Create or edit a Employee</h2>
+            <div>
+                <ak-alert-error></ak-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.code" for="field_code">Code</label>
+                    <input type="text" class="form-control" name="code" id="field_code"
+                           formControlName="code"/>
+                    <div *ngIf="editForm.get('code').invalid && (editForm.get('code').dirty || editForm.get('code').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('code').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.fullName" for="field_fullName">Full Name</label>
+                    <input type="text" class="form-control" name="fullName" id="field_fullName"
+                           formControlName="fullName"/>
+                    <div *ngIf="editForm.get('fullName').invalid && (editForm.get('fullName').dirty || editForm.get('fullName').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('fullName').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 80 }">
+                        This field cannot be longer than 80 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.sex" for="field_sex">Sex</label>
+                    <input type="number" class="form-control" name="sex" id="field_sex"
+                           formControlName="sex"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.birthday" for="field_birthday">Birthday</label>
+                    <div class="input-group">
+                        <input id="field_birthday" type="text" class="form-control" name="birthday" ngbDatepicker  #birthdayDp="ngbDatepicker" formControlName="birthday"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="birthdayDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.identityCard" for="field_identityCard">Identity Card</label>
+                    <input type="text" class="form-control" name="identityCard" id="field_identityCard"
+                           formControlName="identityCard"/>
+                    <div *ngIf="editForm.get('identityCard').invalid && (editForm.get('identityCard').dirty || editForm.get('identityCard').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('identityCard').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.identityDate" for="field_identityDate">Identity Date</label>
+                    <div class="input-group">
+                        <input id="field_identityDate" type="text" class="form-control" name="identityDate" ngbDatepicker  #identityDateDp="ngbDatepicker" formControlName="identityDate"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="identityDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.identityIssue" for="field_identityIssue">Identity Issue</label>
+                    <input type="text" class="form-control" name="identityIssue" id="field_identityIssue"
+                           formControlName="identityIssue"/>
+                    <div *ngIf="editForm.get('identityIssue').invalid && (editForm.get('identityIssue').dirty || editForm.get('identityIssue').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('identityIssue').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 100 }">
+                        This field cannot be longer than 100 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.position" for="field_position">Position</label>
+                    <input type="text" class="form-control" name="position" id="field_position"
+                           formControlName="position"/>
+                    <div *ngIf="editForm.get('position').invalid && (editForm.get('position').dirty || editForm.get('position').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('position').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.taxCode" for="field_taxCode">Tax Code</label>
+                    <input type="text" class="form-control" name="taxCode" id="field_taxCode"
+                           formControlName="taxCode"/>
+                    <div *ngIf="editForm.get('taxCode').invalid && (editForm.get('taxCode').dirty || editForm.get('taxCode').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('taxCode').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.salary" for="field_salary">Salary</label>
+                    <input type="number" class="form-control" name="salary" id="field_salary"
+                           formControlName="salary"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.salaryRate" for="field_salaryRate">Salary Rate</label>
+                    <input type="number" class="form-control" name="salaryRate" id="field_salaryRate"
+                           formControlName="salaryRate"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.salarySecurity" for="field_salarySecurity">Salary Security</label>
+                    <input type="number" class="form-control" name="salarySecurity" id="field_salarySecurity"
+                           formControlName="salarySecurity"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.numOfDepends" for="field_numOfDepends">Num Of Depends</label>
+                    <input type="number" class="form-control" name="numOfDepends" id="field_numOfDepends"
+                           formControlName="numOfDepends"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.phone" for="field_phone">Phone</label>
+                    <input type="text" class="form-control" name="phone" id="field_phone"
+                           formControlName="phone"/>
+                    <div *ngIf="editForm.get('phone').invalid && (editForm.get('phone').dirty || editForm.get('phone').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('phone').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.mobile" for="field_mobile">Mobile</label>
+                    <input type="text" class="form-control" name="mobile" id="field_mobile"
+                           formControlName="mobile"/>
+                    <div *ngIf="editForm.get('mobile').invalid && (editForm.get('mobile').dirty || editForm.get('mobile').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('mobile').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.email" for="field_email">Email</label>
+                    <input type="text" class="form-control" name="email" id="field_email"
+                           formControlName="email"/>
+                    <div *ngIf="editForm.get('email').invalid && (editForm.get('email').dirty || editForm.get('email').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('email').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 100 }">
+                        This field cannot be longer than 100 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('email').errors.pattern" jhiTranslate="entity.validation.pattern" [translateValues]="{ pattern: 'Email' }">
+                            This field should follow pattern for "Email".
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.bankAccount" for="field_bankAccount">Bank Account</label>
+                    <input type="text" class="form-control" name="bankAccount" id="field_bankAccount"
+                           formControlName="bankAccount"/>
+                    <div *ngIf="editForm.get('bankAccount').invalid && (editForm.get('bankAccount').dirty || editForm.get('bankAccount').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('bankAccount').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.bankName" for="field_bankName">Bank Name</label>
+                    <input type="text" class="form-control" name="bankName" id="field_bankName"
+                           formControlName="bankName"/>
+                    <div *ngIf="editForm.get('bankName').invalid && (editForm.get('bankName').dirty || editForm.get('bankName').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('bankName').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 200 }">
+                        This field cannot be longer than 200 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.nodes" for="field_nodes">Nodes</label>
+                    <input type="text" class="form-control" name="nodes" id="field_nodes"
+                           formControlName="nodes"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.isActive" for="field_isActive">Is Active</label>
+                    <input type="checkbox" class="form-control" name="isActive" id="field_isActive"
+                           formControlName="isActive"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.timeCreated" for="field_timeCreated">Time Created</label>
+                    <div class="d-flex">
+                        <input id="field_timeCreated" type="datetime-local" class="form-control" name="timeCreated" formControlName="timeCreated" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.timeModified" for="field_timeModified">Time Modified</label>
+                    <div class="d-flex">
+                        <input id="field_timeModified" type="datetime-local" class="form-control" name="timeModified" formControlName="timeModified" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.userIdCreated" for="field_userIdCreated">User Id Created</label>
+                    <input type="number" class="form-control" name="userIdCreated" id="field_userIdCreated"
+                           formControlName="userIdCreated"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.userIdModified" for="field_userIdModified">User Id Modified</label>
+                    <input type="number" class="form-control" name="userIdModified" id="field_userIdModified"
+                           formControlName="userIdModified"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.department" for="field_department">Department</label>
+                    <select class="form-control" id="field_department" name="department" formControlName="department">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="departmentOption.id === editForm.get('department').value?.id ? editForm.get('department').value : departmentOption" *ngFor="let departmentOption of departments; trackBy: trackDepartmentById">{{departmentOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.employee.company" for="field_company">Company</label>
+                    <select class="form-control" id="field_company" name="company" formControlName="company">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="companyOption.id === editForm.get('company').value?.id ? editForm.get('company').value : companyOption" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

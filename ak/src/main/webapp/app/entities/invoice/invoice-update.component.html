@@ -1,0 +1,162 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="ak-invoice-heading" jhiTranslate="akApp.invoice.home.createOrEditLabel">Create or edit a Invoice</h2>
+            <div>
+                <ak-alert-error></ak-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoice.invoiceNo" for="field_invoiceNo">Invoice No</label>
+                    <input type="text" class="form-control" name="invoiceNo" id="field_invoiceNo"
+                           formControlName="invoiceNo"/>
+                    <div *ngIf="editForm.get('invoiceNo').invalid && (editForm.get('invoiceNo').dirty || editForm.get('invoiceNo').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('invoiceNo').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoice.invoiceDate" for="field_invoiceDate">Invoice Date</label>
+                    <div class="input-group">
+                        <input id="field_invoiceDate" type="text" class="form-control" name="invoiceDate" ngbDatepicker  #invoiceDateDp="ngbDatepicker" formControlName="invoiceDate"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="invoiceDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoice.dueDate" for="field_dueDate">Due Date</label>
+                    <div class="input-group">
+                        <input id="field_dueDate" type="text" class="form-control" name="dueDate" ngbDatepicker  #dueDateDp="ngbDatepicker" formControlName="dueDate"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dueDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoice.billingAddress" for="field_billingAddress">Billing Address</label>
+                    <input type="text" class="form-control" name="billingAddress" id="field_billingAddress"
+                           formControlName="billingAddress"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoice.accountNumber" for="field_accountNumber">Account Number</label>
+                    <input type="text" class="form-control" name="accountNumber" id="field_accountNumber"
+                           formControlName="accountNumber"/>
+                    <div *ngIf="editForm.get('accountNumber').invalid && (editForm.get('accountNumber').dirty || editForm.get('accountNumber').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('accountNumber').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 10 }">
+                        This field cannot be longer than 10 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoice.poNumber" for="field_poNumber">Po Number</label>
+                    <input type="text" class="form-control" name="poNumber" id="field_poNumber"
+                           formControlName="poNumber"/>
+                    <div *ngIf="editForm.get('poNumber').invalid && (editForm.get('poNumber').dirty || editForm.get('poNumber').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('poNumber').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoice.notes" for="field_notes">Notes</label>
+                    <input type="text" class="form-control" name="notes" id="field_notes"
+                           formControlName="notes"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoice.productTotal" for="field_productTotal">Product Total</label>
+                    <input type="number" class="form-control" name="productTotal" id="field_productTotal"
+                           formControlName="productTotal"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoice.vatTotal" for="field_vatTotal">Vat Total</label>
+                    <input type="number" class="form-control" name="vatTotal" id="field_vatTotal"
+                           formControlName="vatTotal"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoice.discountTotal" for="field_discountTotal">Discount Total</label>
+                    <input type="number" class="form-control" name="discountTotal" id="field_discountTotal"
+                           formControlName="discountTotal"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoice.total" for="field_total">Total</label>
+                    <input type="number" class="form-control" name="total" id="field_total"
+                           formControlName="total"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoice.status" for="field_status">Status</label>
+                    <select class="form-control" name="status" formControlName="status" id="field_status">
+                        <option value="OPEN">{{'akApp.ProcessStatus.OPEN' | translate}}</option>
+                        <option value="CLOSE">{{'akApp.ProcessStatus.CLOSE' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoice.timeCreated" for="field_timeCreated">Time Created</label>
+                    <div class="d-flex">
+                        <input id="field_timeCreated" type="datetime-local" class="form-control" name="timeCreated" formControlName="timeCreated" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoice.timeModified" for="field_timeModified">Time Modified</label>
+                    <div class="d-flex">
+                        <input id="field_timeModified" type="datetime-local" class="form-control" name="timeModified" formControlName="timeModified" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoice.userIdCreated" for="field_userIdCreated">User Id Created</label>
+                    <input type="number" class="form-control" name="userIdCreated" id="field_userIdCreated"
+                           formControlName="userIdCreated"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoice.userIdModified" for="field_userIdModified">User Id Modified</label>
+                    <input type="number" class="form-control" name="userIdModified" id="field_userIdModified"
+                           formControlName="userIdModified"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoice.customer" for="field_customer">Customer</label>
+                    <select class="form-control" id="field_customer" name="customer" formControlName="customer">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="customerOption.id === editForm.get('customer').value?.id ? editForm.get('customer').value : customerOption" *ngFor="let customerOption of customers; trackBy: trackCustomerById">{{customerOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoice.terms" for="field_terms">Terms</label>
+                    <select class="form-control" id="field_terms" name="terms" formControlName="terms">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="termsOption.id === editForm.get('terms').value?.id ? editForm.get('terms').value : termsOption" *ngFor="let termsOption of terms; trackBy: trackTermsById">{{termsOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoice.employee" for="field_employee">Employee</label>
+                    <select class="form-control" id="field_employee" name="employee" formControlName="employee">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="employeeOption.id === editForm.get('employee').value?.id ? editForm.get('employee').value : employeeOption" *ngFor="let employeeOption of employees; trackBy: trackEmployeeById">{{employeeOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoice.company" for="field_company">Company</label>
+                    <select class="form-control" id="field_company" name="company" formControlName="company">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="companyOption.id === editForm.get('company').value?.id ? editForm.get('company').value : companyOption" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

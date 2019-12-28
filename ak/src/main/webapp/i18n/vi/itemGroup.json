@@ -1,0 +1,25 @@
+{
+  "akApp": {
+    "itemGroup": {
+      "home": {
+        "title": "Item Groups",
+        "createLabel": "Thêm mới một Item Group",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Item Group",
+        "notFound": "No Item Groups found"
+      },
+      "created": "Một Item Group mới được tạo với định danh {{ param }}",
+      "updated": "Một Item Group cập nhật với định danh {{ param }}",
+      "deleted": "Một Item Group đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Item Group {{ id }}?"
+      },
+      "detail": {
+        "title": "Item Group"
+      },
+      "code": "Code",
+      "name": "Name",
+      "item": "Item",
+      "company": "Company"
+    }
+  }
+}

@@ -1,0 +1,84 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="company">
+            <h2><span jhiTranslate="akApp.company.detail.title">Company</span> {{company.id}}</h2>
+            <hr>
+            <ak-alert-error></ak-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="akApp.company.name">Name</span></dt>
+                <dd>
+                    <span>{{company.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.company.address">Address</span></dt>
+                <dd>
+                    <span>{{company.address}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.company.logo">Logo</span></dt>
+                <dd>
+                    <div *ngIf="company.logo">
+                        <a (click)="openFile(company.logoContentType, company.logo)">
+                            <img [src]="'data:' + company.logoContentType + ';base64,' + company.logo" style="max-width: 100%;" alt="company image"/>
+                        </a>
+                        {{company.logoContentType}}, {{byteSize(company.logo)}}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="akApp.company.email">Email</span></dt>
+                <dd>
+                    <span>{{company.email}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.company.startDate">Start Date</span></dt>
+                <dd>
+                    <span>{{company.startDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.company.numOfUsers">Num Of Users</span></dt>
+                <dd>
+                    <span>{{company.numOfUsers}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.company.type">Type</span></dt>
+                <dd>
+                    <span>{{company.type}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.company.isActive">Is Active</span></dt>
+                <dd>
+                    <span>{{company.isActive}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.company.timeCreated">Time Created</span></dt>
+                <dd>
+                    <span>{{company.timeCreated}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.company.timeModified">Time Modified</span></dt>
+                <dd>
+                    <span>{{company.timeModified}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.company.userId">User Id</span></dt>
+                <dd>
+                    <span>{{company.userId}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.company.industry">Industry</span></dt>
+                <dd>
+                    <div *ngIf="company.industry">
+                        <a [routerLink]="['/industry', company.industry?.id, 'view']">{{company.industry?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="akApp.company.province">Province</span></dt>
+                <dd>
+                    <div *ngIf="company.province">
+                        <a [routerLink]="['/province', company.province?.id, 'view']">{{company.province?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/company', company.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

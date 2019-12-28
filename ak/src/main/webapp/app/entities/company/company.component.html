@@ -1,0 +1,100 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="akApp.company.home.title">Companies</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-company" [routerLink]="['/company/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="akApp.company.home.createLabel">
+            Create a new Company
+            </span>
+        </button>
+    </h2>
+    <ak-alert-error></ak-alert-error>
+    <ak-alert></ak-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="companies?.length === 0">
+        <span jhiTranslate="akApp.company.home.notFound">No companies found</span>
+    </div>
+    <div class="table-responsive" *ngIf="companies?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="name"><span jhiTranslate="akApp.company.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="address"><span jhiTranslate="akApp.company.address">Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="logo"><span jhiTranslate="akApp.company.logo">Logo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="email"><span jhiTranslate="akApp.company.email">Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="startDate"><span jhiTranslate="akApp.company.startDate">Start Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="numOfUsers"><span jhiTranslate="akApp.company.numOfUsers">Num Of Users</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="type"><span jhiTranslate="akApp.company.type">Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="isActive"><span jhiTranslate="akApp.company.isActive">Is Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="timeCreated"><span jhiTranslate="akApp.company.timeCreated">Time Created</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="timeModified"><span jhiTranslate="akApp.company.timeModified">Time Modified</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="userId"><span jhiTranslate="akApp.company.userId">User Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="industry.id"><span jhiTranslate="akApp.company.industry">Industry</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="province.id"><span jhiTranslate="akApp.company.province">Province</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let company of companies ;trackBy: trackId">
+                <td><a [routerLink]="['/company', company.id, 'view' ]">{{company.id}}</a></td>
+                <td>{{company.name}}</td>
+                <td>{{company.address}}</td>
+                <td>
+                    <a *ngIf="company.logo" (click)="openFile(company.logoContentType, company.logo)">
+                        <img [src]="'data:' + company.logoContentType + ';base64,' + company.logo" style="max-height: 30px;" alt="company image"/>
+                    </a>
+                    <span *ngIf="company.logo">{{company.logoContentType}}, {{byteSize(company.logo)}}</span>
+                </td>
+                <td>{{company.email}}</td>
+                <td>{{company.startDate | date:'mediumDate'}}</td>
+                <td>{{company.numOfUsers}}</td>
+                <td>{{company.type}}</td>
+                <td>{{company.isActive}}</td>
+                <td>{{company.timeCreated | date:'medium'}}</td>
+                <td>{{company.timeModified | date:'medium'}}</td>
+                <td>{{company.userId}}</td>
+                <td>
+                    <div *ngIf="company.industry">
+                        <a [routerLink]="['/industry', company.industry?.id, 'view' ]" >{{company.industry?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="company.province">
+                        <a [routerLink]="['/province', company.province?.id, 'view' ]" >{{company.province?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/company', company.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/company', company.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(company)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="companies?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="ak-invoice-line-heading" jhiTranslate="akApp.invoiceLine.home.createOrEditLabel">Create or edit a Invoice Line</h2>
+            <div>
+                <ak-alert-error></ak-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoiceLine.displayOrder" for="field_displayOrder">Display Order</label>
+                    <input type="number" class="form-control" name="displayOrder" id="field_displayOrder"
+                           formControlName="displayOrder"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoiceLine.itemName" for="field_itemName">Item Name</label>
+                    <input type="text" class="form-control" name="itemName" id="field_itemName"
+                           formControlName="itemName"/>
+                    <div *ngIf="editForm.get('itemName').invalid && (editForm.get('itemName').dirty || editForm.get('itemName').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('itemName').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 150 }">
+                        This field cannot be longer than 150 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoiceLine.unitName" for="field_unitName">Unit Name</label>
+                    <input type="text" class="form-control" name="unitName" id="field_unitName"
+                           formControlName="unitName"/>
+                    <div *ngIf="editForm.get('unitName').invalid && (editForm.get('unitName').dirty || editForm.get('unitName').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('unitName').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 10 }">
+                        This field cannot be longer than 10 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoiceLine.quantity" for="field_quantity">Quantity</label>
+                    <input type="number" class="form-control" name="quantity" id="field_quantity"
+                           formControlName="quantity"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoiceLine.rate" for="field_rate">Rate</label>
+                    <input type="number" class="form-control" name="rate" id="field_rate"
+                           formControlName="rate"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoiceLine.amount" for="field_amount">Amount</label>
+                    <input type="number" class="form-control" name="amount" id="field_amount"
+                           formControlName="amount"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoiceLine.discountPct" for="field_discountPct">Discount Pct</label>
+                    <input type="number" class="form-control" name="discountPct" id="field_discountPct"
+                           formControlName="discountPct"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoiceLine.accountNumber" for="field_accountNumber">Account Number</label>
+                    <input type="text" class="form-control" name="accountNumber" id="field_accountNumber"
+                           formControlName="accountNumber"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoiceLine.status" for="field_status">Status</label>
+                    <select class="form-control" name="status" formControlName="status" id="field_status">
+                        <option value="OPEN">{{'akApp.ProcessStatus.OPEN' | translate}}</option>
+                        <option value="CLOSE">{{'akApp.ProcessStatus.CLOSE' | translate}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoiceLine.invoice" for="field_invoice">Invoice</label>
+                    <select class="form-control" id="field_invoice" name="invoice" formControlName="invoice">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="invoiceOption.id === editForm.get('invoice').value?.id ? editForm.get('invoice').value : invoiceOption" *ngFor="let invoiceOption of invoices; trackBy: trackInvoiceById">{{invoiceOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoiceLine.item" for="field_item">Item</label>
+                    <select class="form-control" id="field_item" name="item" formControlName="item">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="itemOption.id === editForm.get('item').value?.id ? editForm.get('item').value : itemOption" *ngFor="let itemOption of items; trackBy: trackItemById">{{itemOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.invoiceLine.company" for="field_company">Company</label>
+                    <select class="form-control" id="field_company" name="company" formControlName="company">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="companyOption.id === editForm.get('company').value?.id ? editForm.get('company').value : companyOption" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

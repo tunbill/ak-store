@@ -1,0 +1,158 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="akApp.item.home.title">Items</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-item" [routerLink]="['/item/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="akApp.item.home.createLabel">
+            Create a new Item
+            </span>
+        </button>
+    </h2>
+    <ak-alert-error></ak-alert-error>
+    <ak-alert></ak-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="items?.length === 0">
+        <span jhiTranslate="akApp.item.home.notFound">No items found</span>
+    </div>
+    <div class="table-responsive" *ngIf="items?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="code"><span jhiTranslate="akApp.item.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="name"><span jhiTranslate="akApp.item.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="description"><span jhiTranslate="akApp.item.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="type"><span jhiTranslate="akApp.item.type">Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="skuNum"><span jhiTranslate="akApp.item.skuNum">Sku Num</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="vatTax"><span jhiTranslate="akApp.item.vatTax">Vat Tax</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="importTax"><span jhiTranslate="akApp.item.importTax">Import Tax</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="exportTax"><span jhiTranslate="akApp.item.exportTax">Export Tax</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="inventoryPriceMethod"><span jhiTranslate="akApp.item.inventoryPriceMethod">Inventory Price Method</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="accountItem"><span jhiTranslate="akApp.item.accountItem">Account Item</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="isAllowModified"><span jhiTranslate="akApp.item.isAllowModified">Is Allow Modified</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="accountCost"><span jhiTranslate="akApp.item.accountCost">Account Cost</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="accountRevenue"><span jhiTranslate="akApp.item.accountRevenue">Account Revenue</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="accountInternalRevenue"><span jhiTranslate="akApp.item.accountInternalRevenue">Account Internal Revenue</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="accountSaleReturn"><span jhiTranslate="akApp.item.accountSaleReturn">Account Sale Return</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="accountSalePrice"><span jhiTranslate="akApp.item.accountSalePrice">Account Sale Price</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="accountAgency"><span jhiTranslate="akApp.item.accountAgency">Account Agency</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="accountRawProduct"><span jhiTranslate="akApp.item.accountRawProduct">Account Raw Product</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="accountCostDifference"><span jhiTranslate="akApp.item.accountCostDifference">Account Cost Difference</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="accountDiscount"><span jhiTranslate="akApp.item.accountDiscount">Account Discount</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="saleDesc"><span jhiTranslate="akApp.item.saleDesc">Sale Desc</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="purchaseDesc"><span jhiTranslate="akApp.item.purchaseDesc">Purchase Desc</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="weight"><span jhiTranslate="akApp.item.weight">Weight</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="lenght"><span jhiTranslate="akApp.item.lenght">Lenght</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="wide"><span jhiTranslate="akApp.item.wide">Wide</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="height"><span jhiTranslate="akApp.item.height">Height</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="color"><span jhiTranslate="akApp.item.color">Color</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="specification"><span jhiTranslate="akApp.item.specification">Specification</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="itemImage"><span jhiTranslate="akApp.item.itemImage">Item Image</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="isActive"><span jhiTranslate="akApp.item.isActive">Is Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="timeCreated"><span jhiTranslate="akApp.item.timeCreated">Time Created</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="timeModified"><span jhiTranslate="akApp.item.timeModified">Time Modified</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="userIdCreated"><span jhiTranslate="akApp.item.userIdCreated">User Id Created</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="userIdModified"><span jhiTranslate="akApp.item.userIdModified">User Id Modified</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="unit.id"><span jhiTranslate="akApp.item.unit">Unit</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="itemGroup.id"><span jhiTranslate="akApp.item.itemGroup">Item Group</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="store.id"><span jhiTranslate="akApp.item.store">Store</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="company.id"><span jhiTranslate="akApp.item.company">Company</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of items ;trackBy: trackId">
+                <td><a [routerLink]="['/item', item.id, 'view' ]">{{item.id}}</a></td>
+                <td>{{item.code}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.description}}</td>
+                <td jhiTranslate="{{'akApp.ItemType.' + item.type}}">{{item.type}}</td>
+                <td>{{item.skuNum}}</td>
+                <td jhiTranslate="{{'akApp.VATTax.' + item.vatTax}}">{{item.vatTax}}</td>
+                <td>{{item.importTax}}</td>
+                <td>{{item.exportTax}}</td>
+                <td jhiTranslate="{{'akApp.PriceMethod.' + item.inventoryPriceMethod}}">{{item.inventoryPriceMethod}}</td>
+                <td>{{item.accountItem}}</td>
+                <td>{{item.isAllowModified}}</td>
+                <td>{{item.accountCost}}</td>
+                <td>{{item.accountRevenue}}</td>
+                <td>{{item.accountInternalRevenue}}</td>
+                <td>{{item.accountSaleReturn}}</td>
+                <td>{{item.accountSalePrice}}</td>
+                <td>{{item.accountAgency}}</td>
+                <td>{{item.accountRawProduct}}</td>
+                <td>{{item.accountCostDifference}}</td>
+                <td>{{item.accountDiscount}}</td>
+                <td>{{item.saleDesc}}</td>
+                <td>{{item.purchaseDesc}}</td>
+                <td>{{item.weight}}</td>
+                <td>{{item.lenght}}</td>
+                <td>{{item.wide}}</td>
+                <td>{{item.height}}</td>
+                <td>{{item.color}}</td>
+                <td>{{item.specification}}</td>
+                <td>
+                    <a *ngIf="item.itemImage" (click)="openFile(item.itemImageContentType, item.itemImage)">
+                        <img [src]="'data:' + item.itemImageContentType + ';base64,' + item.itemImage" style="max-height: 30px;" alt="item image"/>
+                    </a>
+                    <span *ngIf="item.itemImage">{{item.itemImageContentType}}, {{byteSize(item.itemImage)}}</span>
+                </td>
+                <td>{{item.isActive}}</td>
+                <td>{{item.timeCreated | date:'medium'}}</td>
+                <td>{{item.timeModified | date:'medium'}}</td>
+                <td>{{item.userIdCreated}}</td>
+                <td>{{item.userIdModified}}</td>
+                <td>
+                    <div *ngIf="item.unit">
+                        <a [routerLink]="['/unit', item.unit?.id, 'view' ]" >{{item.unit?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="item.itemGroup">
+                        <a [routerLink]="['/item-group', item.itemGroup?.id, 'view' ]" >{{item.itemGroup?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="item.store">
+                        <a [routerLink]="['/store', item.store?.id, 'view' ]" >{{item.store?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="item.company">
+                        <a [routerLink]="['/company', item.company?.id, 'view' ]" >{{item.company?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/item', item.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/item', item.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(item)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="items?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

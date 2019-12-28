@@ -1,0 +1,42 @@
+{
+  "akApp": {
+    "invoice": {
+      "home": {
+        "title": "Invoices",
+        "createLabel": "Thêm mới một Invoice",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Invoice",
+        "notFound": "No Invoices found"
+      },
+      "created": "Một Invoice mới được tạo với định danh {{ param }}",
+      "updated": "Một Invoice cập nhật với định danh {{ param }}",
+      "deleted": "Một Invoice đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Invoice {{ id }}?"
+      },
+      "detail": {
+        "title": "Invoice"
+      },
+      "invoiceNo": "Invoice No",
+      "invoiceDate": "Invoice Date",
+      "dueDate": "Due Date",
+      "billingAddress": "Billing Address",
+      "accountNumber": "Account Number",
+      "poNumber": "Po Number",
+      "notes": "Notes",
+      "productTotal": "Product Total",
+      "vatTotal": "Vat Total",
+      "discountTotal": "Discount Total",
+      "total": "Total",
+      "status": "Status",
+      "timeCreated": "Time Created",
+      "timeModified": "Time Modified",
+      "userIdCreated": "User Id Created",
+      "userIdModified": "User Id Modified",
+      "invoiceLine": "Invoice Line",
+      "customer": "Customer",
+      "terms": "Terms",
+      "employee": "Employee",
+      "company": "Company"
+    }
+  }
+}

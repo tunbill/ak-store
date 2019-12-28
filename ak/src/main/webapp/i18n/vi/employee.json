@@ -1,0 +1,48 @@
+{
+  "akApp": {
+    "employee": {
+      "home": {
+        "title": "Employees",
+        "createLabel": "Thêm mới một Employee",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Employee",
+        "notFound": "No Employees found"
+      },
+      "created": "Một Employee mới được tạo với định danh {{ param }}",
+      "updated": "Một Employee cập nhật với định danh {{ param }}",
+      "deleted": "Một Employee đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Employee {{ id }}?"
+      },
+      "detail": {
+        "title": "Employee"
+      },
+      "code": "Code",
+      "fullName": "Full Name",
+      "sex": "Sex",
+      "birthday": "Birthday",
+      "identityCard": "Identity Card",
+      "identityDate": "Identity Date",
+      "identityIssue": "Identity Issue",
+      "position": "Position",
+      "taxCode": "Tax Code",
+      "salary": "Salary",
+      "salaryRate": "Salary Rate",
+      "salarySecurity": "Salary Security",
+      "numOfDepends": "Num Of Depends",
+      "phone": "Phone",
+      "mobile": "Mobile",
+      "email": "Email",
+      "bankAccount": "Bank Account",
+      "bankName": "Bank Name",
+      "nodes": "Nodes",
+      "isActive": "Is Active",
+      "timeCreated": "Time Created",
+      "timeModified": "Time Modified",
+      "userIdCreated": "User Id Created",
+      "userIdModified": "User Id Modified",
+      "invoice": "Invoice",
+      "department": "Department",
+      "company": "Company"
+    }
+  }
+}

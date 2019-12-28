@@ -1,0 +1,23 @@
+{
+  "akApp": {
+    "industry": {
+      "home": {
+        "title": "Industries",
+        "createLabel": "Thêm mới một Industry",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Industry",
+        "notFound": "No Industries found"
+      },
+      "created": "Một Industry mới được tạo với định danh {{ param }}",
+      "updated": "Một Industry cập nhật với định danh {{ param }}",
+      "deleted": "Một Industry đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Industry {{ id }}?"
+      },
+      "detail": {
+        "title": "Industry"
+      },
+      "name": "Name",
+      "company": "Company"
+    }
+  }
+}

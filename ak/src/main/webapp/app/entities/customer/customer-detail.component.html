@@ -1,0 +1,141 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="customer">
+            <h2><span jhiTranslate="akApp.customer.detail.title">Customer</span> {{customer.id}}</h2>
+            <hr>
+            <ak-alert-error></ak-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="akApp.customer.isVendor">Is Vendor</span></dt>
+                <dd>
+                    <span>{{customer.isVendor}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.vendorId">Vendor Id</span></dt>
+                <dd>
+                    <span>{{customer.vendorId}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.code">Code</span></dt>
+                <dd>
+                    <span>{{customer.code}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.companyName">Company Name</span></dt>
+                <dd>
+                    <span>{{customer.companyName}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.address">Address</span></dt>
+                <dd>
+                    <span>{{customer.address}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.phone">Phone</span></dt>
+                <dd>
+                    <span>{{customer.phone}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.mobile">Mobile</span></dt>
+                <dd>
+                    <span>{{customer.mobile}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.fax">Fax</span></dt>
+                <dd>
+                    <span>{{customer.fax}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.email">Email</span></dt>
+                <dd>
+                    <span>{{customer.email}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.taxCode">Tax Code</span></dt>
+                <dd>
+                    <span>{{customer.taxCode}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.accountNumber">Account Number</span></dt>
+                <dd>
+                    <span>{{customer.accountNumber}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.bankAccount">Bank Account</span></dt>
+                <dd>
+                    <span>{{customer.bankAccount}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.bankName">Bank Name</span></dt>
+                <dd>
+                    <span>{{customer.bankName}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.balance">Balance</span></dt>
+                <dd>
+                    <span>{{customer.balance}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.totalBalance">Total Balance</span></dt>
+                <dd>
+                    <span>{{customer.totalBalance}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.openBalance">Open Balance</span></dt>
+                <dd>
+                    <span>{{customer.openBalance}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.openBalanceDate">Open Balance Date</span></dt>
+                <dd>
+                    <span>{{customer.openBalanceDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.creditLimit">Credit Limit</span></dt>
+                <dd>
+                    <span>{{customer.creditLimit}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.notes">Notes</span></dt>
+                <dd>
+                    <span>{{customer.notes}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.contactName">Contact Name</span></dt>
+                <dd>
+                    <span>{{customer.contactName}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.isActive">Is Active</span></dt>
+                <dd>
+                    <span>{{customer.isActive}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.timeCreated">Time Created</span></dt>
+                <dd>
+                    <span>{{customer.timeCreated}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.timeModified">Time Modified</span></dt>
+                <dd>
+                    <span>{{customer.timeModified}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.userIdCreated">User Id Created</span></dt>
+                <dd>
+                    <span>{{customer.userIdCreated}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.userIdModified">User Id Modified</span></dt>
+                <dd>
+                    <span>{{customer.userIdModified}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.customerType">Customer Type</span></dt>
+                <dd>
+                    <div *ngIf="customer.customerType">
+                        <a [routerLink]="['/customer-type', customer.customerType?.id, 'view']">{{customer.customerType?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.terms">Terms</span></dt>
+                <dd>
+                    <div *ngIf="customer.terms">
+                        <a [routerLink]="['/terms', customer.terms?.id, 'view']">{{customer.terms?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="akApp.customer.company">Company</span></dt>
+                <dd>
+                    <div *ngIf="customer.company">
+                        <a [routerLink]="['/company', customer.company?.id, 'view']">{{customer.company?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/customer', customer.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

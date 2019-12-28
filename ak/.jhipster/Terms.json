@@ -1,0 +1,62 @@
+{
+    "name": "Terms",
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 10
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 100
+        },
+        {
+            "fieldName": "dayOfMonthDue",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "dueNextMonthDays",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "discountDayOfMonth",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "discountPct",
+            "fieldType": "Double"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "customer",
+            "otherEntityRelationshipName": "terms",
+            "relationshipName": "customer"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "invoice",
+            "otherEntityRelationshipName": "terms",
+            "relationshipName": "invoice"
+        }
+    ],
+    "changelogDate": "20191228110005",
+    "entityTableName": "terms",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

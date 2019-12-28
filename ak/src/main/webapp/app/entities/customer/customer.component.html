@@ -1,0 +1,129 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="akApp.customer.home.title">Customers</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-customer" [routerLink]="['/customer/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="akApp.customer.home.createLabel">
+            Create a new Customer
+            </span>
+        </button>
+    </h2>
+    <ak-alert-error></ak-alert-error>
+    <ak-alert></ak-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="customers?.length === 0">
+        <span jhiTranslate="akApp.customer.home.notFound">No customers found</span>
+    </div>
+    <div class="table-responsive" *ngIf="customers?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="isVendor"><span jhiTranslate="akApp.customer.isVendor">Is Vendor</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="vendorId"><span jhiTranslate="akApp.customer.vendorId">Vendor Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="code"><span jhiTranslate="akApp.customer.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="companyName"><span jhiTranslate="akApp.customer.companyName">Company Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="address"><span jhiTranslate="akApp.customer.address">Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="phone"><span jhiTranslate="akApp.customer.phone">Phone</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="mobile"><span jhiTranslate="akApp.customer.mobile">Mobile</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="fax"><span jhiTranslate="akApp.customer.fax">Fax</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="email"><span jhiTranslate="akApp.customer.email">Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="taxCode"><span jhiTranslate="akApp.customer.taxCode">Tax Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="accountNumber"><span jhiTranslate="akApp.customer.accountNumber">Account Number</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="bankAccount"><span jhiTranslate="akApp.customer.bankAccount">Bank Account</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="bankName"><span jhiTranslate="akApp.customer.bankName">Bank Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="balance"><span jhiTranslate="akApp.customer.balance">Balance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="totalBalance"><span jhiTranslate="akApp.customer.totalBalance">Total Balance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="openBalance"><span jhiTranslate="akApp.customer.openBalance">Open Balance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="openBalanceDate"><span jhiTranslate="akApp.customer.openBalanceDate">Open Balance Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="creditLimit"><span jhiTranslate="akApp.customer.creditLimit">Credit Limit</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="notes"><span jhiTranslate="akApp.customer.notes">Notes</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="contactName"><span jhiTranslate="akApp.customer.contactName">Contact Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="isActive"><span jhiTranslate="akApp.customer.isActive">Is Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="timeCreated"><span jhiTranslate="akApp.customer.timeCreated">Time Created</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="timeModified"><span jhiTranslate="akApp.customer.timeModified">Time Modified</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="userIdCreated"><span jhiTranslate="akApp.customer.userIdCreated">User Id Created</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="userIdModified"><span jhiTranslate="akApp.customer.userIdModified">User Id Modified</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="customerType.id"><span jhiTranslate="akApp.customer.customerType">Customer Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="terms.id"><span jhiTranslate="akApp.customer.terms">Terms</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="company.id"><span jhiTranslate="akApp.customer.company">Company</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let customer of customers ;trackBy: trackId">
+                <td><a [routerLink]="['/customer', customer.id, 'view' ]">{{customer.id}}</a></td>
+                <td>{{customer.isVendor}}</td>
+                <td>{{customer.vendorId}}</td>
+                <td>{{customer.code}}</td>
+                <td>{{customer.companyName}}</td>
+                <td>{{customer.address}}</td>
+                <td>{{customer.phone}}</td>
+                <td>{{customer.mobile}}</td>
+                <td>{{customer.fax}}</td>
+                <td>{{customer.email}}</td>
+                <td>{{customer.taxCode}}</td>
+                <td>{{customer.accountNumber}}</td>
+                <td>{{customer.bankAccount}}</td>
+                <td>{{customer.bankName}}</td>
+                <td>{{customer.balance}}</td>
+                <td>{{customer.totalBalance}}</td>
+                <td>{{customer.openBalance}}</td>
+                <td>{{customer.openBalanceDate | date:'medium'}}</td>
+                <td>{{customer.creditLimit}}</td>
+                <td>{{customer.notes}}</td>
+                <td>{{customer.contactName}}</td>
+                <td>{{customer.isActive}}</td>
+                <td>{{customer.timeCreated | date:'medium'}}</td>
+                <td>{{customer.timeModified | date:'medium'}}</td>
+                <td>{{customer.userIdCreated}}</td>
+                <td>{{customer.userIdModified}}</td>
+                <td>
+                    <div *ngIf="customer.customerType">
+                        <a [routerLink]="['/customer-type', customer.customerType?.id, 'view' ]" >{{customer.customerType?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="customer.terms">
+                        <a [routerLink]="['/terms', customer.terms?.id, 'view' ]" >{{customer.terms?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="customer.company">
+                        <a [routerLink]="['/company', customer.company?.id, 'view' ]" >{{customer.company?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/customer', customer.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/customer', customer.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(customer)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="customers?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

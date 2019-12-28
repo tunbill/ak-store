@@ -1,0 +1,9 @@
+{
+  "akApp": {
+    "ItemType": {
+      "null": "",
+      "PRODUCT": "PRODUCT",
+      "SERVICE": "SERVICE"
+    }
+  }
+}

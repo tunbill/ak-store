@@ -1,0 +1,32 @@
+{
+  "akApp": {
+    "jobs": {
+      "home": {
+        "title": "Jobs",
+        "createLabel": "Thêm mới một Jobs",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Jobs",
+        "notFound": "No Jobs found"
+      },
+      "created": "Một Jobs mới được tạo với định danh {{ param }}",
+      "updated": "Một Jobs cập nhật với định danh {{ param }}",
+      "deleted": "Một Jobs đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Jobs {{ id }}?"
+      },
+      "detail": {
+        "title": "Jobs"
+      },
+      "code": "Code",
+      "name": "Name",
+      "status": "Status",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "estimate": "Estimate",
+      "investor": "Investor",
+      "address": "Address",
+      "notes": "Notes",
+      "jobType": "Job Type",
+      "company": "Company"
+    }
+  }
+}

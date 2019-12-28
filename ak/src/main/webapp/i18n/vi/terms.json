@@ -1,0 +1,29 @@
+{
+  "akApp": {
+    "terms": {
+      "home": {
+        "title": "Terms",
+        "createLabel": "Thêm mới một Terms",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Terms",
+        "notFound": "No Terms found"
+      },
+      "created": "Một Terms mới được tạo với định danh {{ param }}",
+      "updated": "Một Terms cập nhật với định danh {{ param }}",
+      "deleted": "Một Terms đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Terms {{ id }}?"
+      },
+      "detail": {
+        "title": "Terms"
+      },
+      "code": "Code",
+      "name": "Name",
+      "dayOfMonthDue": "Day Of Month Due",
+      "dueNextMonthDays": "Due Next Month Days",
+      "discountDayOfMonth": "Discount Day Of Month",
+      "discountPct": "Discount Pct",
+      "customer": "Customer",
+      "invoice": "Invoice"
+    }
+  }
+}

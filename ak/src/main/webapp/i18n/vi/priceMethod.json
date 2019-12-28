@@ -1,0 +1,9 @@
+{
+  "akApp": {
+    "PriceMethod": {
+      "null": "",
+      "AVERAGE": "AVERAGE",
+      "FIFO": "FIFO"
+    }
+  }
+}

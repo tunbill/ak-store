@@ -1,0 +1,91 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="akApp.jobs.home.title">Jobs</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-jobs" [routerLink]="['/jobs/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="akApp.jobs.home.createLabel">
+            Create a new Jobs
+            </span>
+        </button>
+    </h2>
+    <ak-alert-error></ak-alert-error>
+    <ak-alert></ak-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="jobs?.length === 0">
+        <span jhiTranslate="akApp.jobs.home.notFound">No jobs found</span>
+    </div>
+    <div class="table-responsive" *ngIf="jobs?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="code"><span jhiTranslate="akApp.jobs.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="name"><span jhiTranslate="akApp.jobs.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="status"><span jhiTranslate="akApp.jobs.status">Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="startDate"><span jhiTranslate="akApp.jobs.startDate">Start Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="endDate"><span jhiTranslate="akApp.jobs.endDate">End Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="estimate"><span jhiTranslate="akApp.jobs.estimate">Estimate</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="investor"><span jhiTranslate="akApp.jobs.investor">Investor</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="address"><span jhiTranslate="akApp.jobs.address">Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="notes"><span jhiTranslate="akApp.jobs.notes">Notes</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="jobType.id"><span jhiTranslate="akApp.jobs.jobType">Job Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="company.id"><span jhiTranslate="akApp.jobs.company">Company</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let jobs of jobs ;trackBy: trackId">
+                <td><a [routerLink]="['/jobs', jobs.id, 'view' ]">{{jobs.id}}</a></td>
+                <td>{{jobs.code}}</td>
+                <td>{{jobs.name}}</td>
+                <td>{{jobs.status}}</td>
+                <td>{{jobs.startDate | date:'mediumDate'}}</td>
+                <td>{{jobs.endDate | date:'mediumDate'}}</td>
+                <td>{{jobs.estimate}}</td>
+                <td>{{jobs.investor}}</td>
+                <td>{{jobs.address}}</td>
+                <td>{{jobs.notes}}</td>
+                <td>
+                    <div *ngIf="jobs.jobType">
+                        <a [routerLink]="['/job-type', jobs.jobType?.id, 'view' ]" >{{jobs.jobType?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="jobs.company">
+                        <a [routerLink]="['/company', jobs.company?.id, 'view' ]" >{{jobs.company?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/jobs', jobs.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/jobs', jobs.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(jobs)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="jobs?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

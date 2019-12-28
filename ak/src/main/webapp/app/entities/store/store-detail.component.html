@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="store">
+            <h2><span jhiTranslate="akApp.store.detail.title">Store</span> {{store.id}}</h2>
+            <hr>
+            <ak-alert-error></ak-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="akApp.store.code">Code</span></dt>
+                <dd>
+                    <span>{{store.code}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.store.name">Name</span></dt>
+                <dd>
+                    <span>{{store.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.store.address">Address</span></dt>
+                <dd>
+                    <span>{{store.address}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.store.company">Company</span></dt>
+                <dd>
+                    <div *ngIf="store.company">
+                        <a [routerLink]="['/company', store.company?.id, 'view']">{{store.company?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/store', store.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+{
+  "akApp": {
+    "ProcessStatus": {
+      "null": "",
+      "OPEN": "OPEN",
+      "CLOSE": "CLOSE"
+    }
+  }
+}

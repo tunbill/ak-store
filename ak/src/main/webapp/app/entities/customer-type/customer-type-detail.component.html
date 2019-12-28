@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="customerType">
+            <h2><span jhiTranslate="akApp.customerType.detail.title">Customer Type</span> {{customerType.id}}</h2>
+            <hr>
+            <ak-alert-error></ak-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="akApp.customerType.name">Name</span></dt>
+                <dd>
+                    <span>{{customerType.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customerType.description">Description</span></dt>
+                <dd>
+                    <span>{{customerType.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customerType.isActive">Is Active</span></dt>
+                <dd>
+                    <span>{{customerType.isActive}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.customerType.company">Company</span></dt>
+                <dd>
+                    <div *ngIf="customerType.company">
+                        <a [routerLink]="['/company', customerType.company?.id, 'view']">{{customerType.company?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/customer-type', customerType.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

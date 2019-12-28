@@ -7,6 +7,22 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Thực thể",
+        "company": "Company",
+        "industry": "Industry",
+        "province": "Province",
+        "customer": "Customer",
+        "customerType": "Customer Type",
+        "terms": "Terms",
+        "store": "Store",
+        "department": "Department",
+        "jobs": "Jobs",
+        "jobType": "Job Type",
+        "employee": "Employee",
+        "item": "Item",
+        "unit": "Unit",
+        "itemGroup": "Item Group",
+        "invoice": "Invoice",
+        "invoiceLine": "Invoice Line",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

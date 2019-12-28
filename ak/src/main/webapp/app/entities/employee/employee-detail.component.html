@@ -1,0 +1,131 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="employee">
+            <h2><span jhiTranslate="akApp.employee.detail.title">Employee</span> {{employee.id}}</h2>
+            <hr>
+            <ak-alert-error></ak-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="akApp.employee.code">Code</span></dt>
+                <dd>
+                    <span>{{employee.code}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.fullName">Full Name</span></dt>
+                <dd>
+                    <span>{{employee.fullName}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.sex">Sex</span></dt>
+                <dd>
+                    <span>{{employee.sex}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.birthday">Birthday</span></dt>
+                <dd>
+                    <span>{{employee.birthday}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.identityCard">Identity Card</span></dt>
+                <dd>
+                    <span>{{employee.identityCard}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.identityDate">Identity Date</span></dt>
+                <dd>
+                    <span>{{employee.identityDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.identityIssue">Identity Issue</span></dt>
+                <dd>
+                    <span>{{employee.identityIssue}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.position">Position</span></dt>
+                <dd>
+                    <span>{{employee.position}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.taxCode">Tax Code</span></dt>
+                <dd>
+                    <span>{{employee.taxCode}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.salary">Salary</span></dt>
+                <dd>
+                    <span>{{employee.salary}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.salaryRate">Salary Rate</span></dt>
+                <dd>
+                    <span>{{employee.salaryRate}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.salarySecurity">Salary Security</span></dt>
+                <dd>
+                    <span>{{employee.salarySecurity}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.numOfDepends">Num Of Depends</span></dt>
+                <dd>
+                    <span>{{employee.numOfDepends}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.phone">Phone</span></dt>
+                <dd>
+                    <span>{{employee.phone}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.mobile">Mobile</span></dt>
+                <dd>
+                    <span>{{employee.mobile}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.email">Email</span></dt>
+                <dd>
+                    <span>{{employee.email}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.bankAccount">Bank Account</span></dt>
+                <dd>
+                    <span>{{employee.bankAccount}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.bankName">Bank Name</span></dt>
+                <dd>
+                    <span>{{employee.bankName}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.nodes">Nodes</span></dt>
+                <dd>
+                    <span>{{employee.nodes}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.isActive">Is Active</span></dt>
+                <dd>
+                    <span>{{employee.isActive}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.timeCreated">Time Created</span></dt>
+                <dd>
+                    <span>{{employee.timeCreated}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.timeModified">Time Modified</span></dt>
+                <dd>
+                    <span>{{employee.timeModified}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.userIdCreated">User Id Created</span></dt>
+                <dd>
+                    <span>{{employee.userIdCreated}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.userIdModified">User Id Modified</span></dt>
+                <dd>
+                    <span>{{employee.userIdModified}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.department">Department</span></dt>
+                <dd>
+                    <div *ngIf="employee.department">
+                        <a [routerLink]="['/department', employee.department?.id, 'view']">{{employee.department?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="akApp.employee.company">Company</span></dt>
+                <dd>
+                    <div *ngIf="employee.company">
+                        <a [routerLink]="['/company', employee.company?.id, 'view']">{{employee.company?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/employee', employee.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

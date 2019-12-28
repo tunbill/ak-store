@@ -1,0 +1,117 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="akApp.invoice.home.title">Invoices</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-invoice" [routerLink]="['/invoice/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="akApp.invoice.home.createLabel">
+            Create a new Invoice
+            </span>
+        </button>
+    </h2>
+    <ak-alert-error></ak-alert-error>
+    <ak-alert></ak-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="invoices?.length === 0">
+        <span jhiTranslate="akApp.invoice.home.notFound">No invoices found</span>
+    </div>
+    <div class="table-responsive" *ngIf="invoices?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="invoiceNo"><span jhiTranslate="akApp.invoice.invoiceNo">Invoice No</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="invoiceDate"><span jhiTranslate="akApp.invoice.invoiceDate">Invoice Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="dueDate"><span jhiTranslate="akApp.invoice.dueDate">Due Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="billingAddress"><span jhiTranslate="akApp.invoice.billingAddress">Billing Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="accountNumber"><span jhiTranslate="akApp.invoice.accountNumber">Account Number</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="poNumber"><span jhiTranslate="akApp.invoice.poNumber">Po Number</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="notes"><span jhiTranslate="akApp.invoice.notes">Notes</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="productTotal"><span jhiTranslate="akApp.invoice.productTotal">Product Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="vatTotal"><span jhiTranslate="akApp.invoice.vatTotal">Vat Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="discountTotal"><span jhiTranslate="akApp.invoice.discountTotal">Discount Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="total"><span jhiTranslate="akApp.invoice.total">Total</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="status"><span jhiTranslate="akApp.invoice.status">Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="timeCreated"><span jhiTranslate="akApp.invoice.timeCreated">Time Created</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="timeModified"><span jhiTranslate="akApp.invoice.timeModified">Time Modified</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="userIdCreated"><span jhiTranslate="akApp.invoice.userIdCreated">User Id Created</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="userIdModified"><span jhiTranslate="akApp.invoice.userIdModified">User Id Modified</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="customer.id"><span jhiTranslate="akApp.invoice.customer">Customer</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="terms.id"><span jhiTranslate="akApp.invoice.terms">Terms</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="employee.id"><span jhiTranslate="akApp.invoice.employee">Employee</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="company.id"><span jhiTranslate="akApp.invoice.company">Company</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let invoice of invoices ;trackBy: trackId">
+                <td><a [routerLink]="['/invoice', invoice.id, 'view' ]">{{invoice.id}}</a></td>
+                <td>{{invoice.invoiceNo}}</td>
+                <td>{{invoice.invoiceDate | date:'mediumDate'}}</td>
+                <td>{{invoice.dueDate | date:'mediumDate'}}</td>
+                <td>{{invoice.billingAddress}}</td>
+                <td>{{invoice.accountNumber}}</td>
+                <td>{{invoice.poNumber}}</td>
+                <td>{{invoice.notes}}</td>
+                <td>{{invoice.productTotal}}</td>
+                <td>{{invoice.vatTotal}}</td>
+                <td>{{invoice.discountTotal}}</td>
+                <td>{{invoice.total}}</td>
+                <td jhiTranslate="{{'akApp.ProcessStatus.' + invoice.status}}">{{invoice.status}}</td>
+                <td>{{invoice.timeCreated | date:'medium'}}</td>
+                <td>{{invoice.timeModified | date:'medium'}}</td>
+                <td>{{invoice.userIdCreated}}</td>
+                <td>{{invoice.userIdModified}}</td>
+                <td>
+                    <div *ngIf="invoice.customer">
+                        <a [routerLink]="['/customer', invoice.customer?.id, 'view' ]" >{{invoice.customer?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="invoice.terms">
+                        <a [routerLink]="['/terms', invoice.terms?.id, 'view' ]" >{{invoice.terms?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="invoice.employee">
+                        <a [routerLink]="['/employee', invoice.employee?.id, 'view' ]" >{{invoice.employee?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="invoice.company">
+                        <a [routerLink]="['/company', invoice.company?.id, 'view' ]" >{{invoice.company?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/invoice', invoice.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/invoice', invoice.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(invoice)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div [hidden]="invoices?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

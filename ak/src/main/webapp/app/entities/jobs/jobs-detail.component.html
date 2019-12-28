@@ -1,0 +1,71 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="jobs">
+            <h2><span jhiTranslate="akApp.jobs.detail.title">Jobs</span> {{jobs.id}}</h2>
+            <hr>
+            <ak-alert-error></ak-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="akApp.jobs.code">Code</span></dt>
+                <dd>
+                    <span>{{jobs.code}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.jobs.name">Name</span></dt>
+                <dd>
+                    <span>{{jobs.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.jobs.status">Status</span></dt>
+                <dd>
+                    <span>{{jobs.status}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.jobs.startDate">Start Date</span></dt>
+                <dd>
+                    <span>{{jobs.startDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.jobs.endDate">End Date</span></dt>
+                <dd>
+                    <span>{{jobs.endDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.jobs.estimate">Estimate</span></dt>
+                <dd>
+                    <span>{{jobs.estimate}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.jobs.investor">Investor</span></dt>
+                <dd>
+                    <span>{{jobs.investor}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.jobs.address">Address</span></dt>
+                <dd>
+                    <span>{{jobs.address}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.jobs.notes">Notes</span></dt>
+                <dd>
+                    <span>{{jobs.notes}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.jobs.jobType">Job Type</span></dt>
+                <dd>
+                    <div *ngIf="jobs.jobType">
+                        <a [routerLink]="['/job-type', jobs.jobType?.id, 'view']">{{jobs.jobType?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="akApp.jobs.company">Company</span></dt>
+                <dd>
+                    <div *ngIf="jobs.company">
+                        <a [routerLink]="['/company', jobs.company?.id, 'view']">{{jobs.company?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/jobs', jobs.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
