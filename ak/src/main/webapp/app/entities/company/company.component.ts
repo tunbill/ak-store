@@ -20,6 +20,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
   error: any;
   success: any;
   eventSubscriber: Subscription;
+  currentSearch: string;
   routeData: any;
   links: any;
   totalItems: any;
@@ -48,6 +49,17 @@ export class CompanyComponent implements OnInit, OnDestroy {
   }
 
   loadAll() {
+    if (this.currentSearch) {
+      this.companyService
+        .search({
+          page: this.page - 1,
+          query: this.currentSearch,
+          size: this.itemsPerPage,
+          sort: this.sort()
+        })
+        .subscribe((res: HttpResponse<ICompany[]>) => this.paginateCompanies(res.body, res.headers));
+      return;
+    }
     this.companyService
       .query({
         page: this.page - 1,
@@ -69,6 +81,7 @@ export class CompanyComponent implements OnInit, OnDestroy {
       queryParams: {
         page: this.page,
         size: this.itemsPerPage,
+        search: this.currentSearch,
         sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
       }
     });
@@ -77,9 +90,27 @@ export class CompanyComponent implements OnInit, OnDestroy {
 
   clear() {
     this.page = 0;
+    this.currentSearch = '';
     this.router.navigate([
       '/company',
       {
+        page: this.page,
+        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+      }
+    ]);
+    this.loadAll();
+  }
+
+  search(query) {
+    if (!query) {
+      return this.clear();
+    }
+    this.page = 0;
+    this.currentSearch = query;
+    this.router.navigate([
+      '/company',
+      {
+        search: this.currentSearch,
         page: this.page,
         sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
       }

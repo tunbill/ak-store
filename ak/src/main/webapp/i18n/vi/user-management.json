@@ -25,6 +25,7 @@
     "createdBy": "Người tạo",
     "createdDate": "Ngày tạo",
     "lastModifiedBy": "Người sửa",
-    "lastModifiedDate": "Ngày sửa"
+    "lastModifiedDate": "Ngày sửa",
+    "companyId": "Thuộc công ty"
   }
 }

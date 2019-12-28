@@ -5,6 +5,7 @@
         "title": "Companies",
         "createLabel": "Thêm mới một Company",
         "createOrEditLabel": "Thêm mới hoặc cập nhật Company",
+        "search": "Tìm Company",
         "notFound": "No Companies found"
       },
       "created": "Một Company mới được tạo với định danh {{ param }}",

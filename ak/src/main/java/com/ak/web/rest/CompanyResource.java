@@ -6,6 +6,7 @@ import com.ak.web.rest.errors.BadRequestAlertException;
 import com.ak.service.dto.CompanyCriteria;
 import com.ak.service.CompanyQueryService;
 
+import io.github.jhipster.service.filter.StringFilter;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,6 +64,7 @@ public class CompanyResource {
         if (company.getId() != null) {
             throw new BadRequestAlertException("A new company cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        company.setTimeCreated(Instant.now());
         Company result = companyService.save(company);
         return ResponseEntity.created(new URI("/api/companies/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -84,6 +86,7 @@ public class CompanyResource {
         if (company.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        company.setTimeModified(Instant.now());
         Company result = companyService.save(company);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, company.getId().toString()))
@@ -144,4 +147,22 @@ public class CompanyResource {
         companyService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+    /**
+     * {@code SEARCH  /_search/companies?query=:query} : search for the company corresponding
+     * to the query.
+     *
+     * @param query the query of the company search.
+     * @param pageable the pagination information.
+     * @return the result of the search.
+     */
+    @GetMapping("/_search/companies")
+    public ResponseEntity<List<Company>> searchCompanies(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of Companies for query {}", query);
+        CompanyCriteria criteria = new CompanyCriteria();
+        StringFilter sf = new StringFilter();        
+        criteria.setName(sf.setContains(query));
+        Page<Company> page = companyQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }    
 }

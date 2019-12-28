@@ -10,6 +10,21 @@
     </h2>
     <ak-alert-error></ak-alert-error>
     <ak-alert></ak-alert>
+       <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'akApp.company.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
     <br/>
     <div class="alert alert-warning" *ngIf="companies?.length === 0">
         <span jhiTranslate="akApp.company.home.notFound">No companies found</span>
@@ -27,9 +42,6 @@
             <th scope="col"  jhiSortBy="numOfUsers"><span jhiTranslate="akApp.company.numOfUsers">Num Of Users</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="type"><span jhiTranslate="akApp.company.type">Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="isActive"><span jhiTranslate="akApp.company.isActive">Is Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="timeCreated"><span jhiTranslate="akApp.company.timeCreated">Time Created</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="timeModified"><span jhiTranslate="akApp.company.timeModified">Time Modified</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="userId"><span jhiTranslate="akApp.company.userId">User Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="industry.id"><span jhiTranslate="akApp.company.industry">Industry</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="province.id"><span jhiTranslate="akApp.company.province">Province</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
@@ -51,9 +63,6 @@
                 <td>{{company.numOfUsers}}</td>
                 <td>{{company.type}}</td>
                 <td>{{company.isActive}}</td>
-                <td>{{company.timeCreated | date:'medium'}}</td>
-                <td>{{company.timeModified | date:'medium'}}</td>
-                <td>{{company.userId}}</td>
                 <td>
                     <div *ngIf="company.industry">
                         <a [routerLink]="['/industry', company.industry?.id, 'view' ]" >{{company.industry?.id}}</a>
