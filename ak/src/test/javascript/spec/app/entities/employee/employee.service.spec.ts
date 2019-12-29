@@ -26,6 +26,7 @@ describe('Service Tests', () => {
 
       elemDefault = new Employee(
         0,
+        0,
         'AAAAAAA',
         'AAAAAAA',
         0,
@@ -106,6 +107,7 @@ describe('Service Tests', () => {
       it('should update a Employee', () => {
         const returnedFromService = Object.assign(
           {
+            companyId: 1,
             code: 'BBBBBB',
             fullName: 'BBBBBB',
             sex: 1,
@@ -155,6 +157,7 @@ describe('Service Tests', () => {
       it('should return a list of Employee', () => {
         const returnedFromService = Object.assign(
           {
+            companyId: 1,
             code: 'BBBBBB',
             fullName: 'BBBBBB',
             sex: 1,

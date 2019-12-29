@@ -5,11 +5,8 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { JhiAlertService } from 'ng-jhipster';
 import { IStore, Store } from 'app/shared/model/store.model';
 import { StoreService } from './store.service';
-import { ICompany } from 'app/shared/model/company.model';
-import { CompanyService } from 'app/entities/company/company.service';
 
 @Component({
   selector: 'ak-store-update',
@@ -18,41 +15,30 @@ import { CompanyService } from 'app/entities/company/company.service';
 export class StoreUpdateComponent implements OnInit {
   isSaving: boolean;
 
-  companies: ICompany[];
-
   editForm = this.fb.group({
     id: [],
+    companyId: [],
     code: [null, [Validators.maxLength(20)]],
     name: [null, [Validators.maxLength(50)]],
-    address: [null, [Validators.maxLength(100)]],
-    company: []
+    address: [null, [Validators.maxLength(100)]]
   });
 
-  constructor(
-    protected jhiAlertService: JhiAlertService,
-    protected storeService: StoreService,
-    protected companyService: CompanyService,
-    protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
-  ) {}
+  constructor(protected storeService: StoreService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ store }) => {
       this.updateForm(store);
     });
-    this.companyService
-      .query()
-      .subscribe((res: HttpResponse<ICompany[]>) => (this.companies = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(store: IStore) {
     this.editForm.patchValue({
       id: store.id,
+      companyId: store.companyId,
       code: store.code,
       name: store.name,
-      address: store.address,
-      company: store.company
+      address: store.address
     });
   }
 
@@ -74,10 +60,10 @@ export class StoreUpdateComponent implements OnInit {
     return {
       ...new Store(),
       id: this.editForm.get(['id']).value,
+      companyId: this.editForm.get(['companyId']).value,
       code: this.editForm.get(['code']).value,
       name: this.editForm.get(['name']).value,
-      address: this.editForm.get(['address']).value,
-      company: this.editForm.get(['company']).value
+      address: this.editForm.get(['address']).value
     };
   }
 
@@ -92,12 +78,5 @@ export class StoreUpdateComponent implements OnInit {
 
   protected onSaveError() {
     this.isSaving = false;
-  }
-  protected onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
-  }
-
-  trackCompanyById(index: number, item: ICompany) {
-    return item.id;
   }
 }

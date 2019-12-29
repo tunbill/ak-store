@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(CustomerTypeService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new CustomerType(0, 'AAAAAAA', 'AAAAAAA', false);
+      elemDefault = new CustomerType(0, 0, 'AAAAAAA', 'AAAAAAA', false);
     });
 
     describe('Service methods', () => {
@@ -56,6 +56,7 @@ describe('Service Tests', () => {
       it('should update a CustomerType', () => {
         const returnedFromService = Object.assign(
           {
+            companyId: 1,
             name: 'BBBBBB',
             description: 'BBBBBB',
             isActive: true
@@ -76,6 +77,7 @@ describe('Service Tests', () => {
       it('should return a list of CustomerType', () => {
         const returnedFromService = Object.assign(
           {
+            companyId: 1,
             name: 'BBBBBB',
             description: 'BBBBBB',
             isActive: true

@@ -16,6 +16,7 @@
       "detail": {
         "title": "Item"
       },
+      "companyId": "Company Id",
       "code": "Code",
       "name": "Name",
       "description": "Description",
@@ -53,8 +54,7 @@
       "invoiceLine": "Invoice Line",
       "unit": "Unit",
       "itemGroup": "Item Group",
-      "store": "Store",
-      "company": "Company"
+      "store": "Store"
     }
   }
 }

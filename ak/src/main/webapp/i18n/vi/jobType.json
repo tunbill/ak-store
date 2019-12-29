@@ -16,10 +16,10 @@
       "detail": {
         "title": "Job Type"
       },
+      "companyId": "Company Id",
       "code": "Code",
       "name": "Name",
-      "jobs": "Jobs",
-      "company": "Company"
+      "jobs": "Jobs"
     }
   }
 }

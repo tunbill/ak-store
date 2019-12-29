@@ -19,6 +19,7 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="companyId"><span jhiTranslate="akApp.customer.companyId">Company Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="isVendor"><span jhiTranslate="akApp.customer.isVendor">Is Vendor</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="vendorId"><span jhiTranslate="akApp.customer.vendorId">Vendor Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="code"><span jhiTranslate="akApp.customer.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -46,13 +47,13 @@
             <th scope="col"  jhiSortBy="userIdModified"><span jhiTranslate="akApp.customer.userIdModified">User Id Modified</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="customerType.id"><span jhiTranslate="akApp.customer.customerType">Customer Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="terms.id"><span jhiTranslate="akApp.customer.terms">Terms</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="company.id"><span jhiTranslate="akApp.customer.company">Company</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let customer of customers ;trackBy: trackId">
                 <td><a [routerLink]="['/customer', customer.id, 'view' ]">{{customer.id}}</a></td>
+                <td>{{customer.companyId}}</td>
                 <td>{{customer.isVendor}}</td>
                 <td>{{customer.vendorId}}</td>
                 <td>{{customer.code}}</td>
@@ -86,11 +87,6 @@
                 <td>
                     <div *ngIf="customer.terms">
                         <a [routerLink]="['/terms', customer.terms?.id, 'view' ]" >{{customer.terms?.id}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="customer.company">
-                        <a [routerLink]="['/company', customer.company?.id, 'view' ]" >{{customer.company?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

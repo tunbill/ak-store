@@ -14,8 +14,6 @@ import { ICustomerType } from 'app/shared/model/customer-type.model';
 import { CustomerTypeService } from 'app/entities/customer-type/customer-type.service';
 import { ITerms } from 'app/shared/model/terms.model';
 import { TermsService } from 'app/entities/terms/terms.service';
-import { ICompany } from 'app/shared/model/company.model';
-import { CompanyService } from 'app/entities/company/company.service';
 
 @Component({
   selector: 'ak-customer-update',
@@ -28,10 +26,9 @@ export class CustomerUpdateComponent implements OnInit {
 
   terms: ITerms[];
 
-  companies: ICompany[];
-
   editForm = this.fb.group({
     id: [],
+    companyId: [],
     isVendor: [],
     vendorId: [],
     code: [null, [Validators.required, Validators.maxLength(20)]],
@@ -58,8 +55,7 @@ export class CustomerUpdateComponent implements OnInit {
     userIdCreated: [],
     userIdModified: [],
     customerType: [],
-    terms: [],
-    company: []
+    terms: []
   });
 
   constructor(
@@ -67,7 +63,6 @@ export class CustomerUpdateComponent implements OnInit {
     protected customerService: CustomerService,
     protected customerTypeService: CustomerTypeService,
     protected termsService: TermsService,
-    protected companyService: CompanyService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -86,14 +81,12 @@ export class CustomerUpdateComponent implements OnInit {
     this.termsService
       .query()
       .subscribe((res: HttpResponse<ITerms[]>) => (this.terms = res.body), (res: HttpErrorResponse) => this.onError(res.message));
-    this.companyService
-      .query()
-      .subscribe((res: HttpResponse<ICompany[]>) => (this.companies = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(customer: ICustomer) {
     this.editForm.patchValue({
       id: customer.id,
+      companyId: customer.companyId,
       isVendor: customer.isVendor,
       vendorId: customer.vendorId,
       code: customer.code,
@@ -120,8 +113,7 @@ export class CustomerUpdateComponent implements OnInit {
       userIdCreated: customer.userIdCreated,
       userIdModified: customer.userIdModified,
       customerType: customer.customerType,
-      terms: customer.terms,
-      company: customer.company
+      terms: customer.terms
     });
   }
 
@@ -143,6 +135,7 @@ export class CustomerUpdateComponent implements OnInit {
     return {
       ...new Customer(),
       id: this.editForm.get(['id']).value,
+      companyId: this.editForm.get(['companyId']).value,
       isVendor: this.editForm.get(['isVendor']).value,
       vendorId: this.editForm.get(['vendorId']).value,
       code: this.editForm.get(['code']).value,
@@ -174,8 +167,7 @@ export class CustomerUpdateComponent implements OnInit {
       userIdCreated: this.editForm.get(['userIdCreated']).value,
       userIdModified: this.editForm.get(['userIdModified']).value,
       customerType: this.editForm.get(['customerType']).value,
-      terms: this.editForm.get(['terms']).value,
-      company: this.editForm.get(['company']).value
+      terms: this.editForm.get(['terms']).value
     };
   }
 
@@ -200,10 +192,6 @@ export class CustomerUpdateComponent implements OnInit {
   }
 
   trackTermsById(index: number, item: ITerms) {
-    return item.id;
-  }
-
-  trackCompanyById(index: number, item: ICompany) {
     return item.id;
   }
 }

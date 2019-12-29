@@ -85,6 +85,9 @@ public class CustomerQueryService extends QueryService<Customer> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), Customer_.id));
             }
+            if (criteria.getCompanyId() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getCompanyId(), Customer_.companyId));
+            }
             if (criteria.getIsVendor() != null) {
                 specification = specification.and(buildSpecification(criteria.getIsVendor(), Customer_.isVendor));
             }
@@ -171,10 +174,6 @@ public class CustomerQueryService extends QueryService<Customer> {
             if (criteria.getTermsId() != null) {
                 specification = specification.and(buildSpecification(criteria.getTermsId(),
                     root -> root.join(Customer_.terms, JoinType.LEFT).get(Terms_.id)));
-            }
-            if (criteria.getCompanyId() != null) {
-                specification = specification.and(buildSpecification(criteria.getCompanyId(),
-                    root -> root.join(Customer_.company, JoinType.LEFT).get(Company_.id)));
             }
         }
         return specification;

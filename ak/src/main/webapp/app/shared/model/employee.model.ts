@@ -1,10 +1,10 @@
 import { Moment } from 'moment';
 import { IInvoice } from 'app/shared/model/invoice.model';
 import { IDepartment } from 'app/shared/model/department.model';
-import { ICompany } from 'app/shared/model/company.model';
 
 export interface IEmployee {
   id?: number;
+  companyId?: number;
   code?: string;
   fullName?: string;
   sex?: number;
@@ -31,12 +31,12 @@ export interface IEmployee {
   userIdModified?: number;
   invoices?: IInvoice[];
   department?: IDepartment;
-  company?: ICompany;
 }
 
 export class Employee implements IEmployee {
   constructor(
     public id?: number,
+    public companyId?: number,
     public code?: string,
     public fullName?: string,
     public sex?: number,
@@ -62,8 +62,7 @@ export class Employee implements IEmployee {
     public userIdCreated?: number,
     public userIdModified?: number,
     public invoices?: IInvoice[],
-    public department?: IDepartment,
-    public company?: ICompany
+    public department?: IDepartment
   ) {
     this.isActive = this.isActive || false;
   }

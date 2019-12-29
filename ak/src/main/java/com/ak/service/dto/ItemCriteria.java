@@ -13,6 +13,7 @@ import io.github.jhipster.service.filter.FloatFilter;
 import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
+import io.github.jhipster.service.filter.BigDecimalFilter;
 import io.github.jhipster.service.filter.InstantFilter;
 
 /**
@@ -84,6 +85,8 @@ public class ItemCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
+    private LongFilter companyId;
+
     private StringFilter code;
 
     private StringFilter name;
@@ -92,13 +95,13 @@ public class ItemCriteria implements Serializable, Criteria {
 
     private ItemTypeFilter type;
 
-    private DoubleFilter skuNum;
+    private BigDecimalFilter skuNum;
 
     private VATTaxFilter vatTax;
 
-    private DoubleFilter importTax;
+    private BigDecimalFilter importTax;
 
-    private DoubleFilter exportTax;
+    private BigDecimalFilter exportTax;
 
     private PriceMethodFilter inventoryPriceMethod;
 
@@ -158,13 +161,12 @@ public class ItemCriteria implements Serializable, Criteria {
 
     private LongFilter storeId;
 
-    private LongFilter companyId;
-
     public ItemCriteria(){
     }
 
     public ItemCriteria(ItemCriteria other){
         this.id = other.id == null ? null : other.id.copy();
+        this.companyId = other.companyId == null ? null : other.companyId.copy();
         this.code = other.code == null ? null : other.code.copy();
         this.name = other.name == null ? null : other.name.copy();
         this.description = other.description == null ? null : other.description.copy();
@@ -202,7 +204,6 @@ public class ItemCriteria implements Serializable, Criteria {
         this.unitId = other.unitId == null ? null : other.unitId.copy();
         this.itemGroupId = other.itemGroupId == null ? null : other.itemGroupId.copy();
         this.storeId = other.storeId == null ? null : other.storeId.copy();
-        this.companyId = other.companyId == null ? null : other.companyId.copy();
     }
 
     @Override
@@ -216,6 +217,14 @@ public class ItemCriteria implements Serializable, Criteria {
 
     public void setId(LongFilter id) {
         this.id = id;
+    }
+
+    public LongFilter getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(LongFilter companyId) {
+        this.companyId = companyId;
     }
 
     public StringFilter getCode() {
@@ -250,11 +259,11 @@ public class ItemCriteria implements Serializable, Criteria {
         this.type = type;
     }
 
-    public DoubleFilter getSkuNum() {
+    public BigDecimalFilter getSkuNum() {
         return skuNum;
     }
 
-    public void setSkuNum(DoubleFilter skuNum) {
+    public void setSkuNum(BigDecimalFilter skuNum) {
         this.skuNum = skuNum;
     }
 
@@ -266,19 +275,19 @@ public class ItemCriteria implements Serializable, Criteria {
         this.vatTax = vatTax;
     }
 
-    public DoubleFilter getImportTax() {
+    public BigDecimalFilter getImportTax() {
         return importTax;
     }
 
-    public void setImportTax(DoubleFilter importTax) {
+    public void setImportTax(BigDecimalFilter importTax) {
         this.importTax = importTax;
     }
 
-    public DoubleFilter getExportTax() {
+    public BigDecimalFilter getExportTax() {
         return exportTax;
     }
 
-    public void setExportTax(DoubleFilter exportTax) {
+    public void setExportTax(BigDecimalFilter exportTax) {
         this.exportTax = exportTax;
     }
 
@@ -514,14 +523,6 @@ public class ItemCriteria implements Serializable, Criteria {
         this.storeId = storeId;
     }
 
-    public LongFilter getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(LongFilter companyId) {
-        this.companyId = companyId;
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -534,6 +535,7 @@ public class ItemCriteria implements Serializable, Criteria {
         final ItemCriteria that = (ItemCriteria) o;
         return
             Objects.equals(id, that.id) &&
+            Objects.equals(companyId, that.companyId) &&
             Objects.equals(code, that.code) &&
             Objects.equals(name, that.name) &&
             Objects.equals(description, that.description) &&
@@ -570,14 +572,14 @@ public class ItemCriteria implements Serializable, Criteria {
             Objects.equals(invoiceLineId, that.invoiceLineId) &&
             Objects.equals(unitId, that.unitId) &&
             Objects.equals(itemGroupId, that.itemGroupId) &&
-            Objects.equals(storeId, that.storeId) &&
-            Objects.equals(companyId, that.companyId);
+            Objects.equals(storeId, that.storeId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
         id,
+        companyId,
         code,
         name,
         description,
@@ -614,8 +616,7 @@ public class ItemCriteria implements Serializable, Criteria {
         invoiceLineId,
         unitId,
         itemGroupId,
-        storeId,
-        companyId
+        storeId
         );
     }
 
@@ -623,6 +624,7 @@ public class ItemCriteria implements Serializable, Criteria {
     public String toString() {
         return "ItemCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
+                (companyId != null ? "companyId=" + companyId + ", " : "") +
                 (code != null ? "code=" + code + ", " : "") +
                 (name != null ? "name=" + name + ", " : "") +
                 (description != null ? "description=" + description + ", " : "") +
@@ -660,7 +662,6 @@ public class ItemCriteria implements Serializable, Criteria {
                 (unitId != null ? "unitId=" + unitId + ", " : "") +
                 (itemGroupId != null ? "itemGroupId=" + itemGroupId + ", " : "") +
                 (storeId != null ? "storeId=" + storeId + ", " : "") +
-                (companyId != null ? "companyId=" + companyId + ", " : "") +
             "}";
     }
 

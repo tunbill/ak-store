@@ -2,10 +2,10 @@ import { Moment } from 'moment';
 import { IInvoice } from 'app/shared/model/invoice.model';
 import { ICustomerType } from 'app/shared/model/customer-type.model';
 import { ITerms } from 'app/shared/model/terms.model';
-import { ICompany } from 'app/shared/model/company.model';
 
 export interface ICustomer {
   id?: number;
+  companyId?: number;
   isVendor?: boolean;
   vendorId?: number;
   code?: string;
@@ -34,12 +34,12 @@ export interface ICustomer {
   invoices?: IInvoice[];
   customerType?: ICustomerType;
   terms?: ITerms;
-  company?: ICompany;
 }
 
 export class Customer implements ICustomer {
   constructor(
     public id?: number,
+    public companyId?: number,
     public isVendor?: boolean,
     public vendorId?: number,
     public code?: string,
@@ -67,8 +67,7 @@ export class Customer implements ICustomer {
     public userIdModified?: number,
     public invoices?: IInvoice[],
     public customerType?: ICustomerType,
-    public terms?: ITerms,
-    public company?: ICompany
+    public terms?: ITerms
   ) {
     this.isVendor = this.isVendor || false;
     this.isActive = this.isActive || false;

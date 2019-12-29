@@ -26,6 +26,7 @@ export class InvoiceUpdatePage {
   pageTitle = element(by.id('ak-invoice-heading'));
   saveButton = element(by.id('save-entity'));
   cancelButton = element(by.id('cancel-save'));
+  companyIdInput = element(by.id('field_companyId'));
   invoiceNoInput = element(by.id('field_invoiceNo'));
   invoiceDateInput = element(by.id('field_invoiceDate'));
   dueDateInput = element(by.id('field_dueDate'));
@@ -45,10 +46,17 @@ export class InvoiceUpdatePage {
   customerSelect = element(by.id('field_customer'));
   termsSelect = element(by.id('field_terms'));
   employeeSelect = element(by.id('field_employee'));
-  companySelect = element(by.id('field_company'));
 
   async getPageTitle() {
     return this.pageTitle.getAttribute('jhiTranslate');
+  }
+
+  async setCompanyIdInput(companyId) {
+    await this.companyIdInput.sendKeys(companyId);
+  }
+
+  async getCompanyIdInput() {
+    return await this.companyIdInput.getAttribute('value');
   }
 
   async setInvoiceNoInput(invoiceNo) {
@@ -241,25 +249,6 @@ export class InvoiceUpdatePage {
 
   async getEmployeeSelectedOption() {
     return await this.employeeSelect.element(by.css('option:checked')).getText();
-  }
-
-  async companySelectLastOption() {
-    await this.companySelect
-      .all(by.tagName('option'))
-      .last()
-      .click();
-  }
-
-  async companySelectOption(option) {
-    await this.companySelect.sendKeys(option);
-  }
-
-  getCompanySelect(): ElementFinder {
-    return this.companySelect;
-  }
-
-  async getCompanySelectedOption() {
-    return await this.companySelect.element(by.css('option:checked')).getText();
   }
 
   async save() {

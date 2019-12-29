@@ -16,8 +16,6 @@ import { IItemGroup } from 'app/shared/model/item-group.model';
 import { ItemGroupService } from 'app/entities/item-group/item-group.service';
 import { IStore } from 'app/shared/model/store.model';
 import { StoreService } from 'app/entities/store/store.service';
-import { ICompany } from 'app/shared/model/company.model';
-import { CompanyService } from 'app/entities/company/company.service';
 
 @Component({
   selector: 'ak-item-update',
@@ -32,10 +30,9 @@ export class ItemUpdateComponent implements OnInit {
 
   stores: IStore[];
 
-  companies: ICompany[];
-
   editForm = this.fb.group({
     id: [],
+    companyId: [],
     code: [null, [Validators.maxLength(20)]],
     name: [null, [Validators.required, Validators.maxLength(150)]],
     description: [null, [Validators.maxLength(200)]],
@@ -73,8 +70,7 @@ export class ItemUpdateComponent implements OnInit {
     userIdModified: [],
     unit: [],
     itemGroup: [],
-    store: [],
-    company: []
+    store: []
   });
 
   constructor(
@@ -84,7 +80,6 @@ export class ItemUpdateComponent implements OnInit {
     protected unitService: UnitService,
     protected itemGroupService: ItemGroupService,
     protected storeService: StoreService,
-    protected companyService: CompanyService,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
@@ -104,14 +99,12 @@ export class ItemUpdateComponent implements OnInit {
     this.storeService
       .query()
       .subscribe((res: HttpResponse<IStore[]>) => (this.stores = res.body), (res: HttpErrorResponse) => this.onError(res.message));
-    this.companyService
-      .query()
-      .subscribe((res: HttpResponse<ICompany[]>) => (this.companies = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(item: IItem) {
     this.editForm.patchValue({
       id: item.id,
+      companyId: item.companyId,
       code: item.code,
       name: item.name,
       description: item.description,
@@ -149,8 +142,7 @@ export class ItemUpdateComponent implements OnInit {
       userIdModified: item.userIdModified,
       unit: item.unit,
       itemGroup: item.itemGroup,
-      store: item.store,
-      company: item.company
+      store: item.store
     });
   }
 
@@ -215,6 +207,7 @@ export class ItemUpdateComponent implements OnInit {
     return {
       ...new Item(),
       id: this.editForm.get(['id']).value,
+      companyId: this.editForm.get(['companyId']).value,
       code: this.editForm.get(['code']).value,
       name: this.editForm.get(['name']).value,
       description: this.editForm.get(['description']).value,
@@ -254,8 +247,7 @@ export class ItemUpdateComponent implements OnInit {
       userIdModified: this.editForm.get(['userIdModified']).value,
       unit: this.editForm.get(['unit']).value,
       itemGroup: this.editForm.get(['itemGroup']).value,
-      store: this.editForm.get(['store']).value,
-      company: this.editForm.get(['company']).value
+      store: this.editForm.get(['store']).value
     };
   }
 
@@ -284,10 +276,6 @@ export class ItemUpdateComponent implements OnInit {
   }
 
   trackStoreById(index: number, item: IStore) {
-    return item.id;
-  }
-
-  trackCompanyById(index: number, item: ICompany) {
     return item.id;
   }
 }

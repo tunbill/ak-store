@@ -21,7 +21,7 @@ describe('Service Tests', () => {
       service = injector.get(InvoiceLineService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new InvoiceLine(0, 0, 'AAAAAAA', 'AAAAAAA', 0, 0, 0, 0, 'AAAAAAA', ProcessStatus.OPEN);
+      elemDefault = new InvoiceLine(0, 0, 0, 'AAAAAAA', 'AAAAAAA', 0, 0, 0, 0, 'AAAAAAA', ProcessStatus.OPEN);
     });
 
     describe('Service methods', () => {
@@ -57,6 +57,7 @@ describe('Service Tests', () => {
       it('should update a InvoiceLine', () => {
         const returnedFromService = Object.assign(
           {
+            companyId: 1,
             displayOrder: 1,
             itemName: 'BBBBBB',
             unitName: 'BBBBBB',
@@ -83,6 +84,7 @@ describe('Service Tests', () => {
       it('should return a list of InvoiceLine', () => {
         const returnedFromService = Object.assign(
           {
+            companyId: 1,
             displayOrder: 1,
             itemName: 'BBBBBB',
             unitName: 'BBBBBB',

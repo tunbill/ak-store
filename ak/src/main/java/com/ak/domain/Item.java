@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,6 +32,9 @@ public class Item implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "company_id")
+    private Long companyId;
+
     @Size(max = 20)
     @Column(name = "code", length = 20)
     private String code;
@@ -49,18 +53,18 @@ public class Item implements Serializable {
     @Column(name = "type", nullable = false)
     private ItemType type;
 
-    @Column(name = "sku_num")
-    private Double skuNum;
+    @Column(name = "sku_num", precision = 21, scale = 2)
+    private BigDecimal skuNum;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "vat_tax")
     private VATTax vatTax;
 
-    @Column(name = "import_tax")
-    private Double importTax;
+    @Column(name = "import_tax", precision = 21, scale = 2)
+    private BigDecimal importTax;
 
-    @Column(name = "export_tax")
-    private Double exportTax;
+    @Column(name = "export_tax", precision = 21, scale = 2)
+    private BigDecimal exportTax;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "inventory_price_method")
@@ -173,10 +177,6 @@ public class Item implements Serializable {
     @JsonIgnoreProperties("items")
     private Store store;
 
-    @ManyToOne
-    @JsonIgnoreProperties("items")
-    private Company company;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -184,6 +184,19 @@ public class Item implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public Item companyId(Long companyId) {
+        this.companyId = companyId;
+        return this;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
     public String getCode() {
@@ -238,16 +251,16 @@ public class Item implements Serializable {
         this.type = type;
     }
 
-    public Double getSkuNum() {
+    public BigDecimal getSkuNum() {
         return skuNum;
     }
 
-    public Item skuNum(Double skuNum) {
+    public Item skuNum(BigDecimal skuNum) {
         this.skuNum = skuNum;
         return this;
     }
 
-    public void setSkuNum(Double skuNum) {
+    public void setSkuNum(BigDecimal skuNum) {
         this.skuNum = skuNum;
     }
 
@@ -264,29 +277,29 @@ public class Item implements Serializable {
         this.vatTax = vatTax;
     }
 
-    public Double getImportTax() {
+    public BigDecimal getImportTax() {
         return importTax;
     }
 
-    public Item importTax(Double importTax) {
+    public Item importTax(BigDecimal importTax) {
         this.importTax = importTax;
         return this;
     }
 
-    public void setImportTax(Double importTax) {
+    public void setImportTax(BigDecimal importTax) {
         this.importTax = importTax;
     }
 
-    public Double getExportTax() {
+    public BigDecimal getExportTax() {
         return exportTax;
     }
 
-    public Item exportTax(Double exportTax) {
+    public Item exportTax(BigDecimal exportTax) {
         this.exportTax = exportTax;
         return this;
     }
 
-    public void setExportTax(Double exportTax) {
+    public void setExportTax(BigDecimal exportTax) {
         this.exportTax = exportTax;
     }
 
@@ -704,19 +717,6 @@ public class Item implements Serializable {
     public void setStore(Store store) {
         this.store = store;
     }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public Item company(Company company) {
-        this.company = company;
-        return this;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -739,6 +739,7 @@ public class Item implements Serializable {
     public String toString() {
         return "Item{" +
             "id=" + getId() +
+            ", companyId=" + getCompanyId() +
             ", code='" + getCode() + "'" +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +

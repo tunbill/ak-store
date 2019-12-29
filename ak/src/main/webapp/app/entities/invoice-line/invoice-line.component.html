@@ -19,6 +19,7 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="companyId"><span jhiTranslate="akApp.invoiceLine.companyId">Company Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="displayOrder"><span jhiTranslate="akApp.invoiceLine.displayOrder">Display Order</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="itemName"><span jhiTranslate="akApp.invoiceLine.itemName">Item Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="unitName"><span jhiTranslate="akApp.invoiceLine.unitName">Unit Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -30,13 +31,13 @@
             <th scope="col"  jhiSortBy="status"><span jhiTranslate="akApp.invoiceLine.status">Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="invoice.id"><span jhiTranslate="akApp.invoiceLine.invoice">Invoice</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="item.id"><span jhiTranslate="akApp.invoiceLine.item">Item</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="company.id"><span jhiTranslate="akApp.invoiceLine.company">Company</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let invoiceLine of invoiceLines ;trackBy: trackId">
                 <td><a [routerLink]="['/invoice-line', invoiceLine.id, 'view' ]">{{invoiceLine.id}}</a></td>
+                <td>{{invoiceLine.companyId}}</td>
                 <td>{{invoiceLine.displayOrder}}</td>
                 <td>{{invoiceLine.itemName}}</td>
                 <td>{{invoiceLine.unitName}}</td>
@@ -54,11 +55,6 @@
                 <td>
                     <div *ngIf="invoiceLine.item">
                         <a [routerLink]="['/item', invoiceLine.item?.id, 'view' ]" >{{invoiceLine.item?.id}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="invoiceLine.company">
-                        <a [routerLink]="['/company', invoiceLine.company?.id, 'view' ]" >{{invoiceLine.company?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

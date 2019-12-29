@@ -16,8 +16,6 @@ import { ITerms } from 'app/shared/model/terms.model';
 import { TermsService } from 'app/entities/terms/terms.service';
 import { IEmployee } from 'app/shared/model/employee.model';
 import { EmployeeService } from 'app/entities/employee/employee.service';
-import { ICompany } from 'app/shared/model/company.model';
-import { CompanyService } from 'app/entities/company/company.service';
 
 @Component({
   selector: 'ak-invoice-update',
@@ -31,13 +29,12 @@ export class InvoiceUpdateComponent implements OnInit {
   terms: ITerms[];
 
   employees: IEmployee[];
-
-  companies: ICompany[];
   invoiceDateDp: any;
   dueDateDp: any;
 
   editForm = this.fb.group({
     id: [],
+    companyId: [],
     invoiceNo: [null, [Validators.maxLength(20)]],
     invoiceDate: [],
     dueDate: [],
@@ -56,8 +53,7 @@ export class InvoiceUpdateComponent implements OnInit {
     userIdModified: [],
     customer: [],
     terms: [],
-    employee: [],
-    company: []
+    employee: []
   });
 
   constructor(
@@ -66,7 +62,6 @@ export class InvoiceUpdateComponent implements OnInit {
     protected customerService: CustomerService,
     protected termsService: TermsService,
     protected employeeService: EmployeeService,
-    protected companyService: CompanyService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -85,14 +80,12 @@ export class InvoiceUpdateComponent implements OnInit {
     this.employeeService
       .query()
       .subscribe((res: HttpResponse<IEmployee[]>) => (this.employees = res.body), (res: HttpErrorResponse) => this.onError(res.message));
-    this.companyService
-      .query()
-      .subscribe((res: HttpResponse<ICompany[]>) => (this.companies = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(invoice: IInvoice) {
     this.editForm.patchValue({
       id: invoice.id,
+      companyId: invoice.companyId,
       invoiceNo: invoice.invoiceNo,
       invoiceDate: invoice.invoiceDate,
       dueDate: invoice.dueDate,
@@ -111,8 +104,7 @@ export class InvoiceUpdateComponent implements OnInit {
       userIdModified: invoice.userIdModified,
       customer: invoice.customer,
       terms: invoice.terms,
-      employee: invoice.employee,
-      company: invoice.company
+      employee: invoice.employee
     });
   }
 
@@ -134,6 +126,7 @@ export class InvoiceUpdateComponent implements OnInit {
     return {
       ...new Invoice(),
       id: this.editForm.get(['id']).value,
+      companyId: this.editForm.get(['companyId']).value,
       invoiceNo: this.editForm.get(['invoiceNo']).value,
       invoiceDate: this.editForm.get(['invoiceDate']).value,
       dueDate: this.editForm.get(['dueDate']).value,
@@ -154,8 +147,7 @@ export class InvoiceUpdateComponent implements OnInit {
       userIdModified: this.editForm.get(['userIdModified']).value,
       customer: this.editForm.get(['customer']).value,
       terms: this.editForm.get(['terms']).value,
-      employee: this.editForm.get(['employee']).value,
-      company: this.editForm.get(['company']).value
+      employee: this.editForm.get(['employee']).value
     };
   }
 
@@ -184,10 +176,6 @@ export class InvoiceUpdateComponent implements OnInit {
   }
 
   trackEmployeeById(index: number, item: IEmployee) {
-    return item.id;
-  }
-
-  trackCompanyById(index: number, item: ICompany) {
     return item.id;
   }
 }

@@ -16,6 +16,7 @@
       "detail": {
         "title": "Invoice Line"
       },
+      "companyId": "Company Id",
       "displayOrder": "Display Order",
       "itemName": "Item Name",
       "unitName": "Unit Name",
@@ -26,8 +27,7 @@
       "accountNumber": "Account Number",
       "status": "Status",
       "invoice": "Invoice",
-      "item": "Item",
-      "company": "Company"
+      "item": "Item"
     }
   }
 }

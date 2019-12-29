@@ -39,6 +39,7 @@ describe('Employee e2e test', () => {
 
     await employeeComponentsPage.clickOnCreateButton();
     await promise.all([
+      employeeUpdatePage.setCompanyIdInput('5'),
       employeeUpdatePage.setCodeInput('code'),
       employeeUpdatePage.setFullNameInput('fullName'),
       employeeUpdatePage.setSexInput('5'),
@@ -55,7 +56,7 @@ describe('Employee e2e test', () => {
       employeeUpdatePage.setPhoneInput('phone'),
       employeeUpdatePage.setMobileInput('mobile'),
       employeeUpdatePage.setEmailInput(
-        'o`I2T2w&lt;Ne,N;Nt8ZC4p&amp;3C)g`Nr}Zk4&amp;&gt;P&#34;LsS~ds9Uo+~^8r_y,=]B2zxLDi@Ml*.kc/M~!a&gt;*p6+FMTAqDmhHkN#*Cs&lt;*_uQ$ZqsU&lt;pY5J&lt;MBx=fU&gt;aHjAU`NG3!vWz3Bm?2:A;.m=D`Xs&#39;jbzkX9k/bt7iVOf~k)euR+pWT}{z1QFbmS`Y$+]KE!dAy&#34;ar2&#39;FZ%M;v{g:!;rpB8b!\tV7;:nd^t&#34;&gt;pJjEVd'
+        'Xosajs*yIX~y}ujD!;6N|A,bW~ep*$2+UoK&amp;!&gt;Dz{#5DxX&amp;2A@UC[eA0Z50FZ&#34;J]&lt;D++Ygtfa.|L*M{}DvX`ic.wgZQx?m#&gt;&#34;8zc{ndjEZd|E^|NJWE&#39;+hxF(d.S;AEp&amp;o$5/&#39;&#39;eNNWysCYMkLDHK&gt;y-|G3B+i`-BU7{9Cz&#39;-g&lt;I2YD*LA*h$v&#39;m&lt;'
       ),
       employeeUpdatePage.setBankAccountInput('bankAccount'),
       employeeUpdatePage.setBankNameInput('bankName'),
@@ -64,9 +65,9 @@ describe('Employee e2e test', () => {
       employeeUpdatePage.setTimeModifiedInput('01/01/2001' + protractor.Key.TAB + '02:30AM'),
       employeeUpdatePage.setUserIdCreatedInput('5'),
       employeeUpdatePage.setUserIdModifiedInput('5'),
-      employeeUpdatePage.departmentSelectLastOption(),
-      employeeUpdatePage.companySelectLastOption()
+      employeeUpdatePage.departmentSelectLastOption()
     ]);
+    expect(await employeeUpdatePage.getCompanyIdInput()).to.eq('5', 'Expected companyId value to be equals to 5');
     expect(await employeeUpdatePage.getCodeInput()).to.eq('code', 'Expected Code value to be equals to code');
     expect(await employeeUpdatePage.getFullNameInput()).to.eq('fullName', 'Expected FullName value to be equals to fullName');
     expect(await employeeUpdatePage.getSexInput()).to.eq('5', 'Expected sex value to be equals to 5');
@@ -89,8 +90,8 @@ describe('Employee e2e test', () => {
     expect(await employeeUpdatePage.getPhoneInput()).to.eq('phone', 'Expected Phone value to be equals to phone');
     expect(await employeeUpdatePage.getMobileInput()).to.eq('mobile', 'Expected Mobile value to be equals to mobile');
     expect(await employeeUpdatePage.getEmailInput()).to.eq(
-      'o`I2T2w&lt;Ne,N;Nt8ZC4p&amp;3C)g`Nr}Zk4&amp;&gt;P&#34;LsS~ds9Uo+~^8r_y,=]B2zxLDi@Ml*.kc/M~!a&gt;*p6+FMTAqDmhHkN#*Cs&lt;*_uQ$ZqsU&lt;pY5J&lt;MBx=fU&gt;aHjAU`NG3!vWz3Bm?2:A;.m=D`Xs&#39;jbzkX9k/bt7iVOf~k)euR+pWT}{z1QFbmS`Y$+]KE!dAy&#34;ar2&#39;FZ%M;v{g:!;rpB8b!\tV7;:nd^t&#34;&gt;pJjEVd',
-      'Expected Email value to be equals to o`I2T2w&lt;Ne,N;Nt8ZC4p&amp;3C)g`Nr}Zk4&amp;&gt;P&#34;LsS~ds9Uo+~^8r_y,=]B2zxLDi@Ml*.kc/M~!a&gt;*p6+FMTAqDmhHkN#*Cs&lt;*_uQ$ZqsU&lt;pY5J&lt;MBx=fU&gt;aHjAU`NG3!vWz3Bm?2:A;.m=D`Xs&#39;jbzkX9k/bt7iVOf~k)euR+pWT}{z1QFbmS`Y$+]KE!dAy&#34;ar2&#39;FZ%M;v{g:!;rpB8b!\tV7;:nd^t&#34;&gt;pJjEVd'
+      'Xosajs*yIX~y}ujD!;6N|A,bW~ep*$2+UoK&amp;!&gt;Dz{#5DxX&amp;2A@UC[eA0Z50FZ&#34;J]&lt;D++Ygtfa.|L*M{}DvX`ic.wgZQx?m#&gt;&#34;8zc{ndjEZd|E^|NJWE&#39;+hxF(d.S;AEp&amp;o$5/&#39;&#39;eNNWysCYMkLDHK&gt;y-|G3B+i`-BU7{9Cz&#39;-g&lt;I2YD*LA*h$v&#39;m&lt;',
+      'Expected Email value to be equals to Xosajs*yIX~y}ujD!;6N|A,bW~ep*$2+UoK&amp;!&gt;Dz{#5DxX&amp;2A@UC[eA0Z50FZ&#34;J]&lt;D++Ygtfa.|L*M{}DvX`ic.wgZQx?m#&gt;&#34;8zc{ndjEZd|E^|NJWE&#39;+hxF(d.S;AEp&amp;o$5/&#39;&#39;eNNWysCYMkLDHK&gt;y-|G3B+i`-BU7{9Cz&#39;-g&lt;I2YD*LA*h$v&#39;m&lt;'
     );
     expect(await employeeUpdatePage.getBankAccountInput()).to.eq('bankAccount', 'Expected BankAccount value to be equals to bankAccount');
     expect(await employeeUpdatePage.getBankNameInput()).to.eq('bankName', 'Expected BankName value to be equals to bankName');

@@ -115,54 +115,6 @@ public class CompanyQueryService extends QueryService<Company> {
             if (criteria.getUserId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getUserId(), Company_.userId));
             }
-            if (criteria.getCustomerTypeId() != null) {
-                specification = specification.and(buildSpecification(criteria.getCustomerTypeId(),
-                    root -> root.join(Company_.customerTypes, JoinType.LEFT).get(CustomerType_.id)));
-            }
-            if (criteria.getCustomerId() != null) {
-                specification = specification.and(buildSpecification(criteria.getCustomerId(),
-                    root -> root.join(Company_.customers, JoinType.LEFT).get(Customer_.id)));
-            }
-            if (criteria.getStoreId() != null) {
-                specification = specification.and(buildSpecification(criteria.getStoreId(),
-                    root -> root.join(Company_.stores, JoinType.LEFT).get(Store_.id)));
-            }
-            if (criteria.getDepartmentId() != null) {
-                specification = specification.and(buildSpecification(criteria.getDepartmentId(),
-                    root -> root.join(Company_.departments, JoinType.LEFT).get(Department_.id)));
-            }
-            if (criteria.getJobsId() != null) {
-                specification = specification.and(buildSpecification(criteria.getJobsId(),
-                    root -> root.join(Company_.jobs, JoinType.LEFT).get(Jobs_.id)));
-            }
-            if (criteria.getJobTypeId() != null) {
-                specification = specification.and(buildSpecification(criteria.getJobTypeId(),
-                    root -> root.join(Company_.jobTypes, JoinType.LEFT).get(JobType_.id)));
-            }
-            if (criteria.getEmployeeId() != null) {
-                specification = specification.and(buildSpecification(criteria.getEmployeeId(),
-                    root -> root.join(Company_.employees, JoinType.LEFT).get(Employee_.id)));
-            }
-            if (criteria.getItemId() != null) {
-                specification = specification.and(buildSpecification(criteria.getItemId(),
-                    root -> root.join(Company_.items, JoinType.LEFT).get(Item_.id)));
-            }
-            if (criteria.getItemGroupId() != null) {
-                specification = specification.and(buildSpecification(criteria.getItemGroupId(),
-                    root -> root.join(Company_.itemGroups, JoinType.LEFT).get(ItemGroup_.id)));
-            }
-            if (criteria.getUnitId() != null) {
-                specification = specification.and(buildSpecification(criteria.getUnitId(),
-                    root -> root.join(Company_.units, JoinType.LEFT).get(Unit_.id)));
-            }
-            if (criteria.getInvoiceId() != null) {
-                specification = specification.and(buildSpecification(criteria.getInvoiceId(),
-                    root -> root.join(Company_.invoices, JoinType.LEFT).get(Invoice_.id)));
-            }
-            if (criteria.getInvoiceLineId() != null) {
-                specification = specification.and(buildSpecification(criteria.getInvoiceLineId(),
-                    root -> root.join(Company_.invoiceLines, JoinType.LEFT).get(InvoiceLine_.id)));
-            }
             if (criteria.getIndustryId() != null) {
                 specification = specification.and(buildSpecification(criteria.getIndustryId(),
                     root -> root.join(Company_.industry, JoinType.LEFT).get(Industry_.id)));

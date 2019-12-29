@@ -85,6 +85,9 @@ public class CustomerTypeQueryService extends QueryService<CustomerType> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), CustomerType_.id));
             }
+            if (criteria.getCompanyId() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getCompanyId(), CustomerType_.companyId));
+            }
             if (criteria.getName() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getName(), CustomerType_.name));
             }
@@ -97,10 +100,6 @@ public class CustomerTypeQueryService extends QueryService<CustomerType> {
             if (criteria.getCustomerId() != null) {
                 specification = specification.and(buildSpecification(criteria.getCustomerId(),
                     root -> root.join(CustomerType_.customers, JoinType.LEFT).get(Customer_.id)));
-            }
-            if (criteria.getCompanyId() != null) {
-                specification = specification.and(buildSpecification(criteria.getCompanyId(),
-                    root -> root.join(CustomerType_.company, JoinType.LEFT).get(Company_.id)));
             }
         }
         return specification;

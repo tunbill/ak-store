@@ -11,6 +11,7 @@ import io.github.jhipster.service.filter.FloatFilter;
 import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
+import io.github.jhipster.service.filter.BigDecimalFilter;
 
 /**
  * Criteria class for the {@link com.ak.domain.InvoiceLine} entity. This class is used
@@ -45,19 +46,21 @@ public class InvoiceLineCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
+    private LongFilter companyId;
+
     private IntegerFilter displayOrder;
 
     private StringFilter itemName;
 
     private StringFilter unitName;
 
-    private DoubleFilter quantity;
+    private BigDecimalFilter quantity;
 
-    private DoubleFilter rate;
+    private BigDecimalFilter rate;
 
-    private DoubleFilter amount;
+    private BigDecimalFilter amount;
 
-    private DoubleFilter discountPct;
+    private BigDecimalFilter discountPct;
 
     private StringFilter accountNumber;
 
@@ -67,13 +70,12 @@ public class InvoiceLineCriteria implements Serializable, Criteria {
 
     private LongFilter itemId;
 
-    private LongFilter companyId;
-
     public InvoiceLineCriteria(){
     }
 
     public InvoiceLineCriteria(InvoiceLineCriteria other){
         this.id = other.id == null ? null : other.id.copy();
+        this.companyId = other.companyId == null ? null : other.companyId.copy();
         this.displayOrder = other.displayOrder == null ? null : other.displayOrder.copy();
         this.itemName = other.itemName == null ? null : other.itemName.copy();
         this.unitName = other.unitName == null ? null : other.unitName.copy();
@@ -85,7 +87,6 @@ public class InvoiceLineCriteria implements Serializable, Criteria {
         this.status = other.status == null ? null : other.status.copy();
         this.invoiceId = other.invoiceId == null ? null : other.invoiceId.copy();
         this.itemId = other.itemId == null ? null : other.itemId.copy();
-        this.companyId = other.companyId == null ? null : other.companyId.copy();
     }
 
     @Override
@@ -99,6 +100,14 @@ public class InvoiceLineCriteria implements Serializable, Criteria {
 
     public void setId(LongFilter id) {
         this.id = id;
+    }
+
+    public LongFilter getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(LongFilter companyId) {
+        this.companyId = companyId;
     }
 
     public IntegerFilter getDisplayOrder() {
@@ -125,35 +134,35 @@ public class InvoiceLineCriteria implements Serializable, Criteria {
         this.unitName = unitName;
     }
 
-    public DoubleFilter getQuantity() {
+    public BigDecimalFilter getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(DoubleFilter quantity) {
+    public void setQuantity(BigDecimalFilter quantity) {
         this.quantity = quantity;
     }
 
-    public DoubleFilter getRate() {
+    public BigDecimalFilter getRate() {
         return rate;
     }
 
-    public void setRate(DoubleFilter rate) {
+    public void setRate(BigDecimalFilter rate) {
         this.rate = rate;
     }
 
-    public DoubleFilter getAmount() {
+    public BigDecimalFilter getAmount() {
         return amount;
     }
 
-    public void setAmount(DoubleFilter amount) {
+    public void setAmount(BigDecimalFilter amount) {
         this.amount = amount;
     }
 
-    public DoubleFilter getDiscountPct() {
+    public BigDecimalFilter getDiscountPct() {
         return discountPct;
     }
 
-    public void setDiscountPct(DoubleFilter discountPct) {
+    public void setDiscountPct(BigDecimalFilter discountPct) {
         this.discountPct = discountPct;
     }
 
@@ -189,14 +198,6 @@ public class InvoiceLineCriteria implements Serializable, Criteria {
         this.itemId = itemId;
     }
 
-    public LongFilter getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(LongFilter companyId) {
-        this.companyId = companyId;
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -209,6 +210,7 @@ public class InvoiceLineCriteria implements Serializable, Criteria {
         final InvoiceLineCriteria that = (InvoiceLineCriteria) o;
         return
             Objects.equals(id, that.id) &&
+            Objects.equals(companyId, that.companyId) &&
             Objects.equals(displayOrder, that.displayOrder) &&
             Objects.equals(itemName, that.itemName) &&
             Objects.equals(unitName, that.unitName) &&
@@ -219,14 +221,14 @@ public class InvoiceLineCriteria implements Serializable, Criteria {
             Objects.equals(accountNumber, that.accountNumber) &&
             Objects.equals(status, that.status) &&
             Objects.equals(invoiceId, that.invoiceId) &&
-            Objects.equals(itemId, that.itemId) &&
-            Objects.equals(companyId, that.companyId);
+            Objects.equals(itemId, that.itemId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
         id,
+        companyId,
         displayOrder,
         itemName,
         unitName,
@@ -237,8 +239,7 @@ public class InvoiceLineCriteria implements Serializable, Criteria {
         accountNumber,
         status,
         invoiceId,
-        itemId,
-        companyId
+        itemId
         );
     }
 
@@ -246,6 +247,7 @@ public class InvoiceLineCriteria implements Serializable, Criteria {
     public String toString() {
         return "InvoiceLineCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
+                (companyId != null ? "companyId=" + companyId + ", " : "") +
                 (displayOrder != null ? "displayOrder=" + displayOrder + ", " : "") +
                 (itemName != null ? "itemName=" + itemName + ", " : "") +
                 (unitName != null ? "unitName=" + unitName + ", " : "") +
@@ -257,7 +259,6 @@ public class InvoiceLineCriteria implements Serializable, Criteria {
                 (status != null ? "status=" + status + ", " : "") +
                 (invoiceId != null ? "invoiceId=" + invoiceId + ", " : "") +
                 (itemId != null ? "itemId=" + itemId + ", " : "") +
-                (companyId != null ? "companyId=" + companyId + ", " : "") +
             "}";
     }
 

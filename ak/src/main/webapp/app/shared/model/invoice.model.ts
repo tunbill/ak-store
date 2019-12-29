@@ -3,11 +3,11 @@ import { IInvoiceLine } from 'app/shared/model/invoice-line.model';
 import { ICustomer } from 'app/shared/model/customer.model';
 import { ITerms } from 'app/shared/model/terms.model';
 import { IEmployee } from 'app/shared/model/employee.model';
-import { ICompany } from 'app/shared/model/company.model';
 import { ProcessStatus } from 'app/shared/model/enumerations/process-status.model';
 
 export interface IInvoice {
   id?: number;
+  companyId?: number;
   invoiceNo?: string;
   invoiceDate?: Moment;
   dueDate?: Moment;
@@ -28,12 +28,12 @@ export interface IInvoice {
   customer?: ICustomer;
   terms?: ITerms;
   employee?: IEmployee;
-  company?: ICompany;
 }
 
 export class Invoice implements IInvoice {
   constructor(
     public id?: number,
+    public companyId?: number,
     public invoiceNo?: string,
     public invoiceDate?: Moment,
     public dueDate?: Moment,
@@ -53,7 +53,6 @@ export class Invoice implements IInvoice {
     public invoiceLines?: IInvoiceLine[],
     public customer?: ICustomer,
     public terms?: ITerms,
-    public employee?: IEmployee,
-    public company?: ICompany
+    public employee?: IEmployee
   ) {}
 }

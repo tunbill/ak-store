@@ -39,10 +39,11 @@ describe('JobType e2e test', () => {
 
     await jobTypeComponentsPage.clickOnCreateButton();
     await promise.all([
+      jobTypeUpdatePage.setCompanyIdInput('5'),
       jobTypeUpdatePage.setCodeInput('code'),
-      jobTypeUpdatePage.setNameInput('name'),
-      jobTypeUpdatePage.companySelectLastOption()
+      jobTypeUpdatePage.setNameInput('name')
     ]);
+    expect(await jobTypeUpdatePage.getCompanyIdInput()).to.eq('5', 'Expected companyId value to be equals to 5');
     expect(await jobTypeUpdatePage.getCodeInput()).to.eq('code', 'Expected Code value to be equals to code');
     expect(await jobTypeUpdatePage.getNameInput()).to.eq('name', 'Expected Name value to be equals to name');
     await jobTypeUpdatePage.save();

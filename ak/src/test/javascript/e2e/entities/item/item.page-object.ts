@@ -26,6 +26,7 @@ export class ItemUpdatePage {
   pageTitle = element(by.id('ak-item-heading'));
   saveButton = element(by.id('save-entity'));
   cancelButton = element(by.id('cancel-save'));
+  companyIdInput = element(by.id('field_companyId'));
   codeInput = element(by.id('field_code'));
   nameInput = element(by.id('field_name'));
   descriptionInput = element(by.id('field_description'));
@@ -63,10 +64,17 @@ export class ItemUpdatePage {
   unitSelect = element(by.id('field_unit'));
   itemGroupSelect = element(by.id('field_itemGroup'));
   storeSelect = element(by.id('field_store'));
-  companySelect = element(by.id('field_company'));
 
   async getPageTitle() {
     return this.pageTitle.getAttribute('jhiTranslate');
+  }
+
+  async setCompanyIdInput(companyId) {
+    await this.companyIdInput.sendKeys(companyId);
+  }
+
+  async getCompanyIdInput() {
+    return await this.companyIdInput.getAttribute('value');
   }
 
   async setCodeInput(code) {
@@ -407,25 +415,6 @@ export class ItemUpdatePage {
 
   async getStoreSelectedOption() {
     return await this.storeSelect.element(by.css('option:checked')).getText();
-  }
-
-  async companySelectLastOption() {
-    await this.companySelect
-      .all(by.tagName('option'))
-      .last()
-      .click();
-  }
-
-  async companySelectOption(option) {
-    await this.companySelect.sendKeys(option);
-  }
-
-  getCompanySelect(): ElementFinder {
-    return this.companySelect;
-  }
-
-  async getCompanySelectedOption() {
-    return await this.companySelect.element(by.css('option:checked')).getText();
   }
 
   async save() {

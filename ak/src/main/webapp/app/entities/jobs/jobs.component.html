@@ -19,6 +19,7 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="companyId"><span jhiTranslate="akApp.jobs.companyId">Company Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="code"><span jhiTranslate="akApp.jobs.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="name"><span jhiTranslate="akApp.jobs.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="status"><span jhiTranslate="akApp.jobs.status">Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -29,13 +30,13 @@
             <th scope="col"  jhiSortBy="address"><span jhiTranslate="akApp.jobs.address">Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="notes"><span jhiTranslate="akApp.jobs.notes">Notes</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="jobType.id"><span jhiTranslate="akApp.jobs.jobType">Job Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="company.id"><span jhiTranslate="akApp.jobs.company">Company</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let jobs of jobs ;trackBy: trackId">
                 <td><a [routerLink]="['/jobs', jobs.id, 'view' ]">{{jobs.id}}</a></td>
+                <td>{{jobs.companyId}}</td>
                 <td>{{jobs.code}}</td>
                 <td>{{jobs.name}}</td>
                 <td>{{jobs.status}}</td>
@@ -48,11 +49,6 @@
                 <td>
                     <div *ngIf="jobs.jobType">
                         <a [routerLink]="['/job-type', jobs.jobType?.id, 'view' ]" >{{jobs.jobType?.id}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="jobs.company">
-                        <a [routerLink]="['/company', jobs.company?.id, 'view' ]" >{{jobs.company?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

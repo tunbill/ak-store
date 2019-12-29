@@ -29,6 +29,7 @@ describe('Service Tests', () => {
 
       elemDefault = new Item(
         0,
+        0,
         'AAAAAAA',
         'AAAAAAA',
         'AAAAAAA',
@@ -114,6 +115,7 @@ describe('Service Tests', () => {
       it('should update a Item', () => {
         const returnedFromService = Object.assign(
           {
+            companyId: 1,
             code: 'BBBBBB',
             name: 'BBBBBB',
             description: 'BBBBBB',
@@ -171,6 +173,7 @@ describe('Service Tests', () => {
       it('should return a list of Item', () => {
         const returnedFromService = Object.assign(
           {
+            companyId: 1,
             code: 'BBBBBB',
             name: 'BBBBBB',
             description: 'BBBBBB',

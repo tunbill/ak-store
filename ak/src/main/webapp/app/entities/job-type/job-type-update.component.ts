@@ -5,11 +5,8 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { JhiAlertService } from 'ng-jhipster';
 import { IJobType, JobType } from 'app/shared/model/job-type.model';
 import { JobTypeService } from './job-type.service';
-import { ICompany } from 'app/shared/model/company.model';
-import { CompanyService } from 'app/entities/company/company.service';
 
 @Component({
   selector: 'ak-job-type-update',
@@ -18,39 +15,28 @@ import { CompanyService } from 'app/entities/company/company.service';
 export class JobTypeUpdateComponent implements OnInit {
   isSaving: boolean;
 
-  companies: ICompany[];
-
   editForm = this.fb.group({
     id: [],
+    companyId: [],
     code: [null, [Validators.maxLength(20)]],
-    name: [null, [Validators.required, Validators.maxLength(100)]],
-    company: []
+    name: [null, [Validators.required, Validators.maxLength(100)]]
   });
 
-  constructor(
-    protected jhiAlertService: JhiAlertService,
-    protected jobTypeService: JobTypeService,
-    protected companyService: CompanyService,
-    protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
-  ) {}
+  constructor(protected jobTypeService: JobTypeService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ jobType }) => {
       this.updateForm(jobType);
     });
-    this.companyService
-      .query()
-      .subscribe((res: HttpResponse<ICompany[]>) => (this.companies = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(jobType: IJobType) {
     this.editForm.patchValue({
       id: jobType.id,
+      companyId: jobType.companyId,
       code: jobType.code,
-      name: jobType.name,
-      company: jobType.company
+      name: jobType.name
     });
   }
 
@@ -72,9 +58,9 @@ export class JobTypeUpdateComponent implements OnInit {
     return {
       ...new JobType(),
       id: this.editForm.get(['id']).value,
+      companyId: this.editForm.get(['companyId']).value,
       code: this.editForm.get(['code']).value,
-      name: this.editForm.get(['name']).value,
-      company: this.editForm.get(['company']).value
+      name: this.editForm.get(['name']).value
     };
   }
 
@@ -89,12 +75,5 @@ export class JobTypeUpdateComponent implements OnInit {
 
   protected onSaveError() {
     this.isSaving = false;
-  }
-  protected onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
-  }
-
-  trackCompanyById(index: number, item: ICompany) {
-    return item.id;
   }
 }

@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(StoreService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new Store(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new Store(0, 0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -56,6 +56,7 @@ describe('Service Tests', () => {
       it('should update a Store', () => {
         const returnedFromService = Object.assign(
           {
+            companyId: 1,
             code: 'BBBBBB',
             name: 'BBBBBB',
             address: 'BBBBBB'
@@ -76,6 +77,7 @@ describe('Service Tests', () => {
       it('should return a list of Store', () => {
         const returnedFromService = Object.assign(
           {
+            companyId: 1,
             code: 'BBBBBB',
             name: 'BBBBBB',
             address: 'BBBBBB'

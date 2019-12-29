@@ -85,6 +85,9 @@ public class InvoiceLineQueryService extends QueryService<InvoiceLine> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), InvoiceLine_.id));
             }
+            if (criteria.getCompanyId() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getCompanyId(), InvoiceLine_.companyId));
+            }
             if (criteria.getDisplayOrder() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getDisplayOrder(), InvoiceLine_.displayOrder));
             }
@@ -119,10 +122,6 @@ public class InvoiceLineQueryService extends QueryService<InvoiceLine> {
             if (criteria.getItemId() != null) {
                 specification = specification.and(buildSpecification(criteria.getItemId(),
                     root -> root.join(InvoiceLine_.item, JoinType.LEFT).get(Item_.id)));
-            }
-            if (criteria.getCompanyId() != null) {
-                specification = specification.and(buildSpecification(criteria.getCompanyId(),
-                    root -> root.join(InvoiceLine_.company, JoinType.LEFT).get(Company_.id)));
             }
         }
         return specification;

@@ -39,6 +39,7 @@ describe('Customer e2e test', () => {
 
     await customerComponentsPage.clickOnCreateButton();
     await promise.all([
+      customerUpdatePage.setCompanyIdInput('5'),
       customerUpdatePage.setVendorIdInput('5'),
       customerUpdatePage.setCodeInput('code'),
       customerUpdatePage.setCompanyNameInput('companyName'),
@@ -47,7 +48,7 @@ describe('Customer e2e test', () => {
       customerUpdatePage.setMobileInput('mobile'),
       customerUpdatePage.setFaxInput('fax'),
       customerUpdatePage.setEmailInput(
-        'fT]&#34;f4LIf#T{!2j;A~^m,wq%,7&#34;]X_Tem31mC71@!TMA!On1=mgV+\b)pt)`?dN34l(8;8[;4XeMb-(*zG}FLFNZRqm`9zW&#34;?WV1cbtId?cJa)R6Eln~Ge.}X3&lt;}wQ5Z&lt;MGh$uk(*eoriWphE~&amp;q(UYl[XZRqY'
+        'vqx+8(&#34;&gt;99@f,jrHx!C}Q(&gt;j2EI?ZbQ(&#39;.Lr=aEX%3B!(sRyBG#m=_&amp;.RxT4.D^yW:-Gy_gO5n;{&gt;F/F{)oWBcpbPSy26LMlI3NLXx5&amp;O)`4n]CM2poY6U6#$YIL1,|VSz}o&#34;bMg69V)?4lRm]MK&#39;Ar'
       ),
       customerUpdatePage.setTaxCodeInput('taxCode'),
       customerUpdatePage.setAccountNumberInput('accountNumber'),
@@ -65,9 +66,9 @@ describe('Customer e2e test', () => {
       customerUpdatePage.setUserIdCreatedInput('5'),
       customerUpdatePage.setUserIdModifiedInput('5'),
       customerUpdatePage.customerTypeSelectLastOption(),
-      customerUpdatePage.termsSelectLastOption(),
-      customerUpdatePage.companySelectLastOption()
+      customerUpdatePage.termsSelectLastOption()
     ]);
+    expect(await customerUpdatePage.getCompanyIdInput()).to.eq('5', 'Expected companyId value to be equals to 5');
     const selectedIsVendor = customerUpdatePage.getIsVendorInput();
     if (await selectedIsVendor.isSelected()) {
       await customerUpdatePage.getIsVendorInput().click();
@@ -84,8 +85,8 @@ describe('Customer e2e test', () => {
     expect(await customerUpdatePage.getMobileInput()).to.eq('mobile', 'Expected Mobile value to be equals to mobile');
     expect(await customerUpdatePage.getFaxInput()).to.eq('fax', 'Expected Fax value to be equals to fax');
     expect(await customerUpdatePage.getEmailInput()).to.eq(
-      'fT]&#34;f4LIf#T{!2j;A~^m,wq%,7&#34;]X_Tem31mC71@!TMA!On1=mgV+\b)pt)`?dN34l(8;8[;4XeMb-(*zG}FLFNZRqm`9zW&#34;?WV1cbtId?cJa)R6Eln~Ge.}X3&lt;}wQ5Z&lt;MGh$uk(*eoriWphE~&amp;q(UYl[XZRqY',
-      'Expected Email value to be equals to fT]&#34;f4LIf#T{!2j;A~^m,wq%,7&#34;]X_Tem31mC71@!TMA!On1=mgV+\b)pt)`?dN34l(8;8[;4XeMb-(*zG}FLFNZRqm`9zW&#34;?WV1cbtId?cJa)R6Eln~Ge.}X3&lt;}wQ5Z&lt;MGh$uk(*eoriWphE~&amp;q(UYl[XZRqY'
+      'vqx+8(&#34;&gt;99@f,jrHx!C}Q(&gt;j2EI?ZbQ(&#39;.Lr=aEX%3B!(sRyBG#m=_&amp;.RxT4.D^yW:-Gy_gO5n;{&gt;F/F{)oWBcpbPSy26LMlI3NLXx5&amp;O)`4n]CM2poY6U6#$YIL1,|VSz}o&#34;bMg69V)?4lRm]MK&#39;Ar',
+      'Expected Email value to be equals to vqx+8(&#34;&gt;99@f,jrHx!C}Q(&gt;j2EI?ZbQ(&#39;.Lr=aEX%3B!(sRyBG#m=_&amp;.RxT4.D^yW:-Gy_gO5n;{&gt;F/F{)oWBcpbPSy26LMlI3NLXx5&amp;O)`4n]CM2poY6U6#$YIL1,|VSz}o&#34;bMg69V)?4lRm]MK&#39;Ar'
     );
     expect(await customerUpdatePage.getTaxCodeInput()).to.eq('taxCode', 'Expected TaxCode value to be equals to taxCode');
     expect(await customerUpdatePage.getAccountNumberInput()).to.eq(

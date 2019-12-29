@@ -16,11 +16,11 @@
       "detail": {
         "title": "Customer Type"
       },
+      "companyId": "Company Id",
       "name": "Name",
       "description": "Description",
       "isActive": "Is Active",
-      "customer": "Customer",
-      "company": "Company"
+      "customer": "Customer"
     }
   }
 }

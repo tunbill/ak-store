@@ -5,6 +5,10 @@
             <hr>
             <ak-alert-error></ak-alert-error>
             <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="akApp.store.companyId">Company Id</span></dt>
+                <dd>
+                    <span>{{store.companyId}}</span>
+                </dd>
                 <dt><span jhiTranslate="akApp.store.code">Code</span></dt>
                 <dd>
                     <span>{{store.code}}</span>
@@ -16,12 +20,6 @@
                 <dt><span jhiTranslate="akApp.store.address">Address</span></dt>
                 <dd>
                     <span>{{store.address}}</span>
-                </dd>
-                <dt><span jhiTranslate="akApp.store.company">Company</span></dt>
-                <dd>
-                    <div *ngIf="store.company">
-                        <a [routerLink]="['/company', store.company?.id, 'view']">{{store.company?.id}}</a>
-                    </div>
                 </dd>
             </dl>
 

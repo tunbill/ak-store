@@ -5,11 +5,8 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { JhiAlertService } from 'ng-jhipster';
 import { IDepartment, Department } from 'app/shared/model/department.model';
 import { DepartmentService } from './department.service';
-import { ICompany } from 'app/shared/model/company.model';
-import { CompanyService } from 'app/entities/company/company.service';
 
 @Component({
   selector: 'ak-department-update',
@@ -18,39 +15,28 @@ import { CompanyService } from 'app/entities/company/company.service';
 export class DepartmentUpdateComponent implements OnInit {
   isSaving: boolean;
 
-  companies: ICompany[];
-
   editForm = this.fb.group({
     id: [],
+    companyId: [],
     code: [null, [Validators.maxLength(20)]],
-    name: [null, [Validators.required, Validators.maxLength(100)]],
-    company: []
+    name: [null, [Validators.required, Validators.maxLength(100)]]
   });
 
-  constructor(
-    protected jhiAlertService: JhiAlertService,
-    protected departmentService: DepartmentService,
-    protected companyService: CompanyService,
-    protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
-  ) {}
+  constructor(protected departmentService: DepartmentService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ department }) => {
       this.updateForm(department);
     });
-    this.companyService
-      .query()
-      .subscribe((res: HttpResponse<ICompany[]>) => (this.companies = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(department: IDepartment) {
     this.editForm.patchValue({
       id: department.id,
+      companyId: department.companyId,
       code: department.code,
-      name: department.name,
-      company: department.company
+      name: department.name
     });
   }
 
@@ -72,9 +58,9 @@ export class DepartmentUpdateComponent implements OnInit {
     return {
       ...new Department(),
       id: this.editForm.get(['id']).value,
+      companyId: this.editForm.get(['companyId']).value,
       code: this.editForm.get(['code']).value,
-      name: this.editForm.get(['name']).value,
-      company: this.editForm.get(['company']).value
+      name: this.editForm.get(['name']).value
     };
   }
 
@@ -89,12 +75,5 @@ export class DepartmentUpdateComponent implements OnInit {
 
   protected onSaveError() {
     this.isSaving = false;
-  }
-  protected onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
-  }
-
-  trackCompanyById(index: number, item: ICompany) {
-    return item.id;
   }
 }

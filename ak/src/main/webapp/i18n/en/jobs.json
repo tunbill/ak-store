@@ -16,6 +16,7 @@
       "detail": {
         "title": "Jobs"
       },
+      "companyId": "Company Id",
       "code": "Code",
       "name": "Name",
       "status": "Status",
@@ -25,8 +26,7 @@
       "investor": "Investor",
       "address": "Address",
       "notes": "Notes",
-      "jobType": "Job Type",
-      "company": "Company"
+      "jobType": "Job Type"
     }
   }
 }

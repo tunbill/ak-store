@@ -19,6 +19,7 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="companyId"><span jhiTranslate="akApp.item.companyId">Company Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="code"><span jhiTranslate="akApp.item.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="name"><span jhiTranslate="akApp.item.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="description"><span jhiTranslate="akApp.item.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -56,13 +57,13 @@
             <th scope="col"  jhiSortBy="unit.id"><span jhiTranslate="akApp.item.unit">Unit</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="itemGroup.id"><span jhiTranslate="akApp.item.itemGroup">Item Group</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="store.id"><span jhiTranslate="akApp.item.store">Store</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="company.id"><span jhiTranslate="akApp.item.company">Company</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let item of items ;trackBy: trackId">
                 <td><a [routerLink]="['/item', item.id, 'view' ]">{{item.id}}</a></td>
+                <td>{{item.companyId}}</td>
                 <td>{{item.code}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.description}}</td>
@@ -115,11 +116,6 @@
                 <td>
                     <div *ngIf="item.store">
                         <a [routerLink]="['/store', item.store?.id, 'view' ]" >{{item.store?.id}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="item.company">
-                        <a [routerLink]="['/company', item.company?.id, 'view' ]" >{{item.company?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

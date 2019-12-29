@@ -26,6 +26,8 @@ public class CustomerTypeCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
+    private LongFilter companyId;
+
     private StringFilter name;
 
     private StringFilter description;
@@ -34,18 +36,16 @@ public class CustomerTypeCriteria implements Serializable, Criteria {
 
     private LongFilter customerId;
 
-    private LongFilter companyId;
-
     public CustomerTypeCriteria(){
     }
 
     public CustomerTypeCriteria(CustomerTypeCriteria other){
         this.id = other.id == null ? null : other.id.copy();
+        this.companyId = other.companyId == null ? null : other.companyId.copy();
         this.name = other.name == null ? null : other.name.copy();
         this.description = other.description == null ? null : other.description.copy();
         this.isActive = other.isActive == null ? null : other.isActive.copy();
         this.customerId = other.customerId == null ? null : other.customerId.copy();
-        this.companyId = other.companyId == null ? null : other.companyId.copy();
     }
 
     @Override
@@ -59,6 +59,14 @@ public class CustomerTypeCriteria implements Serializable, Criteria {
 
     public void setId(LongFilter id) {
         this.id = id;
+    }
+
+    public LongFilter getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(LongFilter companyId) {
+        this.companyId = companyId;
     }
 
     public StringFilter getName() {
@@ -93,14 +101,6 @@ public class CustomerTypeCriteria implements Serializable, Criteria {
         this.customerId = customerId;
     }
 
-    public LongFilter getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(LongFilter companyId) {
-        this.companyId = companyId;
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -113,22 +113,22 @@ public class CustomerTypeCriteria implements Serializable, Criteria {
         final CustomerTypeCriteria that = (CustomerTypeCriteria) o;
         return
             Objects.equals(id, that.id) &&
+            Objects.equals(companyId, that.companyId) &&
             Objects.equals(name, that.name) &&
             Objects.equals(description, that.description) &&
             Objects.equals(isActive, that.isActive) &&
-            Objects.equals(customerId, that.customerId) &&
-            Objects.equals(companyId, that.companyId);
+            Objects.equals(customerId, that.customerId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
         id,
+        companyId,
         name,
         description,
         isActive,
-        customerId,
-        companyId
+        customerId
         );
     }
 
@@ -136,11 +136,11 @@ public class CustomerTypeCriteria implements Serializable, Criteria {
     public String toString() {
         return "CustomerTypeCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
+                (companyId != null ? "companyId=" + companyId + ", " : "") +
                 (name != null ? "name=" + name + ", " : "") +
                 (description != null ? "description=" + description + ", " : "") +
                 (isActive != null ? "isActive=" + isActive + ", " : "") +
                 (customerId != null ? "customerId=" + customerId + ", " : "") +
-                (companyId != null ? "companyId=" + companyId + ", " : "") +
             "}";
     }
 

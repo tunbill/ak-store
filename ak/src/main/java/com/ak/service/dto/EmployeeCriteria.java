@@ -10,6 +10,7 @@ import io.github.jhipster.service.filter.FloatFilter;
 import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
+import io.github.jhipster.service.filter.BigDecimalFilter;
 import io.github.jhipster.service.filter.InstantFilter;
 import io.github.jhipster.service.filter.LocalDateFilter;
 
@@ -27,6 +28,8 @@ public class EmployeeCriteria implements Serializable, Criteria {
     private static final long serialVersionUID = 1L;
 
     private LongFilter id;
+
+    private LongFilter companyId;
 
     private StringFilter code;
 
@@ -46,11 +49,11 @@ public class EmployeeCriteria implements Serializable, Criteria {
 
     private StringFilter taxCode;
 
-    private DoubleFilter salary;
+    private BigDecimalFilter salary;
 
-    private DoubleFilter salaryRate;
+    private BigDecimalFilter salaryRate;
 
-    private DoubleFilter salarySecurity;
+    private BigDecimalFilter salarySecurity;
 
     private IntegerFilter numOfDepends;
 
@@ -80,13 +83,12 @@ public class EmployeeCriteria implements Serializable, Criteria {
 
     private LongFilter departmentId;
 
-    private LongFilter companyId;
-
     public EmployeeCriteria(){
     }
 
     public EmployeeCriteria(EmployeeCriteria other){
         this.id = other.id == null ? null : other.id.copy();
+        this.companyId = other.companyId == null ? null : other.companyId.copy();
         this.code = other.code == null ? null : other.code.copy();
         this.fullName = other.fullName == null ? null : other.fullName.copy();
         this.sex = other.sex == null ? null : other.sex.copy();
@@ -113,7 +115,6 @@ public class EmployeeCriteria implements Serializable, Criteria {
         this.userIdModified = other.userIdModified == null ? null : other.userIdModified.copy();
         this.invoiceId = other.invoiceId == null ? null : other.invoiceId.copy();
         this.departmentId = other.departmentId == null ? null : other.departmentId.copy();
-        this.companyId = other.companyId == null ? null : other.companyId.copy();
     }
 
     @Override
@@ -127,6 +128,14 @@ public class EmployeeCriteria implements Serializable, Criteria {
 
     public void setId(LongFilter id) {
         this.id = id;
+    }
+
+    public LongFilter getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(LongFilter companyId) {
+        this.companyId = companyId;
     }
 
     public StringFilter getCode() {
@@ -201,27 +210,27 @@ public class EmployeeCriteria implements Serializable, Criteria {
         this.taxCode = taxCode;
     }
 
-    public DoubleFilter getSalary() {
+    public BigDecimalFilter getSalary() {
         return salary;
     }
 
-    public void setSalary(DoubleFilter salary) {
+    public void setSalary(BigDecimalFilter salary) {
         this.salary = salary;
     }
 
-    public DoubleFilter getSalaryRate() {
+    public BigDecimalFilter getSalaryRate() {
         return salaryRate;
     }
 
-    public void setSalaryRate(DoubleFilter salaryRate) {
+    public void setSalaryRate(BigDecimalFilter salaryRate) {
         this.salaryRate = salaryRate;
     }
 
-    public DoubleFilter getSalarySecurity() {
+    public BigDecimalFilter getSalarySecurity() {
         return salarySecurity;
     }
 
-    public void setSalarySecurity(DoubleFilter salarySecurity) {
+    public void setSalarySecurity(BigDecimalFilter salarySecurity) {
         this.salarySecurity = salarySecurity;
     }
 
@@ -337,14 +346,6 @@ public class EmployeeCriteria implements Serializable, Criteria {
         this.departmentId = departmentId;
     }
 
-    public LongFilter getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(LongFilter companyId) {
-        this.companyId = companyId;
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -357,6 +358,7 @@ public class EmployeeCriteria implements Serializable, Criteria {
         final EmployeeCriteria that = (EmployeeCriteria) o;
         return
             Objects.equals(id, that.id) &&
+            Objects.equals(companyId, that.companyId) &&
             Objects.equals(code, that.code) &&
             Objects.equals(fullName, that.fullName) &&
             Objects.equals(sex, that.sex) &&
@@ -382,14 +384,14 @@ public class EmployeeCriteria implements Serializable, Criteria {
             Objects.equals(userIdCreated, that.userIdCreated) &&
             Objects.equals(userIdModified, that.userIdModified) &&
             Objects.equals(invoiceId, that.invoiceId) &&
-            Objects.equals(departmentId, that.departmentId) &&
-            Objects.equals(companyId, that.companyId);
+            Objects.equals(departmentId, that.departmentId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
         id,
+        companyId,
         code,
         fullName,
         sex,
@@ -415,8 +417,7 @@ public class EmployeeCriteria implements Serializable, Criteria {
         userIdCreated,
         userIdModified,
         invoiceId,
-        departmentId,
-        companyId
+        departmentId
         );
     }
 
@@ -424,6 +425,7 @@ public class EmployeeCriteria implements Serializable, Criteria {
     public String toString() {
         return "EmployeeCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
+                (companyId != null ? "companyId=" + companyId + ", " : "") +
                 (code != null ? "code=" + code + ", " : "") +
                 (fullName != null ? "fullName=" + fullName + ", " : "") +
                 (sex != null ? "sex=" + sex + ", " : "") +
@@ -450,7 +452,6 @@ public class EmployeeCriteria implements Serializable, Criteria {
                 (userIdModified != null ? "userIdModified=" + userIdModified + ", " : "") +
                 (invoiceId != null ? "invoiceId=" + invoiceId + ", " : "") +
                 (departmentId != null ? "departmentId=" + departmentId + ", " : "") +
-                (companyId != null ? "companyId=" + companyId + ", " : "") +
             "}";
     }
 

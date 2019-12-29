@@ -1,5 +1,4 @@
 package com.ak.domain;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -24,6 +23,9 @@ public class CustomerType implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "company_id")
+    private Long companyId;
+
     @NotNull
     @Size(max = 100)
     @Column(name = "name", length = 100, nullable = false)
@@ -39,10 +41,6 @@ public class CustomerType implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Customer> customers = new HashSet<>();
 
-    @ManyToOne
-    @JsonIgnoreProperties("customerTypes")
-    private Company company;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -50,6 +48,19 @@ public class CustomerType implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public CustomerType companyId(Long companyId) {
+        this.companyId = companyId;
+        return this;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
     public String getName() {
@@ -115,19 +126,6 @@ public class CustomerType implements Serializable {
     public void setCustomers(Set<Customer> customers) {
         this.customers = customers;
     }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public CustomerType company(Company company) {
-        this.company = company;
-        return this;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -150,6 +148,7 @@ public class CustomerType implements Serializable {
     public String toString() {
         return "CustomerType{" +
             "id=" + getId() +
+            ", companyId=" + getCompanyId() +
             ", name='" + getName() + "'" +
             ", description='" + getDescription() + "'" +
             ", isActive='" + isIsActive() + "'" +

@@ -74,10 +74,8 @@ public class CustomerResource {
         
         Optional<String>  login = SecurityUtils.getCurrentUserLogin();
         Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
-        Company company = new Company();
-        company.setId(user.get().getCompanyId());
-        customer.setCompany(company);
-        
+        customer.setCompanyId(user.get().getCompanyId());
+
         Customer result = customerService.save(customer);
         return ResponseEntity.created(new URI("/api/customers/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -102,9 +100,7 @@ public class CustomerResource {
         
         Optional<String>  login = SecurityUtils.getCurrentUserLogin();
         Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
-        Company company = new Company();
-        company.setId(user.get().getCompanyId());
-        customer.setCompany(company);
+        customer.setCompanyId(user.get().getCompanyId());
 
         Customer result = customerService.save(customer);
         return ResponseEntity.ok()

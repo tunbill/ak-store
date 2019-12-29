@@ -26,6 +26,7 @@ describe('Service Tests', () => {
 
       elemDefault = new Customer(
         0,
+        0,
         false,
         0,
         'AAAAAAA',
@@ -104,6 +105,7 @@ describe('Service Tests', () => {
       it('should update a Customer', () => {
         const returnedFromService = Object.assign(
           {
+            companyId: 1,
             isVendor: true,
             vendorId: 1,
             code: 'BBBBBB',
@@ -153,6 +155,7 @@ describe('Service Tests', () => {
       it('should return a list of Customer', () => {
         const returnedFromService = Object.assign(
           {
+            companyId: 1,
             isVendor: true,
             vendorId: 1,
             code: 'BBBBBB',

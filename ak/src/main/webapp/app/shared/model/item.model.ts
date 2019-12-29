@@ -3,13 +3,13 @@ import { IInvoiceLine } from 'app/shared/model/invoice-line.model';
 import { IUnit } from 'app/shared/model/unit.model';
 import { IItemGroup } from 'app/shared/model/item-group.model';
 import { IStore } from 'app/shared/model/store.model';
-import { ICompany } from 'app/shared/model/company.model';
 import { ItemType } from 'app/shared/model/enumerations/item-type.model';
 import { VATTax } from 'app/shared/model/enumerations/vat-tax.model';
 import { PriceMethod } from 'app/shared/model/enumerations/price-method.model';
 
 export interface IItem {
   id?: number;
+  companyId?: number;
   code?: string;
   name?: string;
   description?: string;
@@ -49,12 +49,12 @@ export interface IItem {
   unit?: IUnit;
   itemGroup?: IItemGroup;
   store?: IStore;
-  company?: ICompany;
 }
 
 export class Item implements IItem {
   constructor(
     public id?: number,
+    public companyId?: number,
     public code?: string,
     public name?: string,
     public description?: string,
@@ -93,8 +93,7 @@ export class Item implements IItem {
     public invoiceLines?: IInvoiceLine[],
     public unit?: IUnit,
     public itemGroup?: IItemGroup,
-    public store?: IStore,
-    public company?: ICompany
+    public store?: IStore
   ) {
     this.isAllowModified = this.isAllowModified || false;
     this.isActive = this.isActive || false;

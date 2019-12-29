@@ -43,6 +43,7 @@ describe('Item e2e test', () => {
 
     await itemComponentsPage.clickOnCreateButton();
     await promise.all([
+      itemUpdatePage.setCompanyIdInput('5'),
       itemUpdatePage.setCodeInput('code'),
       itemUpdatePage.setNameInput('name'),
       itemUpdatePage.setDescriptionInput('description'),
@@ -77,9 +78,9 @@ describe('Item e2e test', () => {
       itemUpdatePage.setUserIdModifiedInput('5'),
       itemUpdatePage.unitSelectLastOption(),
       itemUpdatePage.itemGroupSelectLastOption(),
-      itemUpdatePage.storeSelectLastOption(),
-      itemUpdatePage.companySelectLastOption()
+      itemUpdatePage.storeSelectLastOption()
     ]);
+    expect(await itemUpdatePage.getCompanyIdInput()).to.eq('5', 'Expected companyId value to be equals to 5');
     expect(await itemUpdatePage.getCodeInput()).to.eq('code', 'Expected Code value to be equals to code');
     expect(await itemUpdatePage.getNameInput()).to.eq('name', 'Expected Name value to be equals to name');
     expect(await itemUpdatePage.getDescriptionInput()).to.eq('description', 'Expected Description value to be equals to description');

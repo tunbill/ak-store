@@ -10,6 +10,11 @@
                         readonly />
                 </div>
                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.customer.companyId" for="field_companyId">Company Id</label>
+                    <input type="number" class="form-control" name="companyId" id="field_companyId"
+                           formControlName="companyId"/>
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="akApp.customer.isVendor" for="field_isVendor">Is Vendor</label>
                     <input type="checkbox" class="form-control" name="isVendor" id="field_isVendor"
                            formControlName="isVendor"/>
@@ -218,13 +223,6 @@
                     <select class="form-control" id="field_terms" name="terms" formControlName="terms">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="termsOption.id === editForm.get('terms').value?.id ? editForm.get('terms').value : termsOption" *ngFor="let termsOption of terms; trackBy: trackTermsById">{{termsOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.company" for="field_company">Company</label>
-                    <select class="form-control" id="field_company" name="company" formControlName="company">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="companyOption.id === editForm.get('company').value?.id ? editForm.get('company').value : companyOption" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.id}}</option>
                     </select>
                 </div>
             </div>

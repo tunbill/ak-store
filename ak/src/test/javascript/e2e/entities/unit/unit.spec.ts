@@ -38,7 +38,8 @@ describe('Unit e2e test', () => {
     const nbButtonsBeforeCreate = await unitComponentsPage.countDeleteButtons();
 
     await unitComponentsPage.clickOnCreateButton();
-    await promise.all([unitUpdatePage.setCodeInput('code'), unitUpdatePage.setNameInput('name'), unitUpdatePage.companySelectLastOption()]);
+    await promise.all([unitUpdatePage.setCompanyIdInput('5'), unitUpdatePage.setCodeInput('code'), unitUpdatePage.setNameInput('name')]);
+    expect(await unitUpdatePage.getCompanyIdInput()).to.eq('5', 'Expected companyId value to be equals to 5');
     expect(await unitUpdatePage.getCodeInput()).to.eq('code', 'Expected Code value to be equals to code');
     expect(await unitUpdatePage.getNameInput()).to.eq('name', 'Expected Name value to be equals to name');
     await unitUpdatePage.save();

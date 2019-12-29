@@ -39,10 +39,11 @@ describe('ItemGroup e2e test', () => {
 
     await itemGroupComponentsPage.clickOnCreateButton();
     await promise.all([
+      itemGroupUpdatePage.setCompanyIdInput('5'),
       itemGroupUpdatePage.setCodeInput('code'),
-      itemGroupUpdatePage.setNameInput('name'),
-      itemGroupUpdatePage.companySelectLastOption()
+      itemGroupUpdatePage.setNameInput('name')
     ]);
+    expect(await itemGroupUpdatePage.getCompanyIdInput()).to.eq('5', 'Expected companyId value to be equals to 5');
     expect(await itemGroupUpdatePage.getCodeInput()).to.eq('code', 'Expected Code value to be equals to code');
     expect(await itemGroupUpdatePage.getNameInput()).to.eq('name', 'Expected Name value to be equals to name');
     await itemGroupUpdatePage.save();

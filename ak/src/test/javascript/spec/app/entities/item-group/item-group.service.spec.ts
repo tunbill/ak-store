@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(ItemGroupService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new ItemGroup(0, 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new ItemGroup(0, 0, 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -56,6 +56,7 @@ describe('Service Tests', () => {
       it('should update a ItemGroup', () => {
         const returnedFromService = Object.assign(
           {
+            companyId: 1,
             code: 'BBBBBB',
             name: 'BBBBBB'
           },
@@ -75,6 +76,7 @@ describe('Service Tests', () => {
       it('should return a list of ItemGroup', () => {
         const returnedFromService = Object.assign(
           {
+            companyId: 1,
             code: 'BBBBBB',
             name: 'BBBBBB'
           },

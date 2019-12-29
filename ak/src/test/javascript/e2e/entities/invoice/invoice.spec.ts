@@ -39,6 +39,7 @@ describe('Invoice e2e test', () => {
 
     await invoiceComponentsPage.clickOnCreateButton();
     await promise.all([
+      invoiceUpdatePage.setCompanyIdInput('5'),
       invoiceUpdatePage.setInvoiceNoInput('invoiceNo'),
       invoiceUpdatePage.setInvoiceDateInput('2000-12-31'),
       invoiceUpdatePage.setDueDateInput('2000-12-31'),
@@ -57,9 +58,9 @@ describe('Invoice e2e test', () => {
       invoiceUpdatePage.setUserIdModifiedInput('5'),
       invoiceUpdatePage.customerSelectLastOption(),
       invoiceUpdatePage.termsSelectLastOption(),
-      invoiceUpdatePage.employeeSelectLastOption(),
-      invoiceUpdatePage.companySelectLastOption()
+      invoiceUpdatePage.employeeSelectLastOption()
     ]);
+    expect(await invoiceUpdatePage.getCompanyIdInput()).to.eq('5', 'Expected companyId value to be equals to 5');
     expect(await invoiceUpdatePage.getInvoiceNoInput()).to.eq('invoiceNo', 'Expected InvoiceNo value to be equals to invoiceNo');
     expect(await invoiceUpdatePage.getInvoiceDateInput()).to.eq('2000-12-31', 'Expected invoiceDate value to be equals to 2000-12-31');
     expect(await invoiceUpdatePage.getDueDateInput()).to.eq('2000-12-31', 'Expected dueDate value to be equals to 2000-12-31');

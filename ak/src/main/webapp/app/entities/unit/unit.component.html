@@ -19,22 +19,18 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="companyId"><span jhiTranslate="akApp.unit.companyId">Company Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="code"><span jhiTranslate="akApp.unit.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="name"><span jhiTranslate="akApp.unit.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="company.id"><span jhiTranslate="akApp.unit.company">Company</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let unit of units ;trackBy: trackId">
                 <td><a [routerLink]="['/unit', unit.id, 'view' ]">{{unit.id}}</a></td>
+                <td>{{unit.companyId}}</td>
                 <td>{{unit.code}}</td>
                 <td>{{unit.name}}</td>
-                <td>
-                    <div *ngIf="unit.company">
-                        <a [routerLink]="['/company', unit.company?.id, 'view' ]" >{{unit.company?.id}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

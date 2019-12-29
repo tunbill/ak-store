@@ -1,5 +1,4 @@
 package com.ak.domain;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -24,6 +23,9 @@ public class JobType implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "company_id")
+    private Long companyId;
+
     @Size(max = 20)
     @Column(name = "code", length = 20)
     private String code;
@@ -37,10 +39,6 @@ public class JobType implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Jobs> jobs = new HashSet<>();
 
-    @ManyToOne
-    @JsonIgnoreProperties("jobTypes")
-    private Company company;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -48,6 +46,19 @@ public class JobType implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public JobType companyId(Long companyId) {
+        this.companyId = companyId;
+        return this;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
     public String getCode() {
@@ -100,19 +111,6 @@ public class JobType implements Serializable {
     public void setJobs(Set<Jobs> jobs) {
         this.jobs = jobs;
     }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public JobType company(Company company) {
-        this.company = company;
-        return this;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -135,6 +133,7 @@ public class JobType implements Serializable {
     public String toString() {
         return "JobType{" +
             "id=" + getId() +
+            ", companyId=" + getCompanyId() +
             ", code='" + getCode() + "'" +
             ", name='" + getName() + "'" +
             "}";

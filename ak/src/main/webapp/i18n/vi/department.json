@@ -16,10 +16,10 @@
       "detail": {
         "title": "Department"
       },
+      "companyId": "Company Id",
       "code": "Code",
       "name": "Name",
-      "employee": "Employee",
-      "company": "Company"
+      "employee": "Employee"
     }
   }
 }

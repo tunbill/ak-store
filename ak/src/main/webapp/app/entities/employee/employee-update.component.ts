@@ -12,8 +12,6 @@ import { IEmployee, Employee } from 'app/shared/model/employee.model';
 import { EmployeeService } from './employee.service';
 import { IDepartment } from 'app/shared/model/department.model';
 import { DepartmentService } from 'app/entities/department/department.service';
-import { ICompany } from 'app/shared/model/company.model';
-import { CompanyService } from 'app/entities/company/company.service';
 
 @Component({
   selector: 'ak-employee-update',
@@ -23,13 +21,12 @@ export class EmployeeUpdateComponent implements OnInit {
   isSaving: boolean;
 
   departments: IDepartment[];
-
-  companies: ICompany[];
   birthdayDp: any;
   identityDateDp: any;
 
   editForm = this.fb.group({
     id: [],
+    companyId: [],
     code: [null, [Validators.maxLength(20)]],
     fullName: [null, [Validators.maxLength(80)]],
     sex: [],
@@ -54,15 +51,13 @@ export class EmployeeUpdateComponent implements OnInit {
     timeModified: [],
     userIdCreated: [],
     userIdModified: [],
-    department: [],
-    company: []
+    department: []
   });
 
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected employeeService: EmployeeService,
     protected departmentService: DepartmentService,
-    protected companyService: CompanyService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -78,14 +73,12 @@ export class EmployeeUpdateComponent implements OnInit {
         (res: HttpResponse<IDepartment[]>) => (this.departments = res.body),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
-    this.companyService
-      .query()
-      .subscribe((res: HttpResponse<ICompany[]>) => (this.companies = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(employee: IEmployee) {
     this.editForm.patchValue({
       id: employee.id,
+      companyId: employee.companyId,
       code: employee.code,
       fullName: employee.fullName,
       sex: employee.sex,
@@ -110,8 +103,7 @@ export class EmployeeUpdateComponent implements OnInit {
       timeModified: employee.timeModified != null ? employee.timeModified.format(DATE_TIME_FORMAT) : null,
       userIdCreated: employee.userIdCreated,
       userIdModified: employee.userIdModified,
-      department: employee.department,
-      company: employee.company
+      department: employee.department
     });
   }
 
@@ -133,6 +125,7 @@ export class EmployeeUpdateComponent implements OnInit {
     return {
       ...new Employee(),
       id: this.editForm.get(['id']).value,
+      companyId: this.editForm.get(['companyId']).value,
       code: this.editForm.get(['code']).value,
       fullName: this.editForm.get(['fullName']).value,
       sex: this.editForm.get(['sex']).value,
@@ -159,8 +152,7 @@ export class EmployeeUpdateComponent implements OnInit {
         this.editForm.get(['timeModified']).value != null ? moment(this.editForm.get(['timeModified']).value, DATE_TIME_FORMAT) : undefined,
       userIdCreated: this.editForm.get(['userIdCreated']).value,
       userIdModified: this.editForm.get(['userIdModified']).value,
-      department: this.editForm.get(['department']).value,
-      company: this.editForm.get(['company']).value
+      department: this.editForm.get(['department']).value
     };
   }
 
@@ -181,10 +173,6 @@ export class EmployeeUpdateComponent implements OnInit {
   }
 
   trackDepartmentById(index: number, item: IDepartment) {
-    return item.id;
-  }
-
-  trackCompanyById(index: number, item: ICompany) {
     return item.id;
   }
 }

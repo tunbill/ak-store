@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,6 +25,9 @@ public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "company_id")
+    private Long companyId;
 
     @Column(name = "is_vendor")
     private Boolean isVendor;
@@ -75,20 +79,20 @@ public class Customer implements Serializable {
     @Column(name = "bank_name")
     private String bankName;
 
-    @Column(name = "balance")
-    private Double balance;
+    @Column(name = "balance", precision = 21, scale = 2)
+    private BigDecimal balance;
 
-    @Column(name = "total_balance")
-    private Double totalBalance;
+    @Column(name = "total_balance", precision = 21, scale = 2)
+    private BigDecimal totalBalance;
 
-    @Column(name = "open_balance")
-    private Double openBalance;
+    @Column(name = "open_balance", precision = 21, scale = 2)
+    private BigDecimal openBalance;
 
     @Column(name = "open_balance_date")
     private Instant openBalanceDate;
 
-    @Column(name = "credit_limit")
-    private Double creditLimit;
+    @Column(name = "credit_limit", precision = 21, scale = 2)
+    private BigDecimal creditLimit;
 
     @Column(name = "notes")
     private String notes;
@@ -124,10 +128,6 @@ public class Customer implements Serializable {
     @JsonIgnoreProperties("customers")
     private Terms terms;
 
-    @ManyToOne
-    @JsonIgnoreProperties("customers")
-    private Company company;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -135,6 +135,19 @@ public class Customer implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public Customer companyId(Long companyId) {
+        this.companyId = companyId;
+        return this;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
     public Boolean isIsVendor() {
@@ -306,42 +319,42 @@ public class Customer implements Serializable {
         this.bankName = bankName;
     }
 
-    public Double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public Customer balance(Double balance) {
+    public Customer balance(BigDecimal balance) {
         this.balance = balance;
         return this;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
-    public Double getTotalBalance() {
+    public BigDecimal getTotalBalance() {
         return totalBalance;
     }
 
-    public Customer totalBalance(Double totalBalance) {
+    public Customer totalBalance(BigDecimal totalBalance) {
         this.totalBalance = totalBalance;
         return this;
     }
 
-    public void setTotalBalance(Double totalBalance) {
+    public void setTotalBalance(BigDecimal totalBalance) {
         this.totalBalance = totalBalance;
     }
 
-    public Double getOpenBalance() {
+    public BigDecimal getOpenBalance() {
         return openBalance;
     }
 
-    public Customer openBalance(Double openBalance) {
+    public Customer openBalance(BigDecimal openBalance) {
         this.openBalance = openBalance;
         return this;
     }
 
-    public void setOpenBalance(Double openBalance) {
+    public void setOpenBalance(BigDecimal openBalance) {
         this.openBalance = openBalance;
     }
 
@@ -358,16 +371,16 @@ public class Customer implements Serializable {
         this.openBalanceDate = openBalanceDate;
     }
 
-    public Double getCreditLimit() {
+    public BigDecimal getCreditLimit() {
         return creditLimit;
     }
 
-    public Customer creditLimit(Double creditLimit) {
+    public Customer creditLimit(BigDecimal creditLimit) {
         this.creditLimit = creditLimit;
         return this;
     }
 
-    public void setCreditLimit(Double creditLimit) {
+    public void setCreditLimit(BigDecimal creditLimit) {
         this.creditLimit = creditLimit;
     }
 
@@ -512,19 +525,6 @@ public class Customer implements Serializable {
     public void setTerms(Terms terms) {
         this.terms = terms;
     }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public Customer company(Company company) {
-        this.company = company;
-        return this;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -547,6 +547,7 @@ public class Customer implements Serializable {
     public String toString() {
         return "Customer{" +
             "id=" + getId() +
+            ", companyId=" + getCompanyId() +
             ", isVendor='" + isIsVendor() + "'" +
             ", vendorId=" + getVendorId() +
             ", code='" + getCode() + "'" +

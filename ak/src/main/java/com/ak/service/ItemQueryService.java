@@ -85,6 +85,9 @@ public class ItemQueryService extends QueryService<Item> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), Item_.id));
             }
+            if (criteria.getCompanyId() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getCompanyId(), Item_.companyId));
+            }
             if (criteria.getCode() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getCode(), Item_.code));
             }
@@ -199,10 +202,6 @@ public class ItemQueryService extends QueryService<Item> {
             if (criteria.getStoreId() != null) {
                 specification = specification.and(buildSpecification(criteria.getStoreId(),
                     root -> root.join(Item_.store, JoinType.LEFT).get(Store_.id)));
-            }
-            if (criteria.getCompanyId() != null) {
-                specification = specification.and(buildSpecification(criteria.getCompanyId(),
-                    root -> root.join(Item_.company, JoinType.LEFT).get(Company_.id)));
             }
         }
         return specification;

@@ -11,6 +11,7 @@ import io.github.jhipster.service.filter.FloatFilter;
 import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
+import io.github.jhipster.service.filter.BigDecimalFilter;
 import io.github.jhipster.service.filter.InstantFilter;
 import io.github.jhipster.service.filter.LocalDateFilter;
 
@@ -47,6 +48,8 @@ public class InvoiceCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
+    private LongFilter companyId;
+
     private StringFilter invoiceNo;
 
     private LocalDateFilter invoiceDate;
@@ -61,13 +64,13 @@ public class InvoiceCriteria implements Serializable, Criteria {
 
     private StringFilter notes;
 
-    private DoubleFilter productTotal;
+    private BigDecimalFilter productTotal;
 
-    private DoubleFilter vatTotal;
+    private BigDecimalFilter vatTotal;
 
-    private DoubleFilter discountTotal;
+    private BigDecimalFilter discountTotal;
 
-    private DoubleFilter total;
+    private BigDecimalFilter total;
 
     private ProcessStatusFilter status;
 
@@ -87,13 +90,12 @@ public class InvoiceCriteria implements Serializable, Criteria {
 
     private LongFilter employeeId;
 
-    private LongFilter companyId;
-
     public InvoiceCriteria(){
     }
 
     public InvoiceCriteria(InvoiceCriteria other){
         this.id = other.id == null ? null : other.id.copy();
+        this.companyId = other.companyId == null ? null : other.companyId.copy();
         this.invoiceNo = other.invoiceNo == null ? null : other.invoiceNo.copy();
         this.invoiceDate = other.invoiceDate == null ? null : other.invoiceDate.copy();
         this.dueDate = other.dueDate == null ? null : other.dueDate.copy();
@@ -114,7 +116,6 @@ public class InvoiceCriteria implements Serializable, Criteria {
         this.customerId = other.customerId == null ? null : other.customerId.copy();
         this.termsId = other.termsId == null ? null : other.termsId.copy();
         this.employeeId = other.employeeId == null ? null : other.employeeId.copy();
-        this.companyId = other.companyId == null ? null : other.companyId.copy();
     }
 
     @Override
@@ -128,6 +129,14 @@ public class InvoiceCriteria implements Serializable, Criteria {
 
     public void setId(LongFilter id) {
         this.id = id;
+    }
+
+    public LongFilter getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(LongFilter companyId) {
+        this.companyId = companyId;
     }
 
     public StringFilter getInvoiceNo() {
@@ -186,35 +195,35 @@ public class InvoiceCriteria implements Serializable, Criteria {
         this.notes = notes;
     }
 
-    public DoubleFilter getProductTotal() {
+    public BigDecimalFilter getProductTotal() {
         return productTotal;
     }
 
-    public void setProductTotal(DoubleFilter productTotal) {
+    public void setProductTotal(BigDecimalFilter productTotal) {
         this.productTotal = productTotal;
     }
 
-    public DoubleFilter getVatTotal() {
+    public BigDecimalFilter getVatTotal() {
         return vatTotal;
     }
 
-    public void setVatTotal(DoubleFilter vatTotal) {
+    public void setVatTotal(BigDecimalFilter vatTotal) {
         this.vatTotal = vatTotal;
     }
 
-    public DoubleFilter getDiscountTotal() {
+    public BigDecimalFilter getDiscountTotal() {
         return discountTotal;
     }
 
-    public void setDiscountTotal(DoubleFilter discountTotal) {
+    public void setDiscountTotal(BigDecimalFilter discountTotal) {
         this.discountTotal = discountTotal;
     }
 
-    public DoubleFilter getTotal() {
+    public BigDecimalFilter getTotal() {
         return total;
     }
 
-    public void setTotal(DoubleFilter total) {
+    public void setTotal(BigDecimalFilter total) {
         this.total = total;
     }
 
@@ -290,14 +299,6 @@ public class InvoiceCriteria implements Serializable, Criteria {
         this.employeeId = employeeId;
     }
 
-    public LongFilter getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(LongFilter companyId) {
-        this.companyId = companyId;
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -310,6 +311,7 @@ public class InvoiceCriteria implements Serializable, Criteria {
         final InvoiceCriteria that = (InvoiceCriteria) o;
         return
             Objects.equals(id, that.id) &&
+            Objects.equals(companyId, that.companyId) &&
             Objects.equals(invoiceNo, that.invoiceNo) &&
             Objects.equals(invoiceDate, that.invoiceDate) &&
             Objects.equals(dueDate, that.dueDate) &&
@@ -329,14 +331,14 @@ public class InvoiceCriteria implements Serializable, Criteria {
             Objects.equals(invoiceLineId, that.invoiceLineId) &&
             Objects.equals(customerId, that.customerId) &&
             Objects.equals(termsId, that.termsId) &&
-            Objects.equals(employeeId, that.employeeId) &&
-            Objects.equals(companyId, that.companyId);
+            Objects.equals(employeeId, that.employeeId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
         id,
+        companyId,
         invoiceNo,
         invoiceDate,
         dueDate,
@@ -356,8 +358,7 @@ public class InvoiceCriteria implements Serializable, Criteria {
         invoiceLineId,
         customerId,
         termsId,
-        employeeId,
-        companyId
+        employeeId
         );
     }
 
@@ -365,6 +366,7 @@ public class InvoiceCriteria implements Serializable, Criteria {
     public String toString() {
         return "InvoiceCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
+                (companyId != null ? "companyId=" + companyId + ", " : "") +
                 (invoiceNo != null ? "invoiceNo=" + invoiceNo + ", " : "") +
                 (invoiceDate != null ? "invoiceDate=" + invoiceDate + ", " : "") +
                 (dueDate != null ? "dueDate=" + dueDate + ", " : "") +
@@ -385,7 +387,6 @@ public class InvoiceCriteria implements Serializable, Criteria {
                 (customerId != null ? "customerId=" + customerId + ", " : "") +
                 (termsId != null ? "termsId=" + termsId + ", " : "") +
                 (employeeId != null ? "employeeId=" + employeeId + ", " : "") +
-                (companyId != null ? "companyId=" + companyId + ", " : "") +
             "}";
     }
 

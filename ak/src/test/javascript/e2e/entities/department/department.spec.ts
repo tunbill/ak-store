@@ -39,10 +39,11 @@ describe('Department e2e test', () => {
 
     await departmentComponentsPage.clickOnCreateButton();
     await promise.all([
+      departmentUpdatePage.setCompanyIdInput('5'),
       departmentUpdatePage.setCodeInput('code'),
-      departmentUpdatePage.setNameInput('name'),
-      departmentUpdatePage.companySelectLastOption()
+      departmentUpdatePage.setNameInput('name')
     ]);
+    expect(await departmentUpdatePage.getCompanyIdInput()).to.eq('5', 'Expected companyId value to be equals to 5');
     expect(await departmentUpdatePage.getCodeInput()).to.eq('code', 'Expected Code value to be equals to code');
     expect(await departmentUpdatePage.getNameInput()).to.eq('name', 'Expected Name value to be equals to name');
     await departmentUpdatePage.save();

@@ -5,11 +5,8 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { JhiAlertService } from 'ng-jhipster';
 import { ICustomerType, CustomerType } from 'app/shared/model/customer-type.model';
 import { CustomerTypeService } from './customer-type.service';
-import { ICompany } from 'app/shared/model/company.model';
-import { CompanyService } from 'app/entities/company/company.service';
 
 @Component({
   selector: 'ak-customer-type-update',
@@ -18,41 +15,30 @@ import { CompanyService } from 'app/entities/company/company.service';
 export class CustomerTypeUpdateComponent implements OnInit {
   isSaving: boolean;
 
-  companies: ICompany[];
-
   editForm = this.fb.group({
     id: [],
+    companyId: [],
     name: [null, [Validators.required, Validators.maxLength(100)]],
     description: [],
-    isActive: [],
-    company: []
+    isActive: []
   });
 
-  constructor(
-    protected jhiAlertService: JhiAlertService,
-    protected customerTypeService: CustomerTypeService,
-    protected companyService: CompanyService,
-    protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
-  ) {}
+  constructor(protected customerTypeService: CustomerTypeService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ customerType }) => {
       this.updateForm(customerType);
     });
-    this.companyService
-      .query()
-      .subscribe((res: HttpResponse<ICompany[]>) => (this.companies = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(customerType: ICustomerType) {
     this.editForm.patchValue({
       id: customerType.id,
+      companyId: customerType.companyId,
       name: customerType.name,
       description: customerType.description,
-      isActive: customerType.isActive,
-      company: customerType.company
+      isActive: customerType.isActive
     });
   }
 
@@ -74,10 +60,10 @@ export class CustomerTypeUpdateComponent implements OnInit {
     return {
       ...new CustomerType(),
       id: this.editForm.get(['id']).value,
+      companyId: this.editForm.get(['companyId']).value,
       name: this.editForm.get(['name']).value,
       description: this.editForm.get(['description']).value,
-      isActive: this.editForm.get(['isActive']).value,
-      company: this.editForm.get(['company']).value
+      isActive: this.editForm.get(['isActive']).value
     };
   }
 
@@ -92,12 +78,5 @@ export class CustomerTypeUpdateComponent implements OnInit {
 
   protected onSaveError() {
     this.isSaving = false;
-  }
-  protected onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
-  }
-
-  trackCompanyById(index: number, item: ICompany) {
-    return item.id;
   }
 }

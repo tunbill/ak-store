@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -27,6 +28,9 @@ public class Invoice implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "company_id")
+    private Long companyId;
 
     @Size(max = 20)
     @Column(name = "invoice_no", length = 20)
@@ -52,17 +56,17 @@ public class Invoice implements Serializable {
     @Column(name = "notes")
     private String notes;
 
-    @Column(name = "product_total")
-    private Double productTotal;
+    @Column(name = "product_total", precision = 21, scale = 2)
+    private BigDecimal productTotal;
 
-    @Column(name = "vat_total")
-    private Double vatTotal;
+    @Column(name = "vat_total", precision = 21, scale = 2)
+    private BigDecimal vatTotal;
 
-    @Column(name = "discount_total")
-    private Double discountTotal;
+    @Column(name = "discount_total", precision = 21, scale = 2)
+    private BigDecimal discountTotal;
 
-    @Column(name = "total")
-    private Double total;
+    @Column(name = "total", precision = 21, scale = 2)
+    private BigDecimal total;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
@@ -96,10 +100,6 @@ public class Invoice implements Serializable {
     @JsonIgnoreProperties("invoices")
     private Employee employee;
 
-    @ManyToOne
-    @JsonIgnoreProperties("invoices")
-    private Company company;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -107,6 +107,19 @@ public class Invoice implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public Invoice companyId(Long companyId) {
+        this.companyId = companyId;
+        return this;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
     public String getInvoiceNo() {
@@ -200,55 +213,55 @@ public class Invoice implements Serializable {
         this.notes = notes;
     }
 
-    public Double getProductTotal() {
+    public BigDecimal getProductTotal() {
         return productTotal;
     }
 
-    public Invoice productTotal(Double productTotal) {
+    public Invoice productTotal(BigDecimal productTotal) {
         this.productTotal = productTotal;
         return this;
     }
 
-    public void setProductTotal(Double productTotal) {
+    public void setProductTotal(BigDecimal productTotal) {
         this.productTotal = productTotal;
     }
 
-    public Double getVatTotal() {
+    public BigDecimal getVatTotal() {
         return vatTotal;
     }
 
-    public Invoice vatTotal(Double vatTotal) {
+    public Invoice vatTotal(BigDecimal vatTotal) {
         this.vatTotal = vatTotal;
         return this;
     }
 
-    public void setVatTotal(Double vatTotal) {
+    public void setVatTotal(BigDecimal vatTotal) {
         this.vatTotal = vatTotal;
     }
 
-    public Double getDiscountTotal() {
+    public BigDecimal getDiscountTotal() {
         return discountTotal;
     }
 
-    public Invoice discountTotal(Double discountTotal) {
+    public Invoice discountTotal(BigDecimal discountTotal) {
         this.discountTotal = discountTotal;
         return this;
     }
 
-    public void setDiscountTotal(Double discountTotal) {
+    public void setDiscountTotal(BigDecimal discountTotal) {
         this.discountTotal = discountTotal;
     }
 
-    public Double getTotal() {
+    public BigDecimal getTotal() {
         return total;
     }
 
-    public Invoice total(Double total) {
+    public Invoice total(BigDecimal total) {
         this.total = total;
         return this;
     }
 
-    public void setTotal(Double total) {
+    public void setTotal(BigDecimal total) {
         this.total = total;
     }
 
@@ -380,19 +393,6 @@ public class Invoice implements Serializable {
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public Invoice company(Company company) {
-        this.company = company;
-        return this;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -415,6 +415,7 @@ public class Invoice implements Serializable {
     public String toString() {
         return "Invoice{" +
             "id=" + getId() +
+            ", companyId=" + getCompanyId() +
             ", invoiceNo='" + getInvoiceNo() + "'" +
             ", invoiceDate='" + getInvoiceDate() + "'" +
             ", dueDate='" + getDueDate() + "'" +

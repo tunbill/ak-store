@@ -10,6 +10,7 @@ import io.github.jhipster.service.filter.FloatFilter;
 import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
+import io.github.jhipster.service.filter.BigDecimalFilter;
 import io.github.jhipster.service.filter.InstantFilter;
 
 /**
@@ -26,6 +27,8 @@ public class CustomerCriteria implements Serializable, Criteria {
     private static final long serialVersionUID = 1L;
 
     private LongFilter id;
+
+    private LongFilter companyId;
 
     private BooleanFilter isVendor;
 
@@ -53,15 +56,15 @@ public class CustomerCriteria implements Serializable, Criteria {
 
     private StringFilter bankName;
 
-    private DoubleFilter balance;
+    private BigDecimalFilter balance;
 
-    private DoubleFilter totalBalance;
+    private BigDecimalFilter totalBalance;
 
-    private DoubleFilter openBalance;
+    private BigDecimalFilter openBalance;
 
     private InstantFilter openBalanceDate;
 
-    private DoubleFilter creditLimit;
+    private BigDecimalFilter creditLimit;
 
     private StringFilter notes;
 
@@ -83,13 +86,12 @@ public class CustomerCriteria implements Serializable, Criteria {
 
     private LongFilter termsId;
 
-    private LongFilter companyId;
-
     public CustomerCriteria(){
     }
 
     public CustomerCriteria(CustomerCriteria other){
         this.id = other.id == null ? null : other.id.copy();
+        this.companyId = other.companyId == null ? null : other.companyId.copy();
         this.isVendor = other.isVendor == null ? null : other.isVendor.copy();
         this.vendorId = other.vendorId == null ? null : other.vendorId.copy();
         this.code = other.code == null ? null : other.code.copy();
@@ -118,7 +120,6 @@ public class CustomerCriteria implements Serializable, Criteria {
         this.invoiceId = other.invoiceId == null ? null : other.invoiceId.copy();
         this.customerTypeId = other.customerTypeId == null ? null : other.customerTypeId.copy();
         this.termsId = other.termsId == null ? null : other.termsId.copy();
-        this.companyId = other.companyId == null ? null : other.companyId.copy();
     }
 
     @Override
@@ -132,6 +133,14 @@ public class CustomerCriteria implements Serializable, Criteria {
 
     public void setId(LongFilter id) {
         this.id = id;
+    }
+
+    public LongFilter getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(LongFilter companyId) {
+        this.companyId = companyId;
     }
 
     public BooleanFilter getIsVendor() {
@@ -238,27 +247,27 @@ public class CustomerCriteria implements Serializable, Criteria {
         this.bankName = bankName;
     }
 
-    public DoubleFilter getBalance() {
+    public BigDecimalFilter getBalance() {
         return balance;
     }
 
-    public void setBalance(DoubleFilter balance) {
+    public void setBalance(BigDecimalFilter balance) {
         this.balance = balance;
     }
 
-    public DoubleFilter getTotalBalance() {
+    public BigDecimalFilter getTotalBalance() {
         return totalBalance;
     }
 
-    public void setTotalBalance(DoubleFilter totalBalance) {
+    public void setTotalBalance(BigDecimalFilter totalBalance) {
         this.totalBalance = totalBalance;
     }
 
-    public DoubleFilter getOpenBalance() {
+    public BigDecimalFilter getOpenBalance() {
         return openBalance;
     }
 
-    public void setOpenBalance(DoubleFilter openBalance) {
+    public void setOpenBalance(BigDecimalFilter openBalance) {
         this.openBalance = openBalance;
     }
 
@@ -270,11 +279,11 @@ public class CustomerCriteria implements Serializable, Criteria {
         this.openBalanceDate = openBalanceDate;
     }
 
-    public DoubleFilter getCreditLimit() {
+    public BigDecimalFilter getCreditLimit() {
         return creditLimit;
     }
 
-    public void setCreditLimit(DoubleFilter creditLimit) {
+    public void setCreditLimit(BigDecimalFilter creditLimit) {
         this.creditLimit = creditLimit;
     }
 
@@ -358,14 +367,6 @@ public class CustomerCriteria implements Serializable, Criteria {
         this.termsId = termsId;
     }
 
-    public LongFilter getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(LongFilter companyId) {
-        this.companyId = companyId;
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -378,6 +379,7 @@ public class CustomerCriteria implements Serializable, Criteria {
         final CustomerCriteria that = (CustomerCriteria) o;
         return
             Objects.equals(id, that.id) &&
+            Objects.equals(companyId, that.companyId) &&
             Objects.equals(isVendor, that.isVendor) &&
             Objects.equals(vendorId, that.vendorId) &&
             Objects.equals(code, that.code) &&
@@ -405,14 +407,14 @@ public class CustomerCriteria implements Serializable, Criteria {
             Objects.equals(userIdModified, that.userIdModified) &&
             Objects.equals(invoiceId, that.invoiceId) &&
             Objects.equals(customerTypeId, that.customerTypeId) &&
-            Objects.equals(termsId, that.termsId) &&
-            Objects.equals(companyId, that.companyId);
+            Objects.equals(termsId, that.termsId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
         id,
+        companyId,
         isVendor,
         vendorId,
         code,
@@ -440,8 +442,7 @@ public class CustomerCriteria implements Serializable, Criteria {
         userIdModified,
         invoiceId,
         customerTypeId,
-        termsId,
-        companyId
+        termsId
         );
     }
 
@@ -449,6 +450,7 @@ public class CustomerCriteria implements Serializable, Criteria {
     public String toString() {
         return "CustomerCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
+                (companyId != null ? "companyId=" + companyId + ", " : "") +
                 (isVendor != null ? "isVendor=" + isVendor + ", " : "") +
                 (vendorId != null ? "vendorId=" + vendorId + ", " : "") +
                 (code != null ? "code=" + code + ", " : "") +
@@ -477,7 +479,6 @@ public class CustomerCriteria implements Serializable, Criteria {
                 (invoiceId != null ? "invoiceId=" + invoiceId + ", " : "") +
                 (customerTypeId != null ? "customerTypeId=" + customerTypeId + ", " : "") +
                 (termsId != null ? "termsId=" + termsId + ", " : "") +
-                (companyId != null ? "companyId=" + companyId + ", " : "") +
             "}";
     }
 

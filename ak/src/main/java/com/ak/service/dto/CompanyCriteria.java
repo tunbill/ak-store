@@ -48,30 +48,6 @@ public class CompanyCriteria implements Serializable, Criteria {
 
     private LongFilter userId;
 
-    private LongFilter customerTypeId;
-
-    private LongFilter customerId;
-
-    private LongFilter storeId;
-
-    private LongFilter departmentId;
-
-    private LongFilter jobsId;
-
-    private LongFilter jobTypeId;
-
-    private LongFilter employeeId;
-
-    private LongFilter itemId;
-
-    private LongFilter itemGroupId;
-
-    private LongFilter unitId;
-
-    private LongFilter invoiceId;
-
-    private LongFilter invoiceLineId;
-
     private LongFilter industryId;
 
     private LongFilter provinceId;
@@ -91,18 +67,6 @@ public class CompanyCriteria implements Serializable, Criteria {
         this.timeCreated = other.timeCreated == null ? null : other.timeCreated.copy();
         this.timeModified = other.timeModified == null ? null : other.timeModified.copy();
         this.userId = other.userId == null ? null : other.userId.copy();
-        this.customerTypeId = other.customerTypeId == null ? null : other.customerTypeId.copy();
-        this.customerId = other.customerId == null ? null : other.customerId.copy();
-        this.storeId = other.storeId == null ? null : other.storeId.copy();
-        this.departmentId = other.departmentId == null ? null : other.departmentId.copy();
-        this.jobsId = other.jobsId == null ? null : other.jobsId.copy();
-        this.jobTypeId = other.jobTypeId == null ? null : other.jobTypeId.copy();
-        this.employeeId = other.employeeId == null ? null : other.employeeId.copy();
-        this.itemId = other.itemId == null ? null : other.itemId.copy();
-        this.itemGroupId = other.itemGroupId == null ? null : other.itemGroupId.copy();
-        this.unitId = other.unitId == null ? null : other.unitId.copy();
-        this.invoiceId = other.invoiceId == null ? null : other.invoiceId.copy();
-        this.invoiceLineId = other.invoiceLineId == null ? null : other.invoiceLineId.copy();
         this.industryId = other.industryId == null ? null : other.industryId.copy();
         this.provinceId = other.provinceId == null ? null : other.provinceId.copy();
     }
@@ -200,102 +164,6 @@ public class CompanyCriteria implements Serializable, Criteria {
         this.userId = userId;
     }
 
-    public LongFilter getCustomerTypeId() {
-        return customerTypeId;
-    }
-
-    public void setCustomerTypeId(LongFilter customerTypeId) {
-        this.customerTypeId = customerTypeId;
-    }
-
-    public LongFilter getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(LongFilter customerId) {
-        this.customerId = customerId;
-    }
-
-    public LongFilter getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(LongFilter storeId) {
-        this.storeId = storeId;
-    }
-
-    public LongFilter getDepartmentId() {
-        return departmentId;
-    }
-
-    public void setDepartmentId(LongFilter departmentId) {
-        this.departmentId = departmentId;
-    }
-
-    public LongFilter getJobsId() {
-        return jobsId;
-    }
-
-    public void setJobsId(LongFilter jobsId) {
-        this.jobsId = jobsId;
-    }
-
-    public LongFilter getJobTypeId() {
-        return jobTypeId;
-    }
-
-    public void setJobTypeId(LongFilter jobTypeId) {
-        this.jobTypeId = jobTypeId;
-    }
-
-    public LongFilter getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(LongFilter employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public LongFilter getItemId() {
-        return itemId;
-    }
-
-    public void setItemId(LongFilter itemId) {
-        this.itemId = itemId;
-    }
-
-    public LongFilter getItemGroupId() {
-        return itemGroupId;
-    }
-
-    public void setItemGroupId(LongFilter itemGroupId) {
-        this.itemGroupId = itemGroupId;
-    }
-
-    public LongFilter getUnitId() {
-        return unitId;
-    }
-
-    public void setUnitId(LongFilter unitId) {
-        this.unitId = unitId;
-    }
-
-    public LongFilter getInvoiceId() {
-        return invoiceId;
-    }
-
-    public void setInvoiceId(LongFilter invoiceId) {
-        this.invoiceId = invoiceId;
-    }
-
-    public LongFilter getInvoiceLineId() {
-        return invoiceLineId;
-    }
-
-    public void setInvoiceLineId(LongFilter invoiceLineId) {
-        this.invoiceLineId = invoiceLineId;
-    }
-
     public LongFilter getIndustryId() {
         return industryId;
     }
@@ -334,18 +202,6 @@ public class CompanyCriteria implements Serializable, Criteria {
             Objects.equals(timeCreated, that.timeCreated) &&
             Objects.equals(timeModified, that.timeModified) &&
             Objects.equals(userId, that.userId) &&
-            Objects.equals(customerTypeId, that.customerTypeId) &&
-            Objects.equals(customerId, that.customerId) &&
-            Objects.equals(storeId, that.storeId) &&
-            Objects.equals(departmentId, that.departmentId) &&
-            Objects.equals(jobsId, that.jobsId) &&
-            Objects.equals(jobTypeId, that.jobTypeId) &&
-            Objects.equals(employeeId, that.employeeId) &&
-            Objects.equals(itemId, that.itemId) &&
-            Objects.equals(itemGroupId, that.itemGroupId) &&
-            Objects.equals(unitId, that.unitId) &&
-            Objects.equals(invoiceId, that.invoiceId) &&
-            Objects.equals(invoiceLineId, that.invoiceLineId) &&
             Objects.equals(industryId, that.industryId) &&
             Objects.equals(provinceId, that.provinceId);
     }
@@ -364,18 +220,6 @@ public class CompanyCriteria implements Serializable, Criteria {
         timeCreated,
         timeModified,
         userId,
-        customerTypeId,
-        customerId,
-        storeId,
-        departmentId,
-        jobsId,
-        jobTypeId,
-        employeeId,
-        itemId,
-        itemGroupId,
-        unitId,
-        invoiceId,
-        invoiceLineId,
         industryId,
         provinceId
         );
@@ -395,18 +239,6 @@ public class CompanyCriteria implements Serializable, Criteria {
                 (timeCreated != null ? "timeCreated=" + timeCreated + ", " : "") +
                 (timeModified != null ? "timeModified=" + timeModified + ", " : "") +
                 (userId != null ? "userId=" + userId + ", " : "") +
-                (customerTypeId != null ? "customerTypeId=" + customerTypeId + ", " : "") +
-                (customerId != null ? "customerId=" + customerId + ", " : "") +
-                (storeId != null ? "storeId=" + storeId + ", " : "") +
-                (departmentId != null ? "departmentId=" + departmentId + ", " : "") +
-                (jobsId != null ? "jobsId=" + jobsId + ", " : "") +
-                (jobTypeId != null ? "jobTypeId=" + jobTypeId + ", " : "") +
-                (employeeId != null ? "employeeId=" + employeeId + ", " : "") +
-                (itemId != null ? "itemId=" + itemId + ", " : "") +
-                (itemGroupId != null ? "itemGroupId=" + itemGroupId + ", " : "") +
-                (unitId != null ? "unitId=" + unitId + ", " : "") +
-                (invoiceId != null ? "invoiceId=" + invoiceId + ", " : "") +
-                (invoiceLineId != null ? "invoiceLineId=" + invoiceLineId + ", " : "") +
                 (industryId != null ? "industryId=" + industryId + ", " : "") +
                 (provinceId != null ? "provinceId=" + provinceId + ", " : "") +
             "}";

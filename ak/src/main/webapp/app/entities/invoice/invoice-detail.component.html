@@ -5,6 +5,10 @@
             <hr>
             <ak-alert-error></ak-alert-error>
             <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="akApp.invoice.companyId">Company Id</span></dt>
+                <dd>
+                    <span>{{invoice.companyId}}</span>
+                </dd>
                 <dt><span jhiTranslate="akApp.invoice.invoiceNo">Invoice No</span></dt>
                 <dd>
                     <span>{{invoice.invoiceNo}}</span>
@@ -85,12 +89,6 @@
                 <dd>
                     <div *ngIf="invoice.employee">
                         <a [routerLink]="['/employee', invoice.employee?.id, 'view']">{{invoice.employee?.id}}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="akApp.invoice.company">Company</span></dt>
-                <dd>
-                    <div *ngIf="invoice.company">
-                        <a [routerLink]="['/company', invoice.company?.id, 'view']">{{invoice.company?.id}}</a>
                     </div>
                 </dd>
             </dl>

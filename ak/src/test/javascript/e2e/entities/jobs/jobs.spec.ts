@@ -39,6 +39,7 @@ describe('Jobs e2e test', () => {
 
     await jobsComponentsPage.clickOnCreateButton();
     await promise.all([
+      jobsUpdatePage.setCompanyIdInput('5'),
       jobsUpdatePage.setCodeInput('code'),
       jobsUpdatePage.setNameInput('name'),
       jobsUpdatePage.setStatusInput('5'),
@@ -48,9 +49,9 @@ describe('Jobs e2e test', () => {
       jobsUpdatePage.setInvestorInput('investor'),
       jobsUpdatePage.setAddressInput('address'),
       jobsUpdatePage.setNotesInput('notes'),
-      jobsUpdatePage.jobTypeSelectLastOption(),
-      jobsUpdatePage.companySelectLastOption()
+      jobsUpdatePage.jobTypeSelectLastOption()
     ]);
+    expect(await jobsUpdatePage.getCompanyIdInput()).to.eq('5', 'Expected companyId value to be equals to 5');
     expect(await jobsUpdatePage.getCodeInput()).to.eq('code', 'Expected Code value to be equals to code');
     expect(await jobsUpdatePage.getNameInput()).to.eq('name', 'Expected Name value to be equals to name');
     expect(await jobsUpdatePage.getStatusInput()).to.eq('5', 'Expected status value to be equals to 5');

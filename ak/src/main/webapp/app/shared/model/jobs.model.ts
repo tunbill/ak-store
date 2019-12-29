@@ -1,9 +1,9 @@
 import { Moment } from 'moment';
 import { IJobType } from 'app/shared/model/job-type.model';
-import { ICompany } from 'app/shared/model/company.model';
 
 export interface IJobs {
   id?: number;
+  companyId?: number;
   code?: string;
   name?: string;
   status?: number;
@@ -14,12 +14,12 @@ export interface IJobs {
   address?: string;
   notes?: string;
   jobType?: IJobType;
-  company?: ICompany;
 }
 
 export class Jobs implements IJobs {
   constructor(
     public id?: number,
+    public companyId?: number,
     public code?: string,
     public name?: string,
     public status?: number,
@@ -29,7 +29,6 @@ export class Jobs implements IJobs {
     public investor?: string,
     public address?: string,
     public notes?: string,
-    public jobType?: IJobType,
-    public company?: ICompany
+    public jobType?: IJobType
   ) {}
 }

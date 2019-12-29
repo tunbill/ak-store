@@ -16,10 +16,10 @@
       "detail": {
         "title": "Item Group"
       },
+      "companyId": "Company Id",
       "code": "Code",
       "name": "Name",
-      "item": "Item",
-      "company": "Company"
+      "item": "Item"
     }
   }
 }

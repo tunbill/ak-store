@@ -39,10 +39,11 @@ describe('CustomerType e2e test', () => {
 
     await customerTypeComponentsPage.clickOnCreateButton();
     await promise.all([
+      customerTypeUpdatePage.setCompanyIdInput('5'),
       customerTypeUpdatePage.setNameInput('name'),
-      customerTypeUpdatePage.setDescriptionInput('description'),
-      customerTypeUpdatePage.companySelectLastOption()
+      customerTypeUpdatePage.setDescriptionInput('description')
     ]);
+    expect(await customerTypeUpdatePage.getCompanyIdInput()).to.eq('5', 'Expected companyId value to be equals to 5');
     expect(await customerTypeUpdatePage.getNameInput()).to.eq('name', 'Expected Name value to be equals to name');
     expect(await customerTypeUpdatePage.getDescriptionInput()).to.eq(
       'description',

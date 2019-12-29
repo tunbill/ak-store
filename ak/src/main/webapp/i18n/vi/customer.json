@@ -16,6 +16,7 @@
       "detail": {
         "title": "Customer"
       },
+      "companyId": "Company Id",
       "isVendor": "Is Vendor",
       "vendorId": "Vendor Id",
       "code": "Code",
@@ -43,8 +44,7 @@
       "userIdModified": "User Id Modified",
       "invoice": "Invoice",
       "customerType": "Customer Type",
-      "terms": "Terms",
-      "company": "Company"
+      "terms": "Terms"
     }
   }
 }

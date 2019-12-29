@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(JobTypeService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new JobType(0, 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new JobType(0, 0, 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -56,6 +56,7 @@ describe('Service Tests', () => {
       it('should update a JobType', () => {
         const returnedFromService = Object.assign(
           {
+            companyId: 1,
             code: 'BBBBBB',
             name: 'BBBBBB'
           },
@@ -75,6 +76,7 @@ describe('Service Tests', () => {
       it('should return a list of JobType', () => {
         const returnedFromService = Object.assign(
           {
+            companyId: 1,
             code: 'BBBBBB',
             name: 'BBBBBB'
           },

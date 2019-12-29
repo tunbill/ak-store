@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -25,6 +26,9 @@ public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "company_id")
+    private Long companyId;
 
     @Size(max = 20)
     @Column(name = "code", length = 20)
@@ -59,14 +63,14 @@ public class Employee implements Serializable {
     @Column(name = "tax_code", length = 20)
     private String taxCode;
 
-    @Column(name = "salary")
-    private Double salary;
+    @Column(name = "salary", precision = 21, scale = 2)
+    private BigDecimal salary;
 
-    @Column(name = "salary_rate")
-    private Double salaryRate;
+    @Column(name = "salary_rate", precision = 21, scale = 2)
+    private BigDecimal salaryRate;
 
-    @Column(name = "salary_security")
-    private Double salarySecurity;
+    @Column(name = "salary_security", precision = 21, scale = 2)
+    private BigDecimal salarySecurity;
 
     @Column(name = "num_of_depends")
     private Integer numOfDepends;
@@ -118,10 +122,6 @@ public class Employee implements Serializable {
     @JsonIgnoreProperties("employees")
     private Department department;
 
-    @ManyToOne
-    @JsonIgnoreProperties("employees")
-    private Company company;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -129,6 +129,19 @@ public class Employee implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public Employee companyId(Long companyId) {
+        this.companyId = companyId;
+        return this;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
     public String getCode() {
@@ -248,42 +261,42 @@ public class Employee implements Serializable {
         this.taxCode = taxCode;
     }
 
-    public Double getSalary() {
+    public BigDecimal getSalary() {
         return salary;
     }
 
-    public Employee salary(Double salary) {
+    public Employee salary(BigDecimal salary) {
         this.salary = salary;
         return this;
     }
 
-    public void setSalary(Double salary) {
+    public void setSalary(BigDecimal salary) {
         this.salary = salary;
     }
 
-    public Double getSalaryRate() {
+    public BigDecimal getSalaryRate() {
         return salaryRate;
     }
 
-    public Employee salaryRate(Double salaryRate) {
+    public Employee salaryRate(BigDecimal salaryRate) {
         this.salaryRate = salaryRate;
         return this;
     }
 
-    public void setSalaryRate(Double salaryRate) {
+    public void setSalaryRate(BigDecimal salaryRate) {
         this.salaryRate = salaryRate;
     }
 
-    public Double getSalarySecurity() {
+    public BigDecimal getSalarySecurity() {
         return salarySecurity;
     }
 
-    public Employee salarySecurity(Double salarySecurity) {
+    public Employee salarySecurity(BigDecimal salarySecurity) {
         this.salarySecurity = salarySecurity;
         return this;
     }
 
-    public void setSalarySecurity(Double salarySecurity) {
+    public void setSalarySecurity(BigDecimal salarySecurity) {
         this.salarySecurity = salarySecurity;
     }
 
@@ -480,19 +493,6 @@ public class Employee implements Serializable {
     public void setDepartment(Department department) {
         this.department = department;
     }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public Employee company(Company company) {
-        this.company = company;
-        return this;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -515,6 +515,7 @@ public class Employee implements Serializable {
     public String toString() {
         return "Employee{" +
             "id=" + getId() +
+            ", companyId=" + getCompanyId() +
             ", code='" + getCode() + "'" +
             ", fullName='" + getFullName() + "'" +
             ", sex=" + getSex() +

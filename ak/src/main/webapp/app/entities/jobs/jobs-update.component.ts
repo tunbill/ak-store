@@ -5,13 +5,12 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import * as moment from 'moment';
 import { JhiAlertService } from 'ng-jhipster';
 import { IJobs, Jobs } from 'app/shared/model/jobs.model';
 import { JobsService } from './jobs.service';
 import { IJobType } from 'app/shared/model/job-type.model';
 import { JobTypeService } from 'app/entities/job-type/job-type.service';
-import { ICompany } from 'app/shared/model/company.model';
-import { CompanyService } from 'app/entities/company/company.service';
 
 @Component({
   selector: 'ak-jobs-update',
@@ -21,13 +20,12 @@ export class JobsUpdateComponent implements OnInit {
   isSaving: boolean;
 
   jobtypes: IJobType[];
-
-  companies: ICompany[];
   startDateDp: any;
   endDateDp: any;
 
   editForm = this.fb.group({
     id: [],
+    companyId: [],
     code: [null, [Validators.maxLength(20)]],
     name: [null, [Validators.maxLength(100)]],
     status: [],
@@ -37,15 +35,13 @@ export class JobsUpdateComponent implements OnInit {
     investor: [null, [Validators.maxLength(100)]],
     address: [null, [Validators.maxLength(200)]],
     notes: [],
-    jobType: [],
-    company: []
+    jobType: []
   });
 
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected jobsService: JobsService,
     protected jobTypeService: JobTypeService,
-    protected companyService: CompanyService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -58,14 +54,12 @@ export class JobsUpdateComponent implements OnInit {
     this.jobTypeService
       .query()
       .subscribe((res: HttpResponse<IJobType[]>) => (this.jobtypes = res.body), (res: HttpErrorResponse) => this.onError(res.message));
-    this.companyService
-      .query()
-      .subscribe((res: HttpResponse<ICompany[]>) => (this.companies = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(jobs: IJobs) {
     this.editForm.patchValue({
       id: jobs.id,
+      companyId: jobs.companyId,
       code: jobs.code,
       name: jobs.name,
       status: jobs.status,
@@ -75,8 +69,7 @@ export class JobsUpdateComponent implements OnInit {
       investor: jobs.investor,
       address: jobs.address,
       notes: jobs.notes,
-      jobType: jobs.jobType,
-      company: jobs.company
+      jobType: jobs.jobType
     });
   }
 
@@ -98,6 +91,7 @@ export class JobsUpdateComponent implements OnInit {
     return {
       ...new Jobs(),
       id: this.editForm.get(['id']).value,
+      companyId: this.editForm.get(['companyId']).value,
       code: this.editForm.get(['code']).value,
       name: this.editForm.get(['name']).value,
       status: this.editForm.get(['status']).value,
@@ -107,8 +101,7 @@ export class JobsUpdateComponent implements OnInit {
       investor: this.editForm.get(['investor']).value,
       address: this.editForm.get(['address']).value,
       notes: this.editForm.get(['notes']).value,
-      jobType: this.editForm.get(['jobType']).value,
-      company: this.editForm.get(['company']).value
+      jobType: this.editForm.get(['jobType']).value
     };
   }
 
@@ -129,10 +122,6 @@ export class JobsUpdateComponent implements OnInit {
   }
 
   trackJobTypeById(index: number, item: IJobType) {
-    return item.id;
-  }
-
-  trackCompanyById(index: number, item: ICompany) {
     return item.id;
   }
 }

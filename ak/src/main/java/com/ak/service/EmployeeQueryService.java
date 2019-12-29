@@ -85,6 +85,9 @@ public class EmployeeQueryService extends QueryService<Employee> {
             if (criteria.getId() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getId(), Employee_.id));
             }
+            if (criteria.getCompanyId() != null) {
+                specification = specification.and(buildRangeSpecification(criteria.getCompanyId(), Employee_.companyId));
+            }
             if (criteria.getCode() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getCode(), Employee_.code));
             }
@@ -164,10 +167,6 @@ public class EmployeeQueryService extends QueryService<Employee> {
             if (criteria.getDepartmentId() != null) {
                 specification = specification.and(buildSpecification(criteria.getDepartmentId(),
                     root -> root.join(Employee_.department, JoinType.LEFT).get(Department_.id)));
-            }
-            if (criteria.getCompanyId() != null) {
-                specification = specification.and(buildSpecification(criteria.getCompanyId(),
-                    root -> root.join(Employee_.company, JoinType.LEFT).get(Company_.id)));
             }
         }
         return specification;

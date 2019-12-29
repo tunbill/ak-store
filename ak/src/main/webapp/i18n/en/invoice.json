@@ -16,6 +16,7 @@
       "detail": {
         "title": "Invoice"
       },
+      "companyId": "Company Id",
       "invoiceNo": "Invoice No",
       "invoiceDate": "Invoice Date",
       "dueDate": "Due Date",
@@ -35,8 +36,7 @@
       "invoiceLine": "Invoice Line",
       "customer": "Customer",
       "terms": "Terms",
-      "employee": "Employee",
-      "company": "Company"
+      "employee": "Employee"
     }
   }
 }

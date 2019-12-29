@@ -39,6 +39,7 @@ describe('InvoiceLine e2e test', () => {
 
     await invoiceLineComponentsPage.clickOnCreateButton();
     await promise.all([
+      invoiceLineUpdatePage.setCompanyIdInput('5'),
       invoiceLineUpdatePage.setDisplayOrderInput('5'),
       invoiceLineUpdatePage.setItemNameInput('itemName'),
       invoiceLineUpdatePage.setUnitNameInput('unitName'),
@@ -49,9 +50,9 @@ describe('InvoiceLine e2e test', () => {
       invoiceLineUpdatePage.setAccountNumberInput('accountNumber'),
       invoiceLineUpdatePage.statusSelectLastOption(),
       invoiceLineUpdatePage.invoiceSelectLastOption(),
-      invoiceLineUpdatePage.itemSelectLastOption(),
-      invoiceLineUpdatePage.companySelectLastOption()
+      invoiceLineUpdatePage.itemSelectLastOption()
     ]);
+    expect(await invoiceLineUpdatePage.getCompanyIdInput()).to.eq('5', 'Expected companyId value to be equals to 5');
     expect(await invoiceLineUpdatePage.getDisplayOrderInput()).to.eq('5', 'Expected displayOrder value to be equals to 5');
     expect(await invoiceLineUpdatePage.getItemNameInput()).to.eq('itemName', 'Expected ItemName value to be equals to itemName');
     expect(await invoiceLineUpdatePage.getUnitNameInput()).to.eq('unitName', 'Expected UnitName value to be equals to unitName');

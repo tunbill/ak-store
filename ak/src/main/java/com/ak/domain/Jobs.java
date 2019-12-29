@@ -23,6 +23,9 @@ public class Jobs implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "company_id")
+    private Long companyId;
+
     @Size(max = 20)
     @Column(name = "code", length = 20)
     private String code;
@@ -58,10 +61,6 @@ public class Jobs implements Serializable {
     @JsonIgnoreProperties("jobs")
     private JobType jobType;
 
-    @ManyToOne
-    @JsonIgnoreProperties("jobs")
-    private Company company;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -69,6 +68,19 @@ public class Jobs implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public Jobs companyId(Long companyId) {
+        this.companyId = companyId;
+        return this;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
     public String getCode() {
@@ -200,19 +212,6 @@ public class Jobs implements Serializable {
     public void setJobType(JobType jobType) {
         this.jobType = jobType;
     }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public Jobs company(Company company) {
-        this.company = company;
-        return this;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -235,6 +234,7 @@ public class Jobs implements Serializable {
     public String toString() {
         return "Jobs{" +
             "id=" + getId() +
+            ", companyId=" + getCompanyId() +
             ", code='" + getCode() + "'" +
             ", name='" + getName() + "'" +
             ", status=" + getStatus() +

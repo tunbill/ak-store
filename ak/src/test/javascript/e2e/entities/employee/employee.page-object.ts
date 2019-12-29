@@ -26,6 +26,7 @@ export class EmployeeUpdatePage {
   pageTitle = element(by.id('ak-employee-heading'));
   saveButton = element(by.id('save-entity'));
   cancelButton = element(by.id('cancel-save'));
+  companyIdInput = element(by.id('field_companyId'));
   codeInput = element(by.id('field_code'));
   fullNameInput = element(by.id('field_fullName'));
   sexInput = element(by.id('field_sex'));
@@ -51,10 +52,17 @@ export class EmployeeUpdatePage {
   userIdCreatedInput = element(by.id('field_userIdCreated'));
   userIdModifiedInput = element(by.id('field_userIdModified'));
   departmentSelect = element(by.id('field_department'));
-  companySelect = element(by.id('field_company'));
 
   async getPageTitle() {
     return this.pageTitle.getAttribute('jhiTranslate');
+  }
+
+  async setCompanyIdInput(companyId) {
+    await this.companyIdInput.sendKeys(companyId);
+  }
+
+  async getCompanyIdInput() {
+    return await this.companyIdInput.getAttribute('value');
   }
 
   async setCodeInput(code) {
@@ -261,25 +269,6 @@ export class EmployeeUpdatePage {
 
   async getDepartmentSelectedOption() {
     return await this.departmentSelect.element(by.css('option:checked')).getText();
-  }
-
-  async companySelectLastOption() {
-    await this.companySelect
-      .all(by.tagName('option'))
-      .last()
-      .click();
-  }
-
-  async companySelectOption(option) {
-    await this.companySelect.sendKeys(option);
-  }
-
-  getCompanySelect(): ElementFinder {
-    return this.companySelect;
-  }
-
-  async getCompanySelectedOption() {
-    return await this.companySelect.element(by.css('option:checked')).getText();
   }
 
   async save() {

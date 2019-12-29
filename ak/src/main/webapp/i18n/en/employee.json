@@ -16,6 +16,7 @@
       "detail": {
         "title": "Employee"
       },
+      "companyId": "Company Id",
       "code": "Code",
       "fullName": "Full Name",
       "sex": "Sex",
@@ -41,8 +42,7 @@
       "userIdCreated": "User Id Created",
       "userIdModified": "User Id Modified",
       "invoice": "Invoice",
-      "department": "Department",
-      "company": "Company"
+      "department": "Department"
     }
   }
 }
