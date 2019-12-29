@@ -6,7 +6,7 @@
     <!--
         Added the constraints for entity Item.
     -->
-    <changeSet id="20191228110011-2" author="jhipster">
+    <changeSet id="20191229020949-2" author="jhipster">
         
         <addForeignKeyConstraint baseColumnNames="unit_id"
                                  baseTableName="item"
@@ -25,12 +25,6 @@
                                  constraintName="fk_item_store_id"
                                  referencedColumnNames="id"
                                  referencedTableName="store"/>
-
-        <addForeignKeyConstraint baseColumnNames="company_id"
-                                 baseTableName="item"
-                                 constraintName="fk_item_company_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="company"/>
 
     </changeSet>
 </databaseChangeLog>

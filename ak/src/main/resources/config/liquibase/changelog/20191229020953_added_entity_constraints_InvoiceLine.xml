@@ -6,7 +6,7 @@
     <!--
         Added the constraints for entity InvoiceLine.
     -->
-    <changeSet id="20191228110015-2" author="jhipster">
+    <changeSet id="20191229020953-2" author="jhipster">
         
         <addForeignKeyConstraint baseColumnNames="invoice_id"
                                  baseTableName="invoice_line"
@@ -19,12 +19,6 @@
                                  constraintName="fk_invoice_line_item_id"
                                  referencedColumnNames="id"
                                  referencedTableName="item"/>
-
-        <addForeignKeyConstraint baseColumnNames="company_id"
-                                 baseTableName="invoice_line"
-                                 constraintName="fk_invoice_line_company_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="company"/>
 
     </changeSet>
 </databaseChangeLog>
