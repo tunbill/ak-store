@@ -36,6 +36,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = AkApp.class)
 public class JobsResourceIT {
 
+    private static final Long DEFAULT_COMPANY_ID = 1L;
+    private static final Long UPDATED_COMPANY_ID = 2L;
+
     private static final String DEFAULT_CODE = "AAAAAAAAAA";
     private static final String UPDATED_CODE = "BBBBBBBBBB";
 
@@ -62,6 +65,9 @@ public class JobsResourceIT {
 
     private static final String DEFAULT_NOTES = "AAAAAAAAAA";
     private static final String UPDATED_NOTES = "BBBBBBBBBB";
+
+    private static final Boolean DEFAULT_IS_ACTIVE = false;
+    private static final Boolean UPDATED_IS_ACTIVE = true;
 
     @Autowired
     private JobsRepository jobsRepository;
@@ -108,6 +114,7 @@ public class JobsResourceIT {
      */
     public static Jobs createEntity(EntityManager em) {
         Jobs jobs = new Jobs()
+            .companyId(DEFAULT_COMPANY_ID)
             .code(DEFAULT_CODE)
             .name(DEFAULT_NAME)
             .status(DEFAULT_STATUS)
@@ -116,7 +123,8 @@ public class JobsResourceIT {
             .estimate(DEFAULT_ESTIMATE)
             .investor(DEFAULT_INVESTOR)
             .address(DEFAULT_ADDRESS)
-            .notes(DEFAULT_NOTES);
+            .notes(DEFAULT_NOTES)
+            .isActive(DEFAULT_IS_ACTIVE);
         return jobs;
     }
     /**
@@ -127,6 +135,7 @@ public class JobsResourceIT {
      */
     public static Jobs createUpdatedEntity(EntityManager em) {
         Jobs jobs = new Jobs()
+            .companyId(UPDATED_COMPANY_ID)
             .code(UPDATED_CODE)
             .name(UPDATED_NAME)
             .status(UPDATED_STATUS)
@@ -135,7 +144,8 @@ public class JobsResourceIT {
             .estimate(UPDATED_ESTIMATE)
             .investor(UPDATED_INVESTOR)
             .address(UPDATED_ADDRESS)
-            .notes(UPDATED_NOTES);
+            .notes(UPDATED_NOTES)
+            .isActive(UPDATED_IS_ACTIVE);
         return jobs;
     }
 
@@ -159,6 +169,7 @@ public class JobsResourceIT {
         List<Jobs> jobsList = jobsRepository.findAll();
         assertThat(jobsList).hasSize(databaseSizeBeforeCreate + 1);
         Jobs testJobs = jobsList.get(jobsList.size() - 1);
+        assertThat(testJobs.getCompanyId()).isEqualTo(DEFAULT_COMPANY_ID);
         assertThat(testJobs.getCode()).isEqualTo(DEFAULT_CODE);
         assertThat(testJobs.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testJobs.getStatus()).isEqualTo(DEFAULT_STATUS);
@@ -168,6 +179,7 @@ public class JobsResourceIT {
         assertThat(testJobs.getInvestor()).isEqualTo(DEFAULT_INVESTOR);
         assertThat(testJobs.getAddress()).isEqualTo(DEFAULT_ADDRESS);
         assertThat(testJobs.getNotes()).isEqualTo(DEFAULT_NOTES);
+        assertThat(testJobs.isIsActive()).isEqualTo(DEFAULT_IS_ACTIVE);
     }
 
     @Test
@@ -201,6 +213,7 @@ public class JobsResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(jobs.getId().intValue())))
+            .andExpect(jsonPath("$.[*].companyId").value(hasItem(DEFAULT_COMPANY_ID.intValue())))
             .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)))
@@ -209,7 +222,8 @@ public class JobsResourceIT {
             .andExpect(jsonPath("$.[*].estimate").value(hasItem(DEFAULT_ESTIMATE.doubleValue())))
             .andExpect(jsonPath("$.[*].investor").value(hasItem(DEFAULT_INVESTOR)))
             .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS)))
-            .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES)));
+            .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES)))
+            .andExpect(jsonPath("$.[*].isActive").value(hasItem(DEFAULT_IS_ACTIVE.booleanValue())));
     }
     
     @Test
@@ -223,6 +237,7 @@ public class JobsResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(jobs.getId().intValue()))
+            .andExpect(jsonPath("$.companyId").value(DEFAULT_COMPANY_ID.intValue()))
             .andExpect(jsonPath("$.code").value(DEFAULT_CODE))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS))
@@ -231,7 +246,8 @@ public class JobsResourceIT {
             .andExpect(jsonPath("$.estimate").value(DEFAULT_ESTIMATE.doubleValue()))
             .andExpect(jsonPath("$.investor").value(DEFAULT_INVESTOR))
             .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS))
-            .andExpect(jsonPath("$.notes").value(DEFAULT_NOTES));
+            .andExpect(jsonPath("$.notes").value(DEFAULT_NOTES))
+            .andExpect(jsonPath("$.isActive").value(DEFAULT_IS_ACTIVE.booleanValue()));
     }
 
     @Test
@@ -255,6 +271,7 @@ public class JobsResourceIT {
         // Disconnect from session so that the updates on updatedJobs are not directly saved in db
         em.detach(updatedJobs);
         updatedJobs
+            .companyId(UPDATED_COMPANY_ID)
             .code(UPDATED_CODE)
             .name(UPDATED_NAME)
             .status(UPDATED_STATUS)
@@ -263,7 +280,8 @@ public class JobsResourceIT {
             .estimate(UPDATED_ESTIMATE)
             .investor(UPDATED_INVESTOR)
             .address(UPDATED_ADDRESS)
-            .notes(UPDATED_NOTES);
+            .notes(UPDATED_NOTES)
+            .isActive(UPDATED_IS_ACTIVE);
 
         restJobsMockMvc.perform(put("/api/jobs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -274,6 +292,7 @@ public class JobsResourceIT {
         List<Jobs> jobsList = jobsRepository.findAll();
         assertThat(jobsList).hasSize(databaseSizeBeforeUpdate);
         Jobs testJobs = jobsList.get(jobsList.size() - 1);
+        assertThat(testJobs.getCompanyId()).isEqualTo(UPDATED_COMPANY_ID);
         assertThat(testJobs.getCode()).isEqualTo(UPDATED_CODE);
         assertThat(testJobs.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testJobs.getStatus()).isEqualTo(UPDATED_STATUS);
@@ -283,6 +302,7 @@ public class JobsResourceIT {
         assertThat(testJobs.getInvestor()).isEqualTo(UPDATED_INVESTOR);
         assertThat(testJobs.getAddress()).isEqualTo(UPDATED_ADDRESS);
         assertThat(testJobs.getNotes()).isEqualTo(UPDATED_NOTES);
+        assertThat(testJobs.isIsActive()).isEqualTo(UPDATED_IS_ACTIVE);
     }
 
     @Test

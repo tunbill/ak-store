@@ -19,6 +19,8 @@
       "companyId": "Company Id",
       "code": "Code",
       "name": "Name",
+      "description": "Description",
+      "isActive": "Is Active",
       "jobs": "Jobs"
     }
   }

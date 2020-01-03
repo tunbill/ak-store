@@ -5,7 +5,6 @@ import com.ak.domain.Customer;
 import com.ak.domain.Invoice;
 import com.ak.domain.CustomerType;
 import com.ak.domain.Terms;
-import com.ak.domain.Company;
 import com.ak.repository.CustomerRepository;
 import com.ak.service.CustomerService;
 import com.ak.web.rest.errors.ExceptionTranslator;
@@ -26,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -41,6 +41,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @SpringBootTest(classes = AkApp.class)
 public class CustomerResourceIT {
+
+    private static final Long DEFAULT_COMPANY_ID = 1L;
+    private static final Long UPDATED_COMPANY_ID = 2L;
+    private static final Long SMALLER_COMPANY_ID = 1L - 1L;
 
     private static final Boolean DEFAULT_IS_VENDOR = false;
     private static final Boolean UPDATED_IS_VENDOR = true;
@@ -67,8 +71,11 @@ public class CustomerResourceIT {
     private static final String DEFAULT_FAX = "AAAAAAAAAA";
     private static final String UPDATED_FAX = "BBBBBBBBBB";
 
-    private static final String DEFAULT_EMAIL = "*W@d'.i";
-    private static final String UPDATED_EMAIL = "K_@~.'X";
+    private static final String DEFAULT_EMAIL = "/@kn.u";
+    private static final String UPDATED_EMAIL = "J@+..";
+
+    private static final String DEFAULT_WEBSITE = "AAAAAAAAAA";
+    private static final String UPDATED_WEBSITE = "BBBBBBBBBB";
 
     private static final String DEFAULT_TAX_CODE = "AAAAAAAAAA";
     private static final String UPDATED_TAX_CODE = "BBBBBBBBBB";
@@ -82,30 +89,36 @@ public class CustomerResourceIT {
     private static final String DEFAULT_BANK_NAME = "AAAAAAAAAA";
     private static final String UPDATED_BANK_NAME = "BBBBBBBBBB";
 
-    private static final Double DEFAULT_BALANCE = 1D;
-    private static final Double UPDATED_BALANCE = 2D;
-    private static final Double SMALLER_BALANCE = 1D - 1D;
+    private static final BigDecimal DEFAULT_BALANCE = new BigDecimal(1);
+    private static final BigDecimal UPDATED_BALANCE = new BigDecimal(2);
+    private static final BigDecimal SMALLER_BALANCE = new BigDecimal(1 - 1);
 
-    private static final Double DEFAULT_TOTAL_BALANCE = 1D;
-    private static final Double UPDATED_TOTAL_BALANCE = 2D;
-    private static final Double SMALLER_TOTAL_BALANCE = 1D - 1D;
+    private static final BigDecimal DEFAULT_TOTAL_BALANCE = new BigDecimal(1);
+    private static final BigDecimal UPDATED_TOTAL_BALANCE = new BigDecimal(2);
+    private static final BigDecimal SMALLER_TOTAL_BALANCE = new BigDecimal(1 - 1);
 
-    private static final Double DEFAULT_OPEN_BALANCE = 1D;
-    private static final Double UPDATED_OPEN_BALANCE = 2D;
-    private static final Double SMALLER_OPEN_BALANCE = 1D - 1D;
+    private static final BigDecimal DEFAULT_OPEN_BALANCE = new BigDecimal(1);
+    private static final BigDecimal UPDATED_OPEN_BALANCE = new BigDecimal(2);
+    private static final BigDecimal SMALLER_OPEN_BALANCE = new BigDecimal(1 - 1);
 
     private static final Instant DEFAULT_OPEN_BALANCE_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_OPEN_BALANCE_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Double DEFAULT_CREDIT_LIMIT = 1D;
-    private static final Double UPDATED_CREDIT_LIMIT = 2D;
-    private static final Double SMALLER_CREDIT_LIMIT = 1D - 1D;
+    private static final BigDecimal DEFAULT_CREDIT_LIMIT = new BigDecimal(1);
+    private static final BigDecimal UPDATED_CREDIT_LIMIT = new BigDecimal(2);
+    private static final BigDecimal SMALLER_CREDIT_LIMIT = new BigDecimal(1 - 1);
 
     private static final String DEFAULT_NOTES = "AAAAAAAAAA";
     private static final String UPDATED_NOTES = "BBBBBBBBBB";
 
     private static final String DEFAULT_CONTACT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_CONTACT_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CONTACT_MOBILE = "AAAAAAAAAA";
+    private static final String UPDATED_CONTACT_MOBILE = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CONTACT_EMAIL = "oQ@y.gR";
+    private static final String UPDATED_CONTACT_EMAIL = "N+@5.F=";
 
     private static final Boolean DEFAULT_IS_ACTIVE = false;
     private static final Boolean UPDATED_IS_ACTIVE = true;
@@ -172,6 +185,7 @@ public class CustomerResourceIT {
      */
     public static Customer createEntity(EntityManager em) {
         Customer customer = new Customer()
+            .companyId(DEFAULT_COMPANY_ID)
             .isVendor(DEFAULT_IS_VENDOR)
             .vendorId(DEFAULT_VENDOR_ID)
             .code(DEFAULT_CODE)
@@ -181,6 +195,7 @@ public class CustomerResourceIT {
             .mobile(DEFAULT_MOBILE)
             .fax(DEFAULT_FAX)
             .email(DEFAULT_EMAIL)
+            .website(DEFAULT_WEBSITE)
             .taxCode(DEFAULT_TAX_CODE)
             .accountNumber(DEFAULT_ACCOUNT_NUMBER)
             .bankAccount(DEFAULT_BANK_ACCOUNT)
@@ -192,6 +207,8 @@ public class CustomerResourceIT {
             .creditLimit(DEFAULT_CREDIT_LIMIT)
             .notes(DEFAULT_NOTES)
             .contactName(DEFAULT_CONTACT_NAME)
+            .contactMobile(DEFAULT_CONTACT_MOBILE)
+            .contactEmail(DEFAULT_CONTACT_EMAIL)
             .isActive(DEFAULT_IS_ACTIVE)
             .timeCreated(DEFAULT_TIME_CREATED)
             .timeModified(DEFAULT_TIME_MODIFIED)
@@ -207,6 +224,7 @@ public class CustomerResourceIT {
      */
     public static Customer createUpdatedEntity(EntityManager em) {
         Customer customer = new Customer()
+            .companyId(UPDATED_COMPANY_ID)
             .isVendor(UPDATED_IS_VENDOR)
             .vendorId(UPDATED_VENDOR_ID)
             .code(UPDATED_CODE)
@@ -216,6 +234,7 @@ public class CustomerResourceIT {
             .mobile(UPDATED_MOBILE)
             .fax(UPDATED_FAX)
             .email(UPDATED_EMAIL)
+            .website(UPDATED_WEBSITE)
             .taxCode(UPDATED_TAX_CODE)
             .accountNumber(UPDATED_ACCOUNT_NUMBER)
             .bankAccount(UPDATED_BANK_ACCOUNT)
@@ -227,6 +246,8 @@ public class CustomerResourceIT {
             .creditLimit(UPDATED_CREDIT_LIMIT)
             .notes(UPDATED_NOTES)
             .contactName(UPDATED_CONTACT_NAME)
+            .contactMobile(UPDATED_CONTACT_MOBILE)
+            .contactEmail(UPDATED_CONTACT_EMAIL)
             .isActive(UPDATED_IS_ACTIVE)
             .timeCreated(UPDATED_TIME_CREATED)
             .timeModified(UPDATED_TIME_MODIFIED)
@@ -255,6 +276,7 @@ public class CustomerResourceIT {
         List<Customer> customerList = customerRepository.findAll();
         assertThat(customerList).hasSize(databaseSizeBeforeCreate + 1);
         Customer testCustomer = customerList.get(customerList.size() - 1);
+        assertThat(testCustomer.getCompanyId()).isEqualTo(DEFAULT_COMPANY_ID);
         assertThat(testCustomer.isIsVendor()).isEqualTo(DEFAULT_IS_VENDOR);
         assertThat(testCustomer.getVendorId()).isEqualTo(DEFAULT_VENDOR_ID);
         assertThat(testCustomer.getCode()).isEqualTo(DEFAULT_CODE);
@@ -264,6 +286,7 @@ public class CustomerResourceIT {
         assertThat(testCustomer.getMobile()).isEqualTo(DEFAULT_MOBILE);
         assertThat(testCustomer.getFax()).isEqualTo(DEFAULT_FAX);
         assertThat(testCustomer.getEmail()).isEqualTo(DEFAULT_EMAIL);
+        assertThat(testCustomer.getWebsite()).isEqualTo(DEFAULT_WEBSITE);
         assertThat(testCustomer.getTaxCode()).isEqualTo(DEFAULT_TAX_CODE);
         assertThat(testCustomer.getAccountNumber()).isEqualTo(DEFAULT_ACCOUNT_NUMBER);
         assertThat(testCustomer.getBankAccount()).isEqualTo(DEFAULT_BANK_ACCOUNT);
@@ -275,6 +298,8 @@ public class CustomerResourceIT {
         assertThat(testCustomer.getCreditLimit()).isEqualTo(DEFAULT_CREDIT_LIMIT);
         assertThat(testCustomer.getNotes()).isEqualTo(DEFAULT_NOTES);
         assertThat(testCustomer.getContactName()).isEqualTo(DEFAULT_CONTACT_NAME);
+        assertThat(testCustomer.getContactMobile()).isEqualTo(DEFAULT_CONTACT_MOBILE);
+        assertThat(testCustomer.getContactEmail()).isEqualTo(DEFAULT_CONTACT_EMAIL);
         assertThat(testCustomer.isIsActive()).isEqualTo(DEFAULT_IS_ACTIVE);
         assertThat(testCustomer.getTimeCreated()).isEqualTo(DEFAULT_TIME_CREATED);
         assertThat(testCustomer.getTimeModified()).isEqualTo(DEFAULT_TIME_MODIFIED);
@@ -349,6 +374,7 @@ public class CustomerResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(customer.getId().intValue())))
+            .andExpect(jsonPath("$.[*].companyId").value(hasItem(DEFAULT_COMPANY_ID.intValue())))
             .andExpect(jsonPath("$.[*].isVendor").value(hasItem(DEFAULT_IS_VENDOR.booleanValue())))
             .andExpect(jsonPath("$.[*].vendorId").value(hasItem(DEFAULT_VENDOR_ID.intValue())))
             .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE)))
@@ -358,17 +384,20 @@ public class CustomerResourceIT {
             .andExpect(jsonPath("$.[*].mobile").value(hasItem(DEFAULT_MOBILE)))
             .andExpect(jsonPath("$.[*].fax").value(hasItem(DEFAULT_FAX)))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
+            .andExpect(jsonPath("$.[*].website").value(hasItem(DEFAULT_WEBSITE)))
             .andExpect(jsonPath("$.[*].taxCode").value(hasItem(DEFAULT_TAX_CODE)))
             .andExpect(jsonPath("$.[*].accountNumber").value(hasItem(DEFAULT_ACCOUNT_NUMBER)))
             .andExpect(jsonPath("$.[*].bankAccount").value(hasItem(DEFAULT_BANK_ACCOUNT)))
             .andExpect(jsonPath("$.[*].bankName").value(hasItem(DEFAULT_BANK_NAME)))
-            .andExpect(jsonPath("$.[*].balance").value(hasItem(DEFAULT_BALANCE.doubleValue())))
-            .andExpect(jsonPath("$.[*].totalBalance").value(hasItem(DEFAULT_TOTAL_BALANCE.doubleValue())))
-            .andExpect(jsonPath("$.[*].openBalance").value(hasItem(DEFAULT_OPEN_BALANCE.doubleValue())))
+            .andExpect(jsonPath("$.[*].balance").value(hasItem(DEFAULT_BALANCE.intValue())))
+            .andExpect(jsonPath("$.[*].totalBalance").value(hasItem(DEFAULT_TOTAL_BALANCE.intValue())))
+            .andExpect(jsonPath("$.[*].openBalance").value(hasItem(DEFAULT_OPEN_BALANCE.intValue())))
             .andExpect(jsonPath("$.[*].openBalanceDate").value(hasItem(DEFAULT_OPEN_BALANCE_DATE.toString())))
-            .andExpect(jsonPath("$.[*].creditLimit").value(hasItem(DEFAULT_CREDIT_LIMIT.doubleValue())))
+            .andExpect(jsonPath("$.[*].creditLimit").value(hasItem(DEFAULT_CREDIT_LIMIT.intValue())))
             .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES)))
             .andExpect(jsonPath("$.[*].contactName").value(hasItem(DEFAULT_CONTACT_NAME)))
+            .andExpect(jsonPath("$.[*].contactMobile").value(hasItem(DEFAULT_CONTACT_MOBILE)))
+            .andExpect(jsonPath("$.[*].contactEmail").value(hasItem(DEFAULT_CONTACT_EMAIL)))
             .andExpect(jsonPath("$.[*].isActive").value(hasItem(DEFAULT_IS_ACTIVE.booleanValue())))
             .andExpect(jsonPath("$.[*].timeCreated").value(hasItem(DEFAULT_TIME_CREATED.toString())))
             .andExpect(jsonPath("$.[*].timeModified").value(hasItem(DEFAULT_TIME_MODIFIED.toString())))
@@ -387,6 +416,7 @@ public class CustomerResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(customer.getId().intValue()))
+            .andExpect(jsonPath("$.companyId").value(DEFAULT_COMPANY_ID.intValue()))
             .andExpect(jsonPath("$.isVendor").value(DEFAULT_IS_VENDOR.booleanValue()))
             .andExpect(jsonPath("$.vendorId").value(DEFAULT_VENDOR_ID.intValue()))
             .andExpect(jsonPath("$.code").value(DEFAULT_CODE))
@@ -396,17 +426,20 @@ public class CustomerResourceIT {
             .andExpect(jsonPath("$.mobile").value(DEFAULT_MOBILE))
             .andExpect(jsonPath("$.fax").value(DEFAULT_FAX))
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL))
+            .andExpect(jsonPath("$.website").value(DEFAULT_WEBSITE))
             .andExpect(jsonPath("$.taxCode").value(DEFAULT_TAX_CODE))
             .andExpect(jsonPath("$.accountNumber").value(DEFAULT_ACCOUNT_NUMBER))
             .andExpect(jsonPath("$.bankAccount").value(DEFAULT_BANK_ACCOUNT))
             .andExpect(jsonPath("$.bankName").value(DEFAULT_BANK_NAME))
-            .andExpect(jsonPath("$.balance").value(DEFAULT_BALANCE.doubleValue()))
-            .andExpect(jsonPath("$.totalBalance").value(DEFAULT_TOTAL_BALANCE.doubleValue()))
-            .andExpect(jsonPath("$.openBalance").value(DEFAULT_OPEN_BALANCE.doubleValue()))
+            .andExpect(jsonPath("$.balance").value(DEFAULT_BALANCE.intValue()))
+            .andExpect(jsonPath("$.totalBalance").value(DEFAULT_TOTAL_BALANCE.intValue()))
+            .andExpect(jsonPath("$.openBalance").value(DEFAULT_OPEN_BALANCE.intValue()))
             .andExpect(jsonPath("$.openBalanceDate").value(DEFAULT_OPEN_BALANCE_DATE.toString()))
-            .andExpect(jsonPath("$.creditLimit").value(DEFAULT_CREDIT_LIMIT.doubleValue()))
+            .andExpect(jsonPath("$.creditLimit").value(DEFAULT_CREDIT_LIMIT.intValue()))
             .andExpect(jsonPath("$.notes").value(DEFAULT_NOTES))
             .andExpect(jsonPath("$.contactName").value(DEFAULT_CONTACT_NAME))
+            .andExpect(jsonPath("$.contactMobile").value(DEFAULT_CONTACT_MOBILE))
+            .andExpect(jsonPath("$.contactEmail").value(DEFAULT_CONTACT_EMAIL))
             .andExpect(jsonPath("$.isActive").value(DEFAULT_IS_ACTIVE.booleanValue()))
             .andExpect(jsonPath("$.timeCreated").value(DEFAULT_TIME_CREATED.toString()))
             .andExpect(jsonPath("$.timeModified").value(DEFAULT_TIME_MODIFIED.toString()))
@@ -431,6 +464,111 @@ public class CustomerResourceIT {
 
         defaultCustomerShouldBeFound("id.lessThanOrEqual=" + id);
         defaultCustomerShouldNotBeFound("id.lessThan=" + id);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllCustomersByCompanyIdIsEqualToSomething() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where companyId equals to DEFAULT_COMPANY_ID
+        defaultCustomerShouldBeFound("companyId.equals=" + DEFAULT_COMPANY_ID);
+
+        // Get all the customerList where companyId equals to UPDATED_COMPANY_ID
+        defaultCustomerShouldNotBeFound("companyId.equals=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCustomersByCompanyIdIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where companyId not equals to DEFAULT_COMPANY_ID
+        defaultCustomerShouldNotBeFound("companyId.notEquals=" + DEFAULT_COMPANY_ID);
+
+        // Get all the customerList where companyId not equals to UPDATED_COMPANY_ID
+        defaultCustomerShouldBeFound("companyId.notEquals=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCustomersByCompanyIdIsInShouldWork() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where companyId in DEFAULT_COMPANY_ID or UPDATED_COMPANY_ID
+        defaultCustomerShouldBeFound("companyId.in=" + DEFAULT_COMPANY_ID + "," + UPDATED_COMPANY_ID);
+
+        // Get all the customerList where companyId equals to UPDATED_COMPANY_ID
+        defaultCustomerShouldNotBeFound("companyId.in=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCustomersByCompanyIdIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where companyId is not null
+        defaultCustomerShouldBeFound("companyId.specified=true");
+
+        // Get all the customerList where companyId is null
+        defaultCustomerShouldNotBeFound("companyId.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllCustomersByCompanyIdIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where companyId is greater than or equal to DEFAULT_COMPANY_ID
+        defaultCustomerShouldBeFound("companyId.greaterThanOrEqual=" + DEFAULT_COMPANY_ID);
+
+        // Get all the customerList where companyId is greater than or equal to UPDATED_COMPANY_ID
+        defaultCustomerShouldNotBeFound("companyId.greaterThanOrEqual=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCustomersByCompanyIdIsLessThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where companyId is less than or equal to DEFAULT_COMPANY_ID
+        defaultCustomerShouldBeFound("companyId.lessThanOrEqual=" + DEFAULT_COMPANY_ID);
+
+        // Get all the customerList where companyId is less than or equal to SMALLER_COMPANY_ID
+        defaultCustomerShouldNotBeFound("companyId.lessThanOrEqual=" + SMALLER_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCustomersByCompanyIdIsLessThanSomething() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where companyId is less than DEFAULT_COMPANY_ID
+        defaultCustomerShouldNotBeFound("companyId.lessThan=" + DEFAULT_COMPANY_ID);
+
+        // Get all the customerList where companyId is less than UPDATED_COMPANY_ID
+        defaultCustomerShouldBeFound("companyId.lessThan=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCustomersByCompanyIdIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where companyId is greater than DEFAULT_COMPANY_ID
+        defaultCustomerShouldNotBeFound("companyId.greaterThan=" + DEFAULT_COMPANY_ID);
+
+        // Get all the customerList where companyId is greater than SMALLER_COMPANY_ID
+        defaultCustomerShouldBeFound("companyId.greaterThan=" + SMALLER_COMPANY_ID);
     }
 
 
@@ -1134,6 +1272,84 @@ public class CustomerResourceIT {
 
         // Get all the customerList where email does not contain UPDATED_EMAIL
         defaultCustomerShouldBeFound("email.doesNotContain=" + UPDATED_EMAIL);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllCustomersByWebsiteIsEqualToSomething() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where website equals to DEFAULT_WEBSITE
+        defaultCustomerShouldBeFound("website.equals=" + DEFAULT_WEBSITE);
+
+        // Get all the customerList where website equals to UPDATED_WEBSITE
+        defaultCustomerShouldNotBeFound("website.equals=" + UPDATED_WEBSITE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCustomersByWebsiteIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where website not equals to DEFAULT_WEBSITE
+        defaultCustomerShouldNotBeFound("website.notEquals=" + DEFAULT_WEBSITE);
+
+        // Get all the customerList where website not equals to UPDATED_WEBSITE
+        defaultCustomerShouldBeFound("website.notEquals=" + UPDATED_WEBSITE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCustomersByWebsiteIsInShouldWork() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where website in DEFAULT_WEBSITE or UPDATED_WEBSITE
+        defaultCustomerShouldBeFound("website.in=" + DEFAULT_WEBSITE + "," + UPDATED_WEBSITE);
+
+        // Get all the customerList where website equals to UPDATED_WEBSITE
+        defaultCustomerShouldNotBeFound("website.in=" + UPDATED_WEBSITE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCustomersByWebsiteIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where website is not null
+        defaultCustomerShouldBeFound("website.specified=true");
+
+        // Get all the customerList where website is null
+        defaultCustomerShouldNotBeFound("website.specified=false");
+    }
+                @Test
+    @Transactional
+    public void getAllCustomersByWebsiteContainsSomething() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where website contains DEFAULT_WEBSITE
+        defaultCustomerShouldBeFound("website.contains=" + DEFAULT_WEBSITE);
+
+        // Get all the customerList where website contains UPDATED_WEBSITE
+        defaultCustomerShouldNotBeFound("website.contains=" + UPDATED_WEBSITE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCustomersByWebsiteNotContainsSomething() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where website does not contain DEFAULT_WEBSITE
+        defaultCustomerShouldNotBeFound("website.doesNotContain=" + DEFAULT_WEBSITE);
+
+        // Get all the customerList where website does not contain UPDATED_WEBSITE
+        defaultCustomerShouldBeFound("website.doesNotContain=" + UPDATED_WEBSITE);
     }
 
 
@@ -2079,6 +2295,162 @@ public class CustomerResourceIT {
 
     @Test
     @Transactional
+    public void getAllCustomersByContactMobileIsEqualToSomething() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where contactMobile equals to DEFAULT_CONTACT_MOBILE
+        defaultCustomerShouldBeFound("contactMobile.equals=" + DEFAULT_CONTACT_MOBILE);
+
+        // Get all the customerList where contactMobile equals to UPDATED_CONTACT_MOBILE
+        defaultCustomerShouldNotBeFound("contactMobile.equals=" + UPDATED_CONTACT_MOBILE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCustomersByContactMobileIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where contactMobile not equals to DEFAULT_CONTACT_MOBILE
+        defaultCustomerShouldNotBeFound("contactMobile.notEquals=" + DEFAULT_CONTACT_MOBILE);
+
+        // Get all the customerList where contactMobile not equals to UPDATED_CONTACT_MOBILE
+        defaultCustomerShouldBeFound("contactMobile.notEquals=" + UPDATED_CONTACT_MOBILE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCustomersByContactMobileIsInShouldWork() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where contactMobile in DEFAULT_CONTACT_MOBILE or UPDATED_CONTACT_MOBILE
+        defaultCustomerShouldBeFound("contactMobile.in=" + DEFAULT_CONTACT_MOBILE + "," + UPDATED_CONTACT_MOBILE);
+
+        // Get all the customerList where contactMobile equals to UPDATED_CONTACT_MOBILE
+        defaultCustomerShouldNotBeFound("contactMobile.in=" + UPDATED_CONTACT_MOBILE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCustomersByContactMobileIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where contactMobile is not null
+        defaultCustomerShouldBeFound("contactMobile.specified=true");
+
+        // Get all the customerList where contactMobile is null
+        defaultCustomerShouldNotBeFound("contactMobile.specified=false");
+    }
+                @Test
+    @Transactional
+    public void getAllCustomersByContactMobileContainsSomething() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where contactMobile contains DEFAULT_CONTACT_MOBILE
+        defaultCustomerShouldBeFound("contactMobile.contains=" + DEFAULT_CONTACT_MOBILE);
+
+        // Get all the customerList where contactMobile contains UPDATED_CONTACT_MOBILE
+        defaultCustomerShouldNotBeFound("contactMobile.contains=" + UPDATED_CONTACT_MOBILE);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCustomersByContactMobileNotContainsSomething() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where contactMobile does not contain DEFAULT_CONTACT_MOBILE
+        defaultCustomerShouldNotBeFound("contactMobile.doesNotContain=" + DEFAULT_CONTACT_MOBILE);
+
+        // Get all the customerList where contactMobile does not contain UPDATED_CONTACT_MOBILE
+        defaultCustomerShouldBeFound("contactMobile.doesNotContain=" + UPDATED_CONTACT_MOBILE);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllCustomersByContactEmailIsEqualToSomething() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where contactEmail equals to DEFAULT_CONTACT_EMAIL
+        defaultCustomerShouldBeFound("contactEmail.equals=" + DEFAULT_CONTACT_EMAIL);
+
+        // Get all the customerList where contactEmail equals to UPDATED_CONTACT_EMAIL
+        defaultCustomerShouldNotBeFound("contactEmail.equals=" + UPDATED_CONTACT_EMAIL);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCustomersByContactEmailIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where contactEmail not equals to DEFAULT_CONTACT_EMAIL
+        defaultCustomerShouldNotBeFound("contactEmail.notEquals=" + DEFAULT_CONTACT_EMAIL);
+
+        // Get all the customerList where contactEmail not equals to UPDATED_CONTACT_EMAIL
+        defaultCustomerShouldBeFound("contactEmail.notEquals=" + UPDATED_CONTACT_EMAIL);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCustomersByContactEmailIsInShouldWork() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where contactEmail in DEFAULT_CONTACT_EMAIL or UPDATED_CONTACT_EMAIL
+        defaultCustomerShouldBeFound("contactEmail.in=" + DEFAULT_CONTACT_EMAIL + "," + UPDATED_CONTACT_EMAIL);
+
+        // Get all the customerList where contactEmail equals to UPDATED_CONTACT_EMAIL
+        defaultCustomerShouldNotBeFound("contactEmail.in=" + UPDATED_CONTACT_EMAIL);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCustomersByContactEmailIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where contactEmail is not null
+        defaultCustomerShouldBeFound("contactEmail.specified=true");
+
+        // Get all the customerList where contactEmail is null
+        defaultCustomerShouldNotBeFound("contactEmail.specified=false");
+    }
+                @Test
+    @Transactional
+    public void getAllCustomersByContactEmailContainsSomething() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where contactEmail contains DEFAULT_CONTACT_EMAIL
+        defaultCustomerShouldBeFound("contactEmail.contains=" + DEFAULT_CONTACT_EMAIL);
+
+        // Get all the customerList where contactEmail contains UPDATED_CONTACT_EMAIL
+        defaultCustomerShouldNotBeFound("contactEmail.contains=" + UPDATED_CONTACT_EMAIL);
+    }
+
+    @Test
+    @Transactional
+    public void getAllCustomersByContactEmailNotContainsSomething() throws Exception {
+        // Initialize the database
+        customerRepository.saveAndFlush(customer);
+
+        // Get all the customerList where contactEmail does not contain DEFAULT_CONTACT_EMAIL
+        defaultCustomerShouldNotBeFound("contactEmail.doesNotContain=" + DEFAULT_CONTACT_EMAIL);
+
+        // Get all the customerList where contactEmail does not contain UPDATED_CONTACT_EMAIL
+        defaultCustomerShouldBeFound("contactEmail.doesNotContain=" + UPDATED_CONTACT_EMAIL);
+    }
+
+
+    @Test
+    @Transactional
     public void getAllCustomersByIsActiveIsEqualToSomething() throws Exception {
         // Initialize the database
         customerRepository.saveAndFlush(customer);
@@ -2502,26 +2874,6 @@ public class CustomerResourceIT {
         defaultCustomerShouldNotBeFound("termsId.equals=" + (termsId + 1));
     }
 
-
-    @Test
-    @Transactional
-    public void getAllCustomersByCompanyIsEqualToSomething() throws Exception {
-        // Initialize the database
-        customerRepository.saveAndFlush(customer);
-        Company company = CompanyResourceIT.createEntity(em);
-        em.persist(company);
-        em.flush();
-        customer.setCompany(company);
-        customerRepository.saveAndFlush(customer);
-        Long companyId = company.getId();
-
-        // Get all the customerList where company equals to companyId
-        defaultCustomerShouldBeFound("companyId.equals=" + companyId);
-
-        // Get all the customerList where company equals to companyId + 1
-        defaultCustomerShouldNotBeFound("companyId.equals=" + (companyId + 1));
-    }
-
     /**
      * Executes the search, and checks that the default entity is returned.
      */
@@ -2530,6 +2882,7 @@ public class CustomerResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(customer.getId().intValue())))
+            .andExpect(jsonPath("$.[*].companyId").value(hasItem(DEFAULT_COMPANY_ID.intValue())))
             .andExpect(jsonPath("$.[*].isVendor").value(hasItem(DEFAULT_IS_VENDOR.booleanValue())))
             .andExpect(jsonPath("$.[*].vendorId").value(hasItem(DEFAULT_VENDOR_ID.intValue())))
             .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE)))
@@ -2539,17 +2892,20 @@ public class CustomerResourceIT {
             .andExpect(jsonPath("$.[*].mobile").value(hasItem(DEFAULT_MOBILE)))
             .andExpect(jsonPath("$.[*].fax").value(hasItem(DEFAULT_FAX)))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
+            .andExpect(jsonPath("$.[*].website").value(hasItem(DEFAULT_WEBSITE)))
             .andExpect(jsonPath("$.[*].taxCode").value(hasItem(DEFAULT_TAX_CODE)))
             .andExpect(jsonPath("$.[*].accountNumber").value(hasItem(DEFAULT_ACCOUNT_NUMBER)))
             .andExpect(jsonPath("$.[*].bankAccount").value(hasItem(DEFAULT_BANK_ACCOUNT)))
             .andExpect(jsonPath("$.[*].bankName").value(hasItem(DEFAULT_BANK_NAME)))
-            .andExpect(jsonPath("$.[*].balance").value(hasItem(DEFAULT_BALANCE.doubleValue())))
-            .andExpect(jsonPath("$.[*].totalBalance").value(hasItem(DEFAULT_TOTAL_BALANCE.doubleValue())))
-            .andExpect(jsonPath("$.[*].openBalance").value(hasItem(DEFAULT_OPEN_BALANCE.doubleValue())))
+            .andExpect(jsonPath("$.[*].balance").value(hasItem(DEFAULT_BALANCE.intValue())))
+            .andExpect(jsonPath("$.[*].totalBalance").value(hasItem(DEFAULT_TOTAL_BALANCE.intValue())))
+            .andExpect(jsonPath("$.[*].openBalance").value(hasItem(DEFAULT_OPEN_BALANCE.intValue())))
             .andExpect(jsonPath("$.[*].openBalanceDate").value(hasItem(DEFAULT_OPEN_BALANCE_DATE.toString())))
-            .andExpect(jsonPath("$.[*].creditLimit").value(hasItem(DEFAULT_CREDIT_LIMIT.doubleValue())))
+            .andExpect(jsonPath("$.[*].creditLimit").value(hasItem(DEFAULT_CREDIT_LIMIT.intValue())))
             .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES)))
             .andExpect(jsonPath("$.[*].contactName").value(hasItem(DEFAULT_CONTACT_NAME)))
+            .andExpect(jsonPath("$.[*].contactMobile").value(hasItem(DEFAULT_CONTACT_MOBILE)))
+            .andExpect(jsonPath("$.[*].contactEmail").value(hasItem(DEFAULT_CONTACT_EMAIL)))
             .andExpect(jsonPath("$.[*].isActive").value(hasItem(DEFAULT_IS_ACTIVE.booleanValue())))
             .andExpect(jsonPath("$.[*].timeCreated").value(hasItem(DEFAULT_TIME_CREATED.toString())))
             .andExpect(jsonPath("$.[*].timeModified").value(hasItem(DEFAULT_TIME_MODIFIED.toString())))
@@ -2602,6 +2958,7 @@ public class CustomerResourceIT {
         // Disconnect from session so that the updates on updatedCustomer are not directly saved in db
         em.detach(updatedCustomer);
         updatedCustomer
+            .companyId(UPDATED_COMPANY_ID)
             .isVendor(UPDATED_IS_VENDOR)
             .vendorId(UPDATED_VENDOR_ID)
             .code(UPDATED_CODE)
@@ -2611,6 +2968,7 @@ public class CustomerResourceIT {
             .mobile(UPDATED_MOBILE)
             .fax(UPDATED_FAX)
             .email(UPDATED_EMAIL)
+            .website(UPDATED_WEBSITE)
             .taxCode(UPDATED_TAX_CODE)
             .accountNumber(UPDATED_ACCOUNT_NUMBER)
             .bankAccount(UPDATED_BANK_ACCOUNT)
@@ -2622,6 +2980,8 @@ public class CustomerResourceIT {
             .creditLimit(UPDATED_CREDIT_LIMIT)
             .notes(UPDATED_NOTES)
             .contactName(UPDATED_CONTACT_NAME)
+            .contactMobile(UPDATED_CONTACT_MOBILE)
+            .contactEmail(UPDATED_CONTACT_EMAIL)
             .isActive(UPDATED_IS_ACTIVE)
             .timeCreated(UPDATED_TIME_CREATED)
             .timeModified(UPDATED_TIME_MODIFIED)
@@ -2637,6 +2997,7 @@ public class CustomerResourceIT {
         List<Customer> customerList = customerRepository.findAll();
         assertThat(customerList).hasSize(databaseSizeBeforeUpdate);
         Customer testCustomer = customerList.get(customerList.size() - 1);
+        assertThat(testCustomer.getCompanyId()).isEqualTo(UPDATED_COMPANY_ID);
         assertThat(testCustomer.isIsVendor()).isEqualTo(UPDATED_IS_VENDOR);
         assertThat(testCustomer.getVendorId()).isEqualTo(UPDATED_VENDOR_ID);
         assertThat(testCustomer.getCode()).isEqualTo(UPDATED_CODE);
@@ -2646,6 +3007,7 @@ public class CustomerResourceIT {
         assertThat(testCustomer.getMobile()).isEqualTo(UPDATED_MOBILE);
         assertThat(testCustomer.getFax()).isEqualTo(UPDATED_FAX);
         assertThat(testCustomer.getEmail()).isEqualTo(UPDATED_EMAIL);
+        assertThat(testCustomer.getWebsite()).isEqualTo(UPDATED_WEBSITE);
         assertThat(testCustomer.getTaxCode()).isEqualTo(UPDATED_TAX_CODE);
         assertThat(testCustomer.getAccountNumber()).isEqualTo(UPDATED_ACCOUNT_NUMBER);
         assertThat(testCustomer.getBankAccount()).isEqualTo(UPDATED_BANK_ACCOUNT);
@@ -2657,6 +3019,8 @@ public class CustomerResourceIT {
         assertThat(testCustomer.getCreditLimit()).isEqualTo(UPDATED_CREDIT_LIMIT);
         assertThat(testCustomer.getNotes()).isEqualTo(UPDATED_NOTES);
         assertThat(testCustomer.getContactName()).isEqualTo(UPDATED_CONTACT_NAME);
+        assertThat(testCustomer.getContactMobile()).isEqualTo(UPDATED_CONTACT_MOBILE);
+        assertThat(testCustomer.getContactEmail()).isEqualTo(UPDATED_CONTACT_EMAIL);
         assertThat(testCustomer.isIsActive()).isEqualTo(UPDATED_IS_ACTIVE);
         assertThat(testCustomer.getTimeCreated()).isEqualTo(UPDATED_TIME_CREATED);
         assertThat(testCustomer.getTimeModified()).isEqualTo(UPDATED_TIME_MODIFIED);

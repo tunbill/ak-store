@@ -26,6 +26,7 @@
       "investor": "Investor",
       "address": "Address",
       "notes": "Notes",
+      "isActive": "Is Active",
       "jobType": "Job Type"
     }
   }

@@ -36,6 +36,7 @@ export class JobsUpdatePage {
   investorInput = element(by.id('field_investor'));
   addressInput = element(by.id('field_address'));
   notesInput = element(by.id('field_notes'));
+  isActiveInput = element(by.id('field_isActive'));
   jobTypeSelect = element(by.id('field_jobType'));
 
   async getPageTitle() {
@@ -120,6 +121,10 @@ export class JobsUpdatePage {
 
   async getNotesInput() {
     return await this.notesInput.getAttribute('value');
+  }
+
+  getIsActiveInput() {
+    return this.isActiveInput;
   }
 
   async jobTypeSelectLastOption() {

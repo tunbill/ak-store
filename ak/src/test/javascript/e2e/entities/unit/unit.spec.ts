@@ -38,10 +38,22 @@ describe('Unit e2e test', () => {
     const nbButtonsBeforeCreate = await unitComponentsPage.countDeleteButtons();
 
     await unitComponentsPage.clickOnCreateButton();
-    await promise.all([unitUpdatePage.setCompanyIdInput('5'), unitUpdatePage.setCodeInput('code'), unitUpdatePage.setNameInput('name')]);
+    await promise.all([
+      unitUpdatePage.setCompanyIdInput('5'),
+      unitUpdatePage.setNameInput('name'),
+      unitUpdatePage.setDescriptionInput('description')
+    ]);
     expect(await unitUpdatePage.getCompanyIdInput()).to.eq('5', 'Expected companyId value to be equals to 5');
-    expect(await unitUpdatePage.getCodeInput()).to.eq('code', 'Expected Code value to be equals to code');
     expect(await unitUpdatePage.getNameInput()).to.eq('name', 'Expected Name value to be equals to name');
+    expect(await unitUpdatePage.getDescriptionInput()).to.eq('description', 'Expected Description value to be equals to description');
+    const selectedIsActive = unitUpdatePage.getIsActiveInput();
+    if (await selectedIsActive.isSelected()) {
+      await unitUpdatePage.getIsActiveInput().click();
+      expect(await unitUpdatePage.getIsActiveInput().isSelected(), 'Expected isActive not to be selected').to.be.false;
+    } else {
+      await unitUpdatePage.getIsActiveInput().click();
+      expect(await unitUpdatePage.getIsActiveInput().isSelected(), 'Expected isActive to be selected').to.be.true;
+    }
     await unitUpdatePage.save();
     expect(await unitUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;
 

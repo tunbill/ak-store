@@ -47,7 +47,7 @@ describe('Company e2e test', () => {
       companyUpdatePage.setAddressInput('address'),
       companyUpdatePage.setLogoInput(absolutePath),
       companyUpdatePage.setEmailInput(
-        'CVANu/aUQ`iu6djtNBn$nyZnHB(#0&#39;1VrTm3;!g[KUhr)Rc?&#39;YI@h{~^)JL.F#KX&amp;8pZ-D3}BI|B$#%n-5p++x.nmZ{`'
+        'iAw=QGUKQ2=K@W]?h}&#39;OY+9tz{6On4(pH{JcKDo.v=wvk9rcfV[4mo]Jz#!c{`F&#39;3|$|NXw2#t6c,Y3&#34;hgJ#7.mzPzCUve.5)TZBA[v~Qlv$V1z=96RuZ8N}WNjXb!D%#-B^=zY/9}Rg/{RZR3`5$Lvc-m]KgTvz6rC]8N4+pERA-RJ,C~C'
       ),
       companyUpdatePage.setStartDateInput('2000-12-31'),
       companyUpdatePage.setNumOfUsersInput('5'),
@@ -62,8 +62,8 @@ describe('Company e2e test', () => {
     expect(await companyUpdatePage.getAddressInput()).to.eq('address', 'Expected Address value to be equals to address');
     expect(await companyUpdatePage.getLogoInput()).to.endsWith(fileNameToUpload, 'Expected Logo value to be end with ' + fileNameToUpload);
     expect(await companyUpdatePage.getEmailInput()).to.eq(
-      'CVANu/aUQ`iu6djtNBn$nyZnHB(#0&#39;1VrTm3;!g[KUhr)Rc?&#39;YI@h{~^)JL.F#KX&amp;8pZ-D3}BI|B$#%n-5p++x.nmZ{`',
-      'Expected Email value to be equals to CVANu/aUQ`iu6djtNBn$nyZnHB(#0&#39;1VrTm3;!g[KUhr)Rc?&#39;YI@h{~^)JL.F#KX&amp;8pZ-D3}BI|B$#%n-5p++x.nmZ{`'
+      'iAw=QGUKQ2=K@W]?h}&#39;OY+9tz{6On4(pH{JcKDo.v=wvk9rcfV[4mo]Jz#!c{`F&#39;3|$|NXw2#t6c,Y3&#34;hgJ#7.mzPzCUve.5)TZBA[v~Qlv$V1z=96RuZ8N}WNjXb!D%#-B^=zY/9}Rg/{RZR3`5$Lvc-m]KgTvz6rC]8N4+pERA-RJ,C~C',
+      'Expected Email value to be equals to iAw=QGUKQ2=K@W]?h}&#39;OY+9tz{6On4(pH{JcKDo.v=wvk9rcfV[4mo]Jz#!c{`F&#39;3|$|NXw2#t6c,Y3&#34;hgJ#7.mzPzCUve.5)TZBA[v~Qlv$V1z=96RuZ8N}WNjXb!D%#-B^=zY/9}Rg/{RZR3`5$Lvc-m]KgTvz6rC]8N4+pERA-RJ,C~C'
     );
     expect(await companyUpdatePage.getStartDateInput()).to.eq('2000-12-31', 'Expected startDate value to be equals to 2000-12-31');
     expect(await companyUpdatePage.getNumOfUsersInput()).to.eq('5', 'Expected numOfUsers value to be equals to 5');

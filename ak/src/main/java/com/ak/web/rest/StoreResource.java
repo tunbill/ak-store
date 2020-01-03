@@ -1,7 +1,10 @@
 package com.ak.web.rest;
 
 import com.ak.domain.Store;
+import com.ak.domain.User;
+import com.ak.security.SecurityUtils;
 import com.ak.service.StoreService;
+import com.ak.service.UserService;
 import com.ak.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -40,9 +43,12 @@ public class StoreResource {
     private String applicationName;
 
     private final StoreService storeService;
+    
+    private final UserService userService;
 
-    public StoreResource(StoreService storeService) {
+    public StoreResource(StoreService storeService, UserService userService) {
         this.storeService = storeService;
+        this.userService = userService;
     }
 
     /**
@@ -58,6 +64,9 @@ public class StoreResource {
         if (store.getId() != null) {
             throw new BadRequestAlertException("A new store cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        store.setCompanyId(user.get().getCompanyId());
         Store result = storeService.save(store);
         return ResponseEntity.created(new URI("/api/stores/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -79,6 +88,9 @@ public class StoreResource {
         if (store.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        store.setCompanyId(user.get().getCompanyId());
         Store result = storeService.save(store);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, store.getId().toString()))
@@ -96,7 +108,9 @@ public class StoreResource {
     @GetMapping("/stores")
     public ResponseEntity<List<Store>> getAllStores(Pageable pageable) {
         log.debug("REST request to get a page of Stores");
-        Page<Store> page = storeService.findAll(pageable);
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        Page<Store> page = storeService.findByCompanyId(user.get().getCompanyId(), pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

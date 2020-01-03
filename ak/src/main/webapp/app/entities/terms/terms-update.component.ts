@@ -18,7 +18,7 @@ export class TermsUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     code: [null, [Validators.maxLength(10)]],
-    name: [null, [Validators.required, Validators.maxLength(100)]],
+    name: [null, [Validators.required, Validators.maxLength(50)]],
     dayOfMonthDue: [],
     dueNextMonthDays: [],
     discountDayOfMonth: [],

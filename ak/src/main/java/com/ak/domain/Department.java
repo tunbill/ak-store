@@ -31,9 +31,16 @@ public class Department implements Serializable {
     private String code;
 
     @NotNull
-    @Size(max = 100)
-    @Column(name = "name", length = 100, nullable = false)
+    @Size(max = 50)
+    @Column(name = "name", length = 50, nullable = false)
     private String name;
+
+    @Size(max = 200)
+    @Column(name = "description", length = 200)
+    private String description;
+
+    @Column(name = "is_active")
+    private Boolean isActive;
 
     @OneToMany(mappedBy = "department")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -87,6 +94,32 @@ public class Department implements Serializable {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public Department description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Boolean isIsActive() {
+        return isActive;
+    }
+
+    public Department isActive(Boolean isActive) {
+        this.isActive = isActive;
+        return this;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
     public Set<Employee> getEmployees() {
         return employees;
     }
@@ -136,6 +169,8 @@ public class Department implements Serializable {
             ", companyId=" + getCompanyId() +
             ", code='" + getCode() + "'" +
             ", name='" + getName() + "'" +
+            ", description='" + getDescription() + "'" +
+            ", isActive='" + isIsActive() + "'" +
             "}";
     }
 }

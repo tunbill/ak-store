@@ -1,7 +1,10 @@
 package com.ak.web.rest;
 
 import com.ak.domain.Department;
+import com.ak.domain.User;
 import com.ak.repository.DepartmentRepository;
+import com.ak.security.SecurityUtils;
+import com.ak.service.UserService;
 import com.ak.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -42,10 +45,13 @@ public class DepartmentResource {
     private String applicationName;
 
     private final DepartmentRepository departmentRepository;
+    
+    private final UserService userService;
 
-    public DepartmentResource(DepartmentRepository departmentRepository) {
+    public DepartmentResource(DepartmentRepository departmentRepository, UserService userService) {
         this.departmentRepository = departmentRepository;
-    }
+        this.userService = userService;
+    } 
 
     /**
      * {@code POST  /departments} : Create a new department.
@@ -60,6 +66,9 @@ public class DepartmentResource {
         if (department.getId() != null) {
             throw new BadRequestAlertException("A new department cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        department.setCompanyId(user.get().getCompanyId());
         Department result = departmentRepository.save(department);
         return ResponseEntity.created(new URI("/api/departments/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -81,6 +90,9 @@ public class DepartmentResource {
         if (department.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        department.setCompanyId(user.get().getCompanyId());
         Department result = departmentRepository.save(department);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, department.getId().toString()))
@@ -98,7 +110,9 @@ public class DepartmentResource {
     @GetMapping("/departments")
     public ResponseEntity<List<Department>> getAllDepartments(Pageable pageable) {
         log.debug("REST request to get a page of Departments");
-        Page<Department> page = departmentRepository.findAll(pageable);
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        Page<Department> page = departmentRepository.findByCompanyId(user.get().getCompanyId(), pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

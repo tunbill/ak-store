@@ -1,3 +1,4 @@
+
 package com.ak.service;
 
 import java.util.List;
@@ -92,7 +93,10 @@ public class EmployeeQueryService extends QueryService<Employee> {
                 specification = specification.and(buildStringSpecification(criteria.getCode(), Employee_.code));
             }
             if (criteria.getFullName() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getFullName(), Employee_.fullName));
+                specification = specification.and(buildStringSpecification(criteria.getFullName(), Employee_.fullName)
+                		.or(buildStringSpecification(criteria.getFullName(), Employee_.code))
+                		.or(buildStringSpecification(criteria.getFullName(), Employee_.phone))
+               		);
             }
             if (criteria.getSex() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getSex(), Employee_.sex));

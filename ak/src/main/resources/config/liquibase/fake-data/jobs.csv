@@ -1,11 +1,11 @@
-id;company_id;code;name;status;start_date;end_date;estimate;investor;address;notes
-1;24317;pixel SAS parsing;Branding Concrete;40639;2019-12-28;2019-12-28;89633;Kids;microchip;Music Salad North Carolina
-2;42142;Chief generating fri;navigating;36305;2019-12-28;2019-12-29;26806;Money Market Account users Guinea;SQL lavender;transmit Wooden COM
-3;48743;Central digital supp;Bedfordshire;74168;2019-12-28;2019-12-28;63347;Down-sized Metal;methodologies Granite Corporate;needs-based Sports Global
-4;11775;Missouri actuating I;Buckinghamshire microchip;10657;2019-12-29;2019-12-28;13688;Future;pixel Phased payment;Towels Internal
-5;41877;drive Ireland;strategic;95862;2019-12-28;2019-12-28;8279;Auto Loan Account;Fantastic Fresh Ball;ubiquitous monitor
-6;29712;West Virginia Keys;Factors Soft;48375;2019-12-28;2019-12-28;3118;clear-thinking Auto Loan Account;indexing;Savings Account extensible connect
-7;10659;Incredible interface;feed Investment Account;45968;2019-12-28;2019-12-29;81910;auxiliary;Engineer Toys Fantastic;Licensed
-8;91731;Soft Quality Mount;Awesome;95817;2019-12-28;2019-12-28;73222;1080p payment;invoice Engineer Central;magenta Associate
-9;94405;Small Metal Soap Pri;Unions algorithm;12052;2019-12-28;2019-12-28;29734;Direct;experiences online program;indexing
-10;31910;quantifying Baby;one-to-one Connecticut;48106;2019-12-29;2019-12-28;69628;magnetic interface;Kansas;Maldives bluetooth policy
+id;company_id;code;name;status;start_date;end_date;estimate;investor;address;notes;is_active
+1;99793;proactive;Fantastic Sleek Granite Tuna Utah;27168;2020-01-01;2020-01-02;76827;e-services;Russian Federation program;Practical;false
+2;29700;SQL;Persevering Gorgeous Steel Salad Associate;42777;2020-01-02;2020-01-02;39163;Concrete Usability neural;Generic;Facilitator XSS;true
+3;46740;Personal Loan Accoun;matrix;83782;2020-01-01;2020-01-02;60773;Avon Automated Shirt;Electronics;neural wireless Generic Frozen Bike;true
+4;51826;Personal Loan Accoun;connect Zimbabwe Dollar;15389;2020-01-01;2020-01-01;46338;Savings Account;Antigua and Barbuda Personal Loan Account Utah;Trail;false
+5;26560;Granite;Tasty Fresh Pizza Jewelery monitoring;93158;2020-01-02;2020-01-01;8698;ROI;Computers Saint Helena Pound;Borders;false
+6;96212;Handcrafted;Tasty backing up Cambridgeshire;48058;2020-01-02;2020-01-01;90651;Louisiana payment Mayotte;optimal EXE optical;Synchronised Pizza;false
+7;70836;overriding UIC-Franc;Generic El Salvador Colon US Dollar purple;88163;2020-01-01;2020-01-01;87184;Outdoors backing up;copying;reboot;false
+8;112;Tennessee generate A;asymmetric;61692;2020-01-02;2020-01-01;55984;Concrete expedite;Solomon Islands;Wooden radical Beauty;false
+9;96299;24/365 deposit Mobil;solid state;17375;2020-01-01;2020-01-01;6783;challenge application Handmade Rubber Shoes;Generic Steel Car SCSI;Technician Architect calculate;false
+10;59439;utilize Small Fresh ;compress UAE Dirham Dam;27362;2020-01-02;2020-01-01;94430;Practical GB;neural Guinea Franc;bypassing;true

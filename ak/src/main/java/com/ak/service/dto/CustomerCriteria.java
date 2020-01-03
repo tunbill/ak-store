@@ -48,6 +48,8 @@ public class CustomerCriteria implements Serializable, Criteria {
 
     private StringFilter email;
 
+    private StringFilter website;
+
     private StringFilter taxCode;
 
     private StringFilter accountNumber;
@@ -69,6 +71,10 @@ public class CustomerCriteria implements Serializable, Criteria {
     private StringFilter notes;
 
     private StringFilter contactName;
+
+    private StringFilter contactMobile;
+
+    private StringFilter contactEmail;
 
     private BooleanFilter isActive;
 
@@ -101,6 +107,7 @@ public class CustomerCriteria implements Serializable, Criteria {
         this.mobile = other.mobile == null ? null : other.mobile.copy();
         this.fax = other.fax == null ? null : other.fax.copy();
         this.email = other.email == null ? null : other.email.copy();
+        this.website = other.website == null ? null : other.website.copy();
         this.taxCode = other.taxCode == null ? null : other.taxCode.copy();
         this.accountNumber = other.accountNumber == null ? null : other.accountNumber.copy();
         this.bankAccount = other.bankAccount == null ? null : other.bankAccount.copy();
@@ -112,6 +119,8 @@ public class CustomerCriteria implements Serializable, Criteria {
         this.creditLimit = other.creditLimit == null ? null : other.creditLimit.copy();
         this.notes = other.notes == null ? null : other.notes.copy();
         this.contactName = other.contactName == null ? null : other.contactName.copy();
+        this.contactMobile = other.contactMobile == null ? null : other.contactMobile.copy();
+        this.contactEmail = other.contactEmail == null ? null : other.contactEmail.copy();
         this.isActive = other.isActive == null ? null : other.isActive.copy();
         this.timeCreated = other.timeCreated == null ? null : other.timeCreated.copy();
         this.timeModified = other.timeModified == null ? null : other.timeModified.copy();
@@ -215,6 +224,14 @@ public class CustomerCriteria implements Serializable, Criteria {
         this.email = email;
     }
 
+    public StringFilter getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(StringFilter website) {
+        this.website = website;
+    }
+
     public StringFilter getTaxCode() {
         return taxCode;
     }
@@ -303,6 +320,22 @@ public class CustomerCriteria implements Serializable, Criteria {
         this.contactName = contactName;
     }
 
+    public StringFilter getContactMobile() {
+        return contactMobile;
+    }
+
+    public void setContactMobile(StringFilter contactMobile) {
+        this.contactMobile = contactMobile;
+    }
+
+    public StringFilter getContactEmail() {
+        return contactEmail;
+    }
+
+    public void setContactEmail(StringFilter contactEmail) {
+        this.contactEmail = contactEmail;
+    }
+
     public BooleanFilter getIsActive() {
         return isActive;
     }
@@ -389,6 +422,7 @@ public class CustomerCriteria implements Serializable, Criteria {
             Objects.equals(mobile, that.mobile) &&
             Objects.equals(fax, that.fax) &&
             Objects.equals(email, that.email) &&
+            Objects.equals(website, that.website) &&
             Objects.equals(taxCode, that.taxCode) &&
             Objects.equals(accountNumber, that.accountNumber) &&
             Objects.equals(bankAccount, that.bankAccount) &&
@@ -400,6 +434,8 @@ public class CustomerCriteria implements Serializable, Criteria {
             Objects.equals(creditLimit, that.creditLimit) &&
             Objects.equals(notes, that.notes) &&
             Objects.equals(contactName, that.contactName) &&
+            Objects.equals(contactMobile, that.contactMobile) &&
+            Objects.equals(contactEmail, that.contactEmail) &&
             Objects.equals(isActive, that.isActive) &&
             Objects.equals(timeCreated, that.timeCreated) &&
             Objects.equals(timeModified, that.timeModified) &&
@@ -424,6 +460,7 @@ public class CustomerCriteria implements Serializable, Criteria {
         mobile,
         fax,
         email,
+        website,
         taxCode,
         accountNumber,
         bankAccount,
@@ -435,6 +472,8 @@ public class CustomerCriteria implements Serializable, Criteria {
         creditLimit,
         notes,
         contactName,
+        contactMobile,
+        contactEmail,
         isActive,
         timeCreated,
         timeModified,
@@ -460,6 +499,7 @@ public class CustomerCriteria implements Serializable, Criteria {
                 (mobile != null ? "mobile=" + mobile + ", " : "") +
                 (fax != null ? "fax=" + fax + ", " : "") +
                 (email != null ? "email=" + email + ", " : "") +
+                (website != null ? "website=" + website + ", " : "") +
                 (taxCode != null ? "taxCode=" + taxCode + ", " : "") +
                 (accountNumber != null ? "accountNumber=" + accountNumber + ", " : "") +
                 (bankAccount != null ? "bankAccount=" + bankAccount + ", " : "") +
@@ -471,6 +511,8 @@ public class CustomerCriteria implements Serializable, Criteria {
                 (creditLimit != null ? "creditLimit=" + creditLimit + ", " : "") +
                 (notes != null ? "notes=" + notes + ", " : "") +
                 (contactName != null ? "contactName=" + contactName + ", " : "") +
+                (contactMobile != null ? "contactMobile=" + contactMobile + ", " : "") +
+                (contactEmail != null ? "contactEmail=" + contactEmail + ", " : "") +
                 (isActive != null ? "isActive=" + isActive + ", " : "") +
                 (timeCreated != null ? "timeCreated=" + timeCreated + ", " : "") +
                 (timeModified != null ? "timeModified=" + timeModified + ", " : "") +

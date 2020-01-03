@@ -18,19 +18,19 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
-            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="companyId"><span jhiTranslate="akApp.itemGroup.companyId">Company Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="code"><span jhiTranslate="akApp.itemGroup.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="name"><span jhiTranslate="akApp.itemGroup.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="description"><span jhiTranslate="akApp.itemGroup.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="isActive"><span jhiTranslate="akApp.itemGroup.isActive">Is Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let itemGroup of itemGroups ;trackBy: trackId">
-                <td><a [routerLink]="['/item-group', itemGroup.id, 'view' ]">{{itemGroup.id}}</a></td>
-                <td>{{itemGroup.companyId}}</td>
                 <td>{{itemGroup.code}}</td>
                 <td>{{itemGroup.name}}</td>
+                <td>{{itemGroup.description}}</td>
+                <td>{{itemGroup.isActive ? "C" : "K"}}</td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

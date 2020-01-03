@@ -61,6 +61,14 @@ describe('Jobs e2e test', () => {
     expect(await jobsUpdatePage.getInvestorInput()).to.eq('investor', 'Expected Investor value to be equals to investor');
     expect(await jobsUpdatePage.getAddressInput()).to.eq('address', 'Expected Address value to be equals to address');
     expect(await jobsUpdatePage.getNotesInput()).to.eq('notes', 'Expected Notes value to be equals to notes');
+    const selectedIsActive = jobsUpdatePage.getIsActiveInput();
+    if (await selectedIsActive.isSelected()) {
+      await jobsUpdatePage.getIsActiveInput().click();
+      expect(await jobsUpdatePage.getIsActiveInput().isSelected(), 'Expected isActive not to be selected').to.be.false;
+    } else {
+      await jobsUpdatePage.getIsActiveInput().click();
+      expect(await jobsUpdatePage.getIsActiveInput().isSelected(), 'Expected isActive to be selected').to.be.true;
+    }
     await jobsUpdatePage.save();
     expect(await jobsUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;
 

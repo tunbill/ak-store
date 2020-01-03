@@ -30,6 +30,14 @@ public interface StoreService {
 
 
     /**
+     * Get all the stores.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    Page<Store> findByCompanyId(Long CompanyId, Pageable pageable);
+
+    /**
      * Get the "id" store.
      *
      * @param id the id of the entity.

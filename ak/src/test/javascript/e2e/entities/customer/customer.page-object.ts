@@ -36,6 +36,7 @@ export class CustomerUpdatePage {
   mobileInput = element(by.id('field_mobile'));
   faxInput = element(by.id('field_fax'));
   emailInput = element(by.id('field_email'));
+  websiteInput = element(by.id('field_website'));
   taxCodeInput = element(by.id('field_taxCode'));
   accountNumberInput = element(by.id('field_accountNumber'));
   bankAccountInput = element(by.id('field_bankAccount'));
@@ -47,6 +48,8 @@ export class CustomerUpdatePage {
   creditLimitInput = element(by.id('field_creditLimit'));
   notesInput = element(by.id('field_notes'));
   contactNameInput = element(by.id('field_contactName'));
+  contactMobileInput = element(by.id('field_contactMobile'));
+  contactEmailInput = element(by.id('field_contactEmail'));
   isActiveInput = element(by.id('field_isActive'));
   timeCreatedInput = element(by.id('field_timeCreated'));
   timeModifiedInput = element(by.id('field_timeModified'));
@@ -132,6 +135,14 @@ export class CustomerUpdatePage {
 
   async getEmailInput() {
     return await this.emailInput.getAttribute('value');
+  }
+
+  async setWebsiteInput(website) {
+    await this.websiteInput.sendKeys(website);
+  }
+
+  async getWebsiteInput() {
+    return await this.websiteInput.getAttribute('value');
   }
 
   async setTaxCodeInput(taxCode) {
@@ -220,6 +231,22 @@ export class CustomerUpdatePage {
 
   async getContactNameInput() {
     return await this.contactNameInput.getAttribute('value');
+  }
+
+  async setContactMobileInput(contactMobile) {
+    await this.contactMobileInput.sendKeys(contactMobile);
+  }
+
+  async getContactMobileInput() {
+    return await this.contactMobileInput.getAttribute('value');
+  }
+
+  async setContactEmailInput(contactEmail) {
+    await this.contactEmailInput.sendKeys(contactEmail);
+  }
+
+  async getContactEmailInput() {
+    return await this.contactEmailInput.getAttribute('value');
   }
 
   getIsActiveInput() {

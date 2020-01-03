@@ -2,6 +2,10 @@
     "name": "Employee",
     "fields": [
         {
+            "fieldName": "companyId",
+            "fieldType": "Long"
+        },
+        {
             "fieldName": "code",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -63,15 +67,15 @@
         },
         {
             "fieldName": "salary",
-            "fieldType": "Double"
+            "fieldType": "BigDecimal"
         },
         {
             "fieldName": "salaryRate",
-            "fieldType": "Double"
+            "fieldType": "BigDecimal"
         },
         {
             "fieldName": "salarySecurity",
-            "fieldType": "Double"
+            "fieldType": "BigDecimal"
         },
         {
             "fieldName": "numOfDepends",
@@ -117,11 +121,15 @@
             "fieldValidateRules": [
                 "maxlength"
             ],
-            "fieldValidateRulesMaxlength": 200
+            "fieldValidateRulesMaxlength": 150
         },
         {
             "fieldName": "nodes",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 200
         },
         {
             "fieldName": "isActive",
@@ -157,16 +165,9 @@
             "otherEntityRelationshipName": "employee",
             "relationshipName": "department",
             "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "company",
-            "otherEntityRelationshipName": "employee",
-            "relationshipName": "company",
-            "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20191228110010",
+    "changelogDate": "20200102134903",
     "entityTableName": "employee",
     "dto": "no",
     "pagination": "pagination",

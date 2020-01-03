@@ -5,17 +5,17 @@
             <hr>
             <ak-alert-error></ak-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="akApp.unit.companyId">Company Id</span></dt>
-                <dd>
-                    <span>{{unit.companyId}}</span>
-                </dd>
-                <dt><span jhiTranslate="akApp.unit.code">Code</span></dt>
-                <dd>
-                    <span>{{unit.code}}</span>
-                </dd>
                 <dt><span jhiTranslate="akApp.unit.name">Name</span></dt>
                 <dd>
                     <span>{{unit.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.unit.description">Description</span></dt>
+                <dd>
+                    <span>{{unit.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.unit.isActive">Is Active</span></dt>
+                <dd>
+                    <span>{{unit.isActive ? "C" : "K"}}</span>
                 </dd>
             </dl>
 

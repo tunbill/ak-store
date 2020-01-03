@@ -33,11 +33,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = AkApp.class)
 public class UnitResourceIT {
 
-    private static final String DEFAULT_CODE = "AAAAAAAAAA";
-    private static final String UPDATED_CODE = "BBBBBBBBBB";
+    private static final Long DEFAULT_COMPANY_ID = 1L;
+    private static final Long UPDATED_COMPANY_ID = 2L;
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+
+    private static final Boolean DEFAULT_IS_ACTIVE = false;
+    private static final Boolean UPDATED_IS_ACTIVE = true;
 
     @Autowired
     private UnitRepository unitRepository;
@@ -81,8 +87,10 @@ public class UnitResourceIT {
      */
     public static Unit createEntity(EntityManager em) {
         Unit unit = new Unit()
-            .code(DEFAULT_CODE)
-            .name(DEFAULT_NAME);
+            .companyId(DEFAULT_COMPANY_ID)
+            .name(DEFAULT_NAME)
+            .description(DEFAULT_DESCRIPTION)
+            .isActive(DEFAULT_IS_ACTIVE);
         return unit;
     }
     /**
@@ -93,8 +101,10 @@ public class UnitResourceIT {
      */
     public static Unit createUpdatedEntity(EntityManager em) {
         Unit unit = new Unit()
-            .code(UPDATED_CODE)
-            .name(UPDATED_NAME);
+            .companyId(UPDATED_COMPANY_ID)
+            .name(UPDATED_NAME)
+            .description(UPDATED_DESCRIPTION)
+            .isActive(UPDATED_IS_ACTIVE);
         return unit;
     }
 
@@ -118,8 +128,10 @@ public class UnitResourceIT {
         List<Unit> unitList = unitRepository.findAll();
         assertThat(unitList).hasSize(databaseSizeBeforeCreate + 1);
         Unit testUnit = unitList.get(unitList.size() - 1);
-        assertThat(testUnit.getCode()).isEqualTo(DEFAULT_CODE);
+        assertThat(testUnit.getCompanyId()).isEqualTo(DEFAULT_COMPANY_ID);
         assertThat(testUnit.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testUnit.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testUnit.isIsActive()).isEqualTo(DEFAULT_IS_ACTIVE);
     }
 
     @Test
@@ -171,8 +183,10 @@ public class UnitResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(unit.getId().intValue())))
-            .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE)))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
+            .andExpect(jsonPath("$.[*].companyId").value(hasItem(DEFAULT_COMPANY_ID.intValue())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].isActive").value(hasItem(DEFAULT_IS_ACTIVE.booleanValue())));
     }
     
     @Test
@@ -186,8 +200,10 @@ public class UnitResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(unit.getId().intValue()))
-            .andExpect(jsonPath("$.code").value(DEFAULT_CODE))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
+            .andExpect(jsonPath("$.companyId").value(DEFAULT_COMPANY_ID.intValue()))
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
+            .andExpect(jsonPath("$.isActive").value(DEFAULT_IS_ACTIVE.booleanValue()));
     }
 
     @Test
@@ -211,8 +227,10 @@ public class UnitResourceIT {
         // Disconnect from session so that the updates on updatedUnit are not directly saved in db
         em.detach(updatedUnit);
         updatedUnit
-            .code(UPDATED_CODE)
-            .name(UPDATED_NAME);
+            .companyId(UPDATED_COMPANY_ID)
+            .name(UPDATED_NAME)
+            .description(UPDATED_DESCRIPTION)
+            .isActive(UPDATED_IS_ACTIVE);
 
         restUnitMockMvc.perform(put("/api/units")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -223,8 +241,10 @@ public class UnitResourceIT {
         List<Unit> unitList = unitRepository.findAll();
         assertThat(unitList).hasSize(databaseSizeBeforeUpdate);
         Unit testUnit = unitList.get(unitList.size() - 1);
-        assertThat(testUnit.getCode()).isEqualTo(UPDATED_CODE);
+        assertThat(testUnit.getCompanyId()).isEqualTo(UPDATED_COMPANY_ID);
         assertThat(testUnit.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testUnit.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testUnit.isIsActive()).isEqualTo(UPDATED_IS_ACTIVE);
     }
 
     @Test

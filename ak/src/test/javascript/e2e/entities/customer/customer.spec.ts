@@ -48,8 +48,9 @@ describe('Customer e2e test', () => {
       customerUpdatePage.setMobileInput('mobile'),
       customerUpdatePage.setFaxInput('fax'),
       customerUpdatePage.setEmailInput(
-        'vqx+8(&#34;&gt;99@f,jrHx!C}Q(&gt;j2EI?ZbQ(&#39;.Lr=aEX%3B!(sRyBG#m=_&amp;.RxT4.D^yW:-Gy_gO5n;{&gt;F/F{)oWBcpbPSy26LMlI3NLXx5&amp;O)`4n]CM2poY6U6#$YIL1,|VSz}o&#34;bMg69V)?4lRm]MK&#39;Ar'
+        '8/&gt;OY2)[$*E#.4&lt;.41XxiG}:q(qhDELi1?g8@L7qg?Se[(!N&gt;Q/}q&amp;j..22PEuBTL98yQWFo?f;8Xre}JVvjJjv$q&gt;3;Vug&#34;4,9gaF#NKdctQ*4xh*c_z]X'
       ),
+      customerUpdatePage.setWebsiteInput('website'),
       customerUpdatePage.setTaxCodeInput('taxCode'),
       customerUpdatePage.setAccountNumberInput('accountNumber'),
       customerUpdatePage.setBankAccountInput('bankAccount'),
@@ -61,6 +62,10 @@ describe('Customer e2e test', () => {
       customerUpdatePage.setCreditLimitInput('5'),
       customerUpdatePage.setNotesInput('notes'),
       customerUpdatePage.setContactNameInput('contactName'),
+      customerUpdatePage.setContactMobileInput('contactMobile'),
+      customerUpdatePage.setContactEmailInput(
+        'NKY&amp;TnQ&lt;{=[E2Q*lj#!lOsm&amp;J_Uq;]S&#34;Dy8k,[%~a3P&#34;8Aj:D5.::6:x@jSc&gt;&#34;EU1.I}Fu187{(IacXQ9K?W+t,l&#34;w-b`(US7y^%~HLH0E&#39;o)8sa*#&amp;H|DOQw&#39;TN#puOx2Ylq=,8I&amp;)'
+      ),
       customerUpdatePage.setTimeCreatedInput('01/01/2001' + protractor.Key.TAB + '02:30AM'),
       customerUpdatePage.setTimeModifiedInput('01/01/2001' + protractor.Key.TAB + '02:30AM'),
       customerUpdatePage.setUserIdCreatedInput('5'),
@@ -85,9 +90,10 @@ describe('Customer e2e test', () => {
     expect(await customerUpdatePage.getMobileInput()).to.eq('mobile', 'Expected Mobile value to be equals to mobile');
     expect(await customerUpdatePage.getFaxInput()).to.eq('fax', 'Expected Fax value to be equals to fax');
     expect(await customerUpdatePage.getEmailInput()).to.eq(
-      'vqx+8(&#34;&gt;99@f,jrHx!C}Q(&gt;j2EI?ZbQ(&#39;.Lr=aEX%3B!(sRyBG#m=_&amp;.RxT4.D^yW:-Gy_gO5n;{&gt;F/F{)oWBcpbPSy26LMlI3NLXx5&amp;O)`4n]CM2poY6U6#$YIL1,|VSz}o&#34;bMg69V)?4lRm]MK&#39;Ar',
-      'Expected Email value to be equals to vqx+8(&#34;&gt;99@f,jrHx!C}Q(&gt;j2EI?ZbQ(&#39;.Lr=aEX%3B!(sRyBG#m=_&amp;.RxT4.D^yW:-Gy_gO5n;{&gt;F/F{)oWBcpbPSy26LMlI3NLXx5&amp;O)`4n]CM2poY6U6#$YIL1,|VSz}o&#34;bMg69V)?4lRm]MK&#39;Ar'
+      '8/&gt;OY2)[$*E#.4&lt;.41XxiG}:q(qhDELi1?g8@L7qg?Se[(!N&gt;Q/}q&amp;j..22PEuBTL98yQWFo?f;8Xre}JVvjJjv$q&gt;3;Vug&#34;4,9gaF#NKdctQ*4xh*c_z]X',
+      'Expected Email value to be equals to 8/&gt;OY2)[$*E#.4&lt;.41XxiG}:q(qhDELi1?g8@L7qg?Se[(!N&gt;Q/}q&amp;j..22PEuBTL98yQWFo?f;8Xre}JVvjJjv$q&gt;3;Vug&#34;4,9gaF#NKdctQ*4xh*c_z]X'
     );
+    expect(await customerUpdatePage.getWebsiteInput()).to.eq('website', 'Expected Website value to be equals to website');
     expect(await customerUpdatePage.getTaxCodeInput()).to.eq('taxCode', 'Expected TaxCode value to be equals to taxCode');
     expect(await customerUpdatePage.getAccountNumberInput()).to.eq(
       'accountNumber',
@@ -105,6 +111,14 @@ describe('Customer e2e test', () => {
     expect(await customerUpdatePage.getCreditLimitInput()).to.eq('5', 'Expected creditLimit value to be equals to 5');
     expect(await customerUpdatePage.getNotesInput()).to.eq('notes', 'Expected Notes value to be equals to notes');
     expect(await customerUpdatePage.getContactNameInput()).to.eq('contactName', 'Expected ContactName value to be equals to contactName');
+    expect(await customerUpdatePage.getContactMobileInput()).to.eq(
+      'contactMobile',
+      'Expected ContactMobile value to be equals to contactMobile'
+    );
+    expect(await customerUpdatePage.getContactEmailInput()).to.eq(
+      'NKY&amp;TnQ&lt;{=[E2Q*lj#!lOsm&amp;J_Uq;]S&#34;Dy8k,[%~a3P&#34;8Aj:D5.::6:x@jSc&gt;&#34;EU1.I}Fu187{(IacXQ9K?W+t,l&#34;w-b`(US7y^%~HLH0E&#39;o)8sa*#&amp;H|DOQw&#39;TN#puOx2Ylq=,8I&amp;)',
+      'Expected ContactEmail value to be equals to NKY&amp;TnQ&lt;{=[E2Q*lj#!lOsm&amp;J_Uq;]S&#34;Dy8k,[%~a3P&#34;8Aj:D5.::6:x@jSc&gt;&#34;EU1.I}Fu187{(IacXQ9K?W+t,l&#34;w-b`(US7y^%~HLH0E&#39;o)8sa*#&amp;H|DOQw&#39;TN#puOx2Ylq=,8I&amp;)'
+    );
     const selectedIsActive = customerUpdatePage.getIsActiveInput();
     if (await selectedIsActive.isSelected()) {
       await customerUpdatePage.getIsActiveInput().click();

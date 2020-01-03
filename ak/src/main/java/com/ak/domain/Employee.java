@@ -92,11 +92,12 @@ public class Employee implements Serializable {
     @Column(name = "bank_account", length = 20)
     private String bankAccount;
 
-    @Size(max = 200)
-    @Column(name = "bank_name", length = 200)
+    @Size(max = 150)
+    @Column(name = "bank_name", length = 150)
     private String bankName;
 
-    @Column(name = "nodes")
+    @Size(max = 200)
+    @Column(name = "nodes", length = 200)
     private String nodes;
 
     @Column(name = "is_active")

@@ -1,11 +1,11 @@
-id;company_id;code;name
-1;62589;ADP Personal Loan Ac;web-readiness
-2;46194;Supervisor Outdoors ;Factors primary
-3;99793;proactive;Fantastic Sleek Granite Tuna Utah
-4;27168;drive Practical kill;monitor Adaptive
-5;11047;B2C systematic;program
-6;58910;24/7;Associate partnerships disintermediate
-7;67964;lavender;neural Cloned Massachusetts
-8;98233;XSS Investment Accou;Fish Associate Intuitive
-9;94273;deposit Auto Loan Ac;Intelligent Cotton Bike
-10;3673;Accounts;wireless Generic Frozen Bike EXE
+id;company_id;code;name;description;is_active
+1;68049;deposit;XSS;Chair mindshare Interactions;false
+2;85736;Coordinator compress;Specialist e-services;program override red;true
+3;65166;efficient RSS Neck;Mouse fuchsia Licensed;connect;true
+4;53035;Kids back-end 4th ge;Principal Savings Account online;Music Savings Account;true
+5;68556;architectures;Networked;Handcrafted Rubber Gloves;false
+6;59026;e-tailers Architect ;Handcrafted Cotton Shirt Walks;port payment;true
+7;86012;solid state Handmade;Tasty;Steel Berkshire;true
+8;21034;efficient back up Ta;Borders;PCI;false
+9;3320;Fantastic monetize F;magenta Turkish Lira;green Chicken Tasty;true
+10;12421;Lead Personal Loan A;French Guiana capacitor;Assurance Auto Loan Account cross-platform;true

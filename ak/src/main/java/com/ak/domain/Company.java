@@ -25,10 +25,12 @@ public class Company implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "name", nullable = false)
+    @Size(max = 150)
+    @Column(name = "name", length = 150, nullable = false)
     private String name;
 
-    @Column(name = "address")
+    @Size(max = 300)
+    @Column(name = "address", length = 300)
     private String address;
 
     @Lob
@@ -38,9 +40,9 @@ public class Company implements Serializable {
     @Column(name = "logo_content_type")
     private String logoContentType;
 
-    @Size(max = 50)
+    @Size(max = 100)
     @Pattern(regexp = "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$")
-    @Column(name = "email", length = 50)
+    @Column(name = "email", length = 100)
     private String email;
 
     @Column(name = "start_date")

@@ -103,6 +103,7 @@ public class TermsResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    
     /**
      * {@code GET  /terms/:id} : get the "id" terms.
      *

@@ -20,6 +20,7 @@ export class ItemComponent implements OnInit, OnDestroy {
   error: any;
   success: any;
   eventSubscriber: Subscription;
+  currentSearch: string;
   routeData: any;
   links: any;
   totalItems: any;
@@ -48,6 +49,17 @@ export class ItemComponent implements OnInit, OnDestroy {
   }
 
   loadAll() {
+    if (this.currentSearch) {
+      this.itemService
+        .search({
+          page: this.page - 1,
+          query: this.currentSearch,
+          size: this.itemsPerPage,
+          sort: this.sort()
+        })
+        .subscribe((res: HttpResponse<IItem[]>) => this.paginateItems(res.body, res.headers));
+      return;
+    }
     this.itemService
       .query({
         page: this.page - 1,
@@ -77,9 +89,27 @@ export class ItemComponent implements OnInit, OnDestroy {
 
   clear() {
     this.page = 0;
+    this.currentSearch = '';
     this.router.navigate([
       '/item',
       {
+        page: this.page,
+        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+      }
+    ]);
+    this.loadAll();
+  }
+
+  search(query) {
+    if (!query) {
+      return this.clear();
+    }
+    this.page = 0;
+    this.currentSearch = query;
+    this.router.navigate([
+      '/item',
+      {
+        search: this.currentSearch,
         page: this.page,
         sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
       }

@@ -18,12 +18,22 @@
                                *ngIf="editForm.get('name').errors.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 150 }">
+                        This field cannot be longer than 150 characters.
+                        </small>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="akApp.company.address" for="field_address">Address</label>
                     <input type="text" class="form-control" name="address" id="field_address"
                            formControlName="address"/>
+                    <div *ngIf="editForm.get('address').invalid && (editForm.get('address').dirty || editForm.get('address').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('address').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 300 }">
+                        This field cannot be longer than 300 characters.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="akApp.company.logo" for="field_logo">Logo</label>
@@ -48,8 +58,8 @@
                            formControlName="email"/>
                     <div *ngIf="editForm.get('email').invalid && (editForm.get('email').dirty || editForm.get('email').touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('email').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
-                        This field cannot be longer than 50 characters.
+                               *ngIf="editForm.get('email').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 100 }">
+                        This field cannot be longer than 100 characters.
                         </small>
                         <small class="form-text text-danger"
                                *ngIf="editForm.get('email').errors.pattern" jhiTranslate="entity.validation.pattern" [translateValues]="{ pattern: 'Email' }">
@@ -97,19 +107,36 @@
                     <input type="checkbox" class="form-control" name="isActive" id="field_isActive"
                            formControlName="isActive"/>
                 </div>
- 
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.company.timeCreated" for="field_timeCreated">Time Created</label>
+                    <div class="d-flex">
+                        <input id="field_timeCreated" type="datetime-local" class="form-control" name="timeCreated" formControlName="timeCreated" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.company.timeModified" for="field_timeModified">Time Modified</label>
+                    <div class="d-flex">
+                        <input id="field_timeModified" type="datetime-local" class="form-control" name="timeModified" formControlName="timeModified" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.company.userId" for="field_userId">User Id</label>
+                    <input type="number" class="form-control" name="userId" id="field_userId"
+                           formControlName="userId"/>
+                </div>
+
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="akApp.company.industry" for="field_industry">Industry</label>
                     <select class="form-control" id="field_industry" name="industry" formControlName="industry">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="industryOption.id === editForm.get('industry').value?.id ? editForm.get('industry').value : industryOption" *ngFor="let industryOption of industries; trackBy: trackIndustryById">{{industryOption.id}}</option>
+                        <option [ngValue]="industryOption.id === editForm.get('industry').value?.id ? editForm.get('industry').value : industryOption" *ngFor="let industryOption of industries; trackBy: trackIndustryById">{{industryOption.name}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="akApp.company.province" for="field_province">Province</label>
                     <select class="form-control" id="field_province" name="province" formControlName="province">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="provinceOption.id === editForm.get('province').value?.id ? editForm.get('province').value : provinceOption" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.id}}</option>
+                        <option [ngValue]="provinceOption.id === editForm.get('province').value?.id ? editForm.get('province').value : provinceOption" *ngFor="let provinceOption of provinces; trackBy: trackProvinceById">{{provinceOption.name}}</option>
                     </select>
                 </div>
             </div>

@@ -2,24 +2,24 @@
   "akApp": {
     "customerType": {
       "home": {
-        "title": "Customer Types",
-        "createLabel": "Thêm mới một Customer Type",
-        "createOrEditLabel": "Thêm mới hoặc cập nhật Customer Type",
-        "notFound": "No Customer Types found"
+        "title": "Danh sách Loại Khách hàng",
+        "createLabel": "Thêm mới Loại Khách hàng",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Loại Khách hàng",
+        "notFound": "Không tìm thấy Loại Khách hàng nào"
       },
-      "created": "Một Customer Type mới được tạo với định danh {{ param }}",
-      "updated": "Một Customer Type cập nhật với định danh {{ param }}",
-      "deleted": "Một Customer Type đã xóa với định danh {{ param }}",
+      "created": "Một Loại Khách hàng mới được tạo với định danh {{ param }}",
+      "updated": "Một Loại Khách hàng cập nhật với định danh {{ param }}",
+      "deleted": "Một Loại Khách hàng đã xóa với định danh {{ param }}",
       "delete": {
-        "question": "Bạn có chắc là muốn xóa Customer Type {{ id }}?"
+        "question": "Bạn có chắc là muốn xóa Loại Khách hàng {{ id }}?"
       },
       "detail": {
-        "title": "Customer Type"
+        "title": "Loại Khách hàng"
       },
       "companyId": "Company Id",
-      "name": "Name",
-      "description": "Description",
-      "isActive": "Is Active",
+      "name": "Tên Loại Khách hàng",
+      "description": "Mô tả",
+      "isActive": "Hoạt động",
       "customer": "Customer"
     }
   }

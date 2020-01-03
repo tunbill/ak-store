@@ -5,12 +5,18 @@
             "fieldName": "name",
             "fieldType": "String",
             "fieldValidateRules": [
-                "required"
-            ]
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
         },
         {
             "fieldName": "address",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 300
         },
         {
             "fieldName": "logo",
@@ -24,7 +30,7 @@
                 "maxlength",
                 "pattern"
             ],
-            "fieldValidateRulesMaxlength": 50,
+            "fieldValidateRulesMaxlength": 100,
             "fieldValidateRulesPattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
         },
         {
@@ -66,78 +72,6 @@
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "customerType",
-            "otherEntityRelationshipName": "company",
-            "relationshipName": "customerType"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "customer",
-            "otherEntityRelationshipName": "company",
-            "relationshipName": "customer"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "store",
-            "otherEntityRelationshipName": "company",
-            "relationshipName": "store"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "department",
-            "otherEntityRelationshipName": "company",
-            "relationshipName": "department"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "jobs",
-            "otherEntityRelationshipName": "company",
-            "relationshipName": "jobs"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "jobType",
-            "otherEntityRelationshipName": "company",
-            "relationshipName": "jobType"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "employee",
-            "otherEntityRelationshipName": "company",
-            "relationshipName": "employee"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "item",
-            "otherEntityRelationshipName": "company",
-            "relationshipName": "item"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "itemGroup",
-            "otherEntityRelationshipName": "company",
-            "relationshipName": "itemGroup"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "unit",
-            "otherEntityRelationshipName": "company",
-            "relationshipName": "unit"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "invoice",
-            "otherEntityRelationshipName": "company",
-            "relationshipName": "invoice"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "invoiceLine",
-            "otherEntityRelationshipName": "company",
-            "relationshipName": "invoiceLine"
-        },
-        {
             "relationshipType": "many-to-one",
             "otherEntityName": "industry",
             "otherEntityRelationshipName": "company",
@@ -152,7 +86,7 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20191228110000",
+    "changelogDate": "20200102134853",
     "entityTableName": "company",
     "dto": "no",
     "pagination": "pagination",

@@ -28,7 +28,13 @@ public interface ItemGroupService {
      */
     Page<ItemGroup> findAll(Pageable pageable);
 
-
+    /**
+     * Get all the itemGroups.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    Page<ItemGroup> findByCompanyId(Long companyId, Pageable pageable);
     /**
      * Get the "id" itemGroup.
      *

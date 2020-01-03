@@ -1,11 +1,11 @@
-id;company_id;code;name
-1;19560;sky blue;executive
-2;79285;Indiana wi;azure Glob
-3;52019;Ridge;back-end m
-4;85717;Human clie;Avon Savin
-5;36369;alarm hack;Personal L
-6;80360;Bedfordshi;Metal alar
-7;99707;Administra;California
-8;89025;Fantastic;Officer cu
-9;91820;Handmade c;Turnpike q
-10;35779;Buckingham;FTP Chile 
+id;company_id;name;description;is_active
+1;62251;Plain;holistic plum;true
+2;53700;TCP;gold;false
+3;84392;encompassi;redundant Hawaii;true
+4;39679;Unbranded ;Gorgeous Auto Loan Account Granite;false
+5;87986;Utah Healt;Australian Dollar Architect Frozen;false
+6;16520;strategize;Dynamic port Credit Card Account;false
+7;29672;capacitor ;deposit Handmade Concrete Bacon Small Rubber Pizza;true
+8;25669;withdrawal;Prairie revolutionary Rubber;false
+9;54958;Senior opt;Group Zloty Zloty;false
+10;88803;Checking A;Direct;true

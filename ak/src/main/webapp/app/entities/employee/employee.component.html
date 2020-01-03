@@ -8,6 +8,21 @@
             </span>
         </button>
     </h2>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'akApp.employee.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
     <ak-alert-error></ak-alert-error>
     <ak-alert></ak-alert>
     <br/>
@@ -18,69 +33,25 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="companyId"><span jhiTranslate="akApp.employee.companyId">Company Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="code"><span jhiTranslate="akApp.employee.code">Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="fullName"><span jhiTranslate="akApp.employee.fullName">Full Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="sex"><span jhiTranslate="akApp.employee.sex">Sex</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="birthday"><span jhiTranslate="akApp.employee.birthday">Birthday</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="identityCard"><span jhiTranslate="akApp.employee.identityCard">Identity Card</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="identityDate"><span jhiTranslate="akApp.employee.identityDate">Identity Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="identityIssue"><span jhiTranslate="akApp.employee.identityIssue">Identity Issue</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="position"><span jhiTranslate="akApp.employee.position">Position</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="taxCode"><span jhiTranslate="akApp.employee.taxCode">Tax Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="salary"><span jhiTranslate="akApp.employee.salary">Salary</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="salaryRate"><span jhiTranslate="akApp.employee.salaryRate">Salary Rate</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="salarySecurity"><span jhiTranslate="akApp.employee.salarySecurity">Salary Security</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="numOfDepends"><span jhiTranslate="akApp.employee.numOfDepends">Num Of Depends</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="phone"><span jhiTranslate="akApp.employee.phone">Phone</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="mobile"><span jhiTranslate="akApp.employee.mobile">Mobile</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="email"><span jhiTranslate="akApp.employee.email">Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="bankAccount"><span jhiTranslate="akApp.employee.bankAccount">Bank Account</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="bankName"><span jhiTranslate="akApp.employee.bankName">Bank Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="nodes"><span jhiTranslate="akApp.employee.nodes">Nodes</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="isActive"><span jhiTranslate="akApp.employee.isActive">Is Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="timeCreated"><span jhiTranslate="akApp.employee.timeCreated">Time Created</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="timeModified"><span jhiTranslate="akApp.employee.timeModified">Time Modified</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="userIdCreated"><span jhiTranslate="akApp.employee.userIdCreated">User Id Created</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="userIdModified"><span jhiTranslate="akApp.employee.userIdModified">User Id Modified</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="department.id"><span jhiTranslate="akApp.employee.department">Department</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="isActive"><span jhiTranslate="akApp.employee.isActive">Is Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let employee of employees ;trackBy: trackId">
-                <td><a [routerLink]="['/employee', employee.id, 'view' ]">{{employee.id}}</a></td>
-                <td>{{employee.companyId}}</td>
-                <td>{{employee.code}}</td>
                 <td>{{employee.fullName}}</td>
-                <td>{{employee.sex}}</td>
-                <td>{{employee.birthday | date:'mediumDate'}}</td>
-                <td>{{employee.identityCard}}</td>
-                <td>{{employee.identityDate | date:'mediumDate'}}</td>
-                <td>{{employee.identityIssue}}</td>
-                <td>{{employee.position}}</td>
-                <td>{{employee.taxCode}}</td>
-                <td>{{employee.salary}}</td>
-                <td>{{employee.salaryRate}}</td>
-                <td>{{employee.salarySecurity}}</td>
-                <td>{{employee.numOfDepends}}</td>
-                <td>{{employee.phone}}</td>
                 <td>{{employee.mobile}}</td>
                 <td>{{employee.email}}</td>
-                <td>{{employee.bankAccount}}</td>
-                <td>{{employee.bankName}}</td>
-                <td>{{employee.nodes}}</td>
-                <td>{{employee.isActive}}</td>
-                <td>{{employee.timeCreated | date:'medium'}}</td>
-                <td>{{employee.timeModified | date:'medium'}}</td>
-                <td>{{employee.userIdCreated}}</td>
-                <td>{{employee.userIdModified}}</td>
                 <td>
                     <div *ngIf="employee.department">
-                        <a [routerLink]="['/department', employee.department?.id, 'view' ]" >{{employee.department?.id}}</a>
+                        <a [routerLink]="['/department', employee.department?.id, 'view' ]" >{{employee.department?.name}}</a>
                     </div>
                 </td>
+                <td>{{employee.isActive ? "C" : "K"}}</td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

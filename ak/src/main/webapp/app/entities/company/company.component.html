@@ -8,9 +8,7 @@
             </span>
         </button>
     </h2>
-    <ak-alert-error></ak-alert-error>
-    <ak-alert></ak-alert>
-       <div class="row">
+    <div class="row">
         <div class="col-sm-12">
             <form name="searchForm" class="form-inline">
                 <div class="input-group w-100 mt-3">
@@ -25,7 +23,9 @@
             </form>
         </div>
     </div>
-    <br/>
+    <ak-alert-error></ak-alert-error>
+    <ak-alert></ak-alert>
+   <br/>
     <div class="alert alert-warning" *ngIf="companies?.length === 0">
         <span jhiTranslate="akApp.company.home.notFound">No companies found</span>
     </div>

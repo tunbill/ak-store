@@ -2,8 +2,8 @@
   "akApp": {
     "ItemType": {
       "null": "",
-      "PRODUCT": "PRODUCT",
-      "SERVICE": "SERVICE"
+      "PRODUCT": "Hàng hoá",
+      "SERVICE": "Dịch vụ"
     }
   }
 }

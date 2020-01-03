@@ -53,6 +53,17 @@ public class StoreServiceImpl implements StoreService {
         return storeRepository.findAll(pageable);
     }
 
+    /**
+     * Get all the stores.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<Store> findByCompanyId(Long companyId, Pageable pageable) {
+        log.debug("Request to get all Stores");
+        return storeRepository.findByCompanyId(companyId, pageable);
+    }
 
     /**
      * Get one store by id.
@@ -77,4 +88,5 @@ public class StoreServiceImpl implements StoreService {
         log.debug("Request to delete Store : {}", id);
         storeRepository.deleteById(id);
     }
+
 }

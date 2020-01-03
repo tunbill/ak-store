@@ -2,12 +2,8 @@
     "name": "Unit",
     "fields": [
         {
-            "fieldName": "code",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": 10
+            "fieldName": "companyId",
+            "fieldType": "Long"
         },
         {
             "fieldName": "name",
@@ -17,6 +13,18 @@
                 "required"
             ],
             "fieldValidateRulesMaxlength": 10
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 200
+        },
+        {
+            "fieldName": "isActive",
+            "fieldType": "Boolean"
         }
     ],
     "relationships": [
@@ -25,16 +33,9 @@
             "otherEntityName": "item",
             "otherEntityRelationshipName": "unit",
             "relationshipName": "item"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "company",
-            "otherEntityRelationshipName": "unit",
-            "relationshipName": "company",
-            "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20191228110012",
+    "changelogDate": "20200102134905",
     "entityTableName": "unit",
     "dto": "no",
     "pagination": "infinite-scroll",

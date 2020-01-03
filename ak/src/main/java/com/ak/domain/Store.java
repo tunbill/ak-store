@@ -34,9 +34,16 @@ public class Store implements Serializable {
     @Column(name = "name", length = 50)
     private String name;
 
-    @Size(max = 100)
-    @Column(name = "address", length = 100)
+    @Size(max = 200)
+    @Column(name = "description", length = 200)
+    private String description;
+
+    @Size(max = 300)
+    @Column(name = "address", length = 300)
     private String address;
+
+    @Column(name = "is_active")
+    private Boolean isActive;
 
     @OneToMany(mappedBy = "store")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -90,6 +97,19 @@ public class Store implements Serializable {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public Store description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -101,6 +121,19 @@ public class Store implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Boolean isIsActive() {
+        return isActive;
+    }
+
+    public Store isActive(Boolean isActive) {
+        this.isActive = isActive;
+        return this;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
     }
 
     public Set<Item> getItems() {
@@ -152,7 +185,9 @@ public class Store implements Serializable {
             ", companyId=" + getCompanyId() +
             ", code='" + getCode() + "'" +
             ", name='" + getName() + "'" +
+            ", description='" + getDescription() + "'" +
             ", address='" + getAddress() + "'" +
+            ", isActive='" + isIsActive() + "'" +
             "}";
     }
 }

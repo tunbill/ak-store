@@ -19,6 +19,8 @@
       "companyId": "Company Id",
       "code": "Code",
       "name": "Name",
+      "description": "Mô tả",
+      "isActive": "Hoạt động",
       "jobs": "Jobs"
     }
   }

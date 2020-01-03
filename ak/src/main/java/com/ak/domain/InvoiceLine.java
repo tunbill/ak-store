@@ -31,8 +31,8 @@ public class InvoiceLine implements Serializable {
     @Column(name = "display_order")
     private Integer displayOrder;
 
-    @Size(max = 150)
-    @Column(name = "item_name", length = 150)
+    @Size(max = 100)
+    @Column(name = "item_name", length = 100)
     private String itemName;
 
     @Size(max = 10)
@@ -51,7 +51,8 @@ public class InvoiceLine implements Serializable {
     @Column(name = "discount_pct", precision = 21, scale = 2)
     private BigDecimal discountPct;
 
-    @Column(name = "account_number")
+    @Size(max = 10)
+    @Column(name = "account_number", length = 10)
     private String accountNumber;
 
     @Enumerated(EnumType.STRING)

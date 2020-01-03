@@ -7,10 +7,12 @@ import com.ak.security.SecurityUtils;
 import com.ak.service.CustomerService;
 import com.ak.service.UserService;
 import com.ak.web.rest.errors.BadRequestAlertException;
+import com.ak.service.dto.CompanyCriteria;
 import com.ak.service.dto.CustomerCriteria;
 import com.ak.service.CustomerQueryService;
 
 import io.github.jhipster.service.filter.LongFilter;
+import io.github.jhipster.service.filter.StringFilter;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -71,11 +73,9 @@ public class CustomerResource {
         if (customer.getId() != null) {
             throw new BadRequestAlertException("A new customer cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        
         Optional<String>  login = SecurityUtils.getCurrentUserLogin();
         Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
         customer.setCompanyId(user.get().getCompanyId());
-
         Customer result = customerService.save(customer);
         return ResponseEntity.created(new URI("/api/customers/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -97,11 +97,9 @@ public class CustomerResource {
         if (customer.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        
         Optional<String>  login = SecurityUtils.getCurrentUserLogin();
         Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
         customer.setCompanyId(user.get().getCompanyId());
-
         Customer result = customerService.save(customer);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, customer.getId().toString()))
@@ -120,14 +118,11 @@ public class CustomerResource {
     @GetMapping("/customers")
     public ResponseEntity<List<Customer>> getAllCustomers(CustomerCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Customers by criteria: {}", criteria);
-        
         Optional<String>  login = SecurityUtils.getCurrentUserLogin();
         Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
-        
         LongFilter companyId = new LongFilter();
         companyId.setEquals(user.get().getCompanyId());
         criteria.setCompanyId(companyId);
-
         Page<Customer> page = customerQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
@@ -142,14 +137,11 @@ public class CustomerResource {
     @GetMapping("/customers/count")
     public ResponseEntity<Long> countCustomers(CustomerCriteria criteria) {
         log.debug("REST request to count Customers by criteria: {}", criteria);
-        
         Optional<String>  login = SecurityUtils.getCurrentUserLogin();
         Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
-        
         LongFilter companyId = new LongFilter();
         companyId.setEquals(user.get().getCompanyId());
         criteria.setCompanyId(companyId);
-
         return ResponseEntity.ok().body(customerQueryService.countByCriteria(criteria));
     }
 
@@ -178,4 +170,28 @@ public class CustomerResource {
         customerService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+    
+    /**
+     * {@code SEARCH  /_search/customers?query=:query} : search for the customer corresponding
+     * to the query.
+     *
+     * @param query the query of the customer search.
+     * @param pageable the pagination information.
+     * @return the result of the search.
+     */
+	@GetMapping("/_search/customers")
+    public ResponseEntity<List<Customer>> searchCustomers(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of Customers for query {}", query);
+        CustomerCriteria criteria = new CustomerCriteria();
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        LongFilter companyId = new LongFilter();
+        companyId.setEquals(user.get().getCompanyId());
+        criteria.setCompanyId(companyId);
+        StringFilter sf = new StringFilter();        
+        criteria.setCompanyName(sf.setContains(query));
+        Page<Customer> page = customerQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }  
 }

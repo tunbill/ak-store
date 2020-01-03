@@ -1,11 +1,18 @@
 package com.ak.web.rest;
 
+import com.ak.domain.Employee;
 import com.ak.domain.Item;
+import com.ak.domain.User;
+import com.ak.security.SecurityUtils;
 import com.ak.service.ItemService;
+import com.ak.service.UserService;
 import com.ak.web.rest.errors.BadRequestAlertException;
+import com.ak.service.dto.EmployeeCriteria;
 import com.ak.service.dto.ItemCriteria;
 import com.ak.service.ItemQueryService;
 
+import io.github.jhipster.service.filter.LongFilter;
+import io.github.jhipster.service.filter.StringFilter;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -44,11 +51,14 @@ public class ItemResource {
     private final ItemService itemService;
 
     private final ItemQueryService itemQueryService;
+    
+    private final UserService userService;
 
-    public ItemResource(ItemService itemService, ItemQueryService itemQueryService) {
+    public ItemResource(ItemService itemService, ItemQueryService itemQueryService, UserService userService) {
         this.itemService = itemService;
         this.itemQueryService = itemQueryService;
-    }
+        this.userService = userService;
+    } 
 
     /**
      * {@code POST  /items} : Create a new item.
@@ -63,6 +73,9 @@ public class ItemResource {
         if (item.getId() != null) {
             throw new BadRequestAlertException("A new item cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        item.setCompanyId(user.get().getCompanyId());
         Item result = itemService.save(item);
         return ResponseEntity.created(new URI("/api/items/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -84,6 +97,9 @@ public class ItemResource {
         if (item.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        item.setCompanyId(user.get().getCompanyId());
         Item result = itemService.save(item);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, item.getId().toString()))
@@ -102,6 +118,11 @@ public class ItemResource {
     @GetMapping("/items")
     public ResponseEntity<List<Item>> getAllItems(ItemCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Items by criteria: {}", criteria);
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        LongFilter companyId = new LongFilter();
+        companyId.setEquals(user.get().getCompanyId());
+        criteria.setCompanyId(companyId);
         Page<Item> page = itemQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
@@ -116,6 +137,11 @@ public class ItemResource {
     @GetMapping("/items/count")
     public ResponseEntity<Long> countItems(ItemCriteria criteria) {
         log.debug("REST request to count Items by criteria: {}", criteria);
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        LongFilter companyId = new LongFilter();
+        companyId.setEquals(user.get().getCompanyId());
+        criteria.setCompanyId(companyId);
         return ResponseEntity.ok().body(itemQueryService.countByCriteria(criteria));
     }
 
@@ -144,4 +170,27 @@ public class ItemResource {
         itemService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+    /**
+     * {@code SEARCH  /_search/employees?query=:query} : search for the item responding
+     * to the query.
+     *
+     * @param query the query of the item search.
+     * @param pageable the pagination information.
+     * @return the result of the search.
+     */
+	@GetMapping("/_search/items")
+    public ResponseEntity<List<Item>> searchItems(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of Items for query {}", query);
+        ItemCriteria criteria = new ItemCriteria();
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        LongFilter companyId = new LongFilter();
+        companyId.setEquals(user.get().getCompanyId());
+        criteria.setCompanyId(companyId);
+        StringFilter sf = new StringFilter();        
+        criteria.setName(sf.setContains(query));
+        Page<Item> page = itemQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }  
 }

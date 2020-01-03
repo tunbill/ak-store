@@ -4,7 +4,6 @@ import com.ak.AkApp;
 import com.ak.domain.Employee;
 import com.ak.domain.Invoice;
 import com.ak.domain.Department;
-import com.ak.domain.Company;
 import com.ak.repository.EmployeeRepository;
 import com.ak.service.EmployeeService;
 import com.ak.web.rest.errors.ExceptionTranslator;
@@ -25,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -42,6 +42,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @SpringBootTest(classes = AkApp.class)
 public class EmployeeResourceIT {
+
+    private static final Long DEFAULT_COMPANY_ID = 1L;
+    private static final Long UPDATED_COMPANY_ID = 2L;
+    private static final Long SMALLER_COMPANY_ID = 1L - 1L;
 
     private static final String DEFAULT_CODE = "AAAAAAAAAA";
     private static final String UPDATED_CODE = "BBBBBBBBBB";
@@ -73,17 +77,17 @@ public class EmployeeResourceIT {
     private static final String DEFAULT_TAX_CODE = "AAAAAAAAAA";
     private static final String UPDATED_TAX_CODE = "BBBBBBBBBB";
 
-    private static final Double DEFAULT_SALARY = 1D;
-    private static final Double UPDATED_SALARY = 2D;
-    private static final Double SMALLER_SALARY = 1D - 1D;
+    private static final BigDecimal DEFAULT_SALARY = new BigDecimal(1);
+    private static final BigDecimal UPDATED_SALARY = new BigDecimal(2);
+    private static final BigDecimal SMALLER_SALARY = new BigDecimal(1 - 1);
 
-    private static final Double DEFAULT_SALARY_RATE = 1D;
-    private static final Double UPDATED_SALARY_RATE = 2D;
-    private static final Double SMALLER_SALARY_RATE = 1D - 1D;
+    private static final BigDecimal DEFAULT_SALARY_RATE = new BigDecimal(1);
+    private static final BigDecimal UPDATED_SALARY_RATE = new BigDecimal(2);
+    private static final BigDecimal SMALLER_SALARY_RATE = new BigDecimal(1 - 1);
 
-    private static final Double DEFAULT_SALARY_SECURITY = 1D;
-    private static final Double UPDATED_SALARY_SECURITY = 2D;
-    private static final Double SMALLER_SALARY_SECURITY = 1D - 1D;
+    private static final BigDecimal DEFAULT_SALARY_SECURITY = new BigDecimal(1);
+    private static final BigDecimal UPDATED_SALARY_SECURITY = new BigDecimal(2);
+    private static final BigDecimal SMALLER_SALARY_SECURITY = new BigDecimal(1 - 1);
 
     private static final Integer DEFAULT_NUM_OF_DEPENDS = 1;
     private static final Integer UPDATED_NUM_OF_DEPENDS = 2;
@@ -95,8 +99,8 @@ public class EmployeeResourceIT {
     private static final String DEFAULT_MOBILE = "AAAAAAAAAA";
     private static final String UPDATED_MOBILE = "BBBBBBBBBB";
 
-    private static final String DEFAULT_EMAIL = "|@Hx.h(";
-    private static final String UPDATED_EMAIL = "e@q-.?n";
+    private static final String DEFAULT_EMAIL = "G@-`.+^";
+    private static final String UPDATED_EMAIL = "&W@Jd.Zz";
 
     private static final String DEFAULT_BANK_ACCOUNT = "AAAAAAAAAA";
     private static final String UPDATED_BANK_ACCOUNT = "BBBBBBBBBB";
@@ -172,6 +176,7 @@ public class EmployeeResourceIT {
      */
     public static Employee createEntity(EntityManager em) {
         Employee employee = new Employee()
+            .companyId(DEFAULT_COMPANY_ID)
             .code(DEFAULT_CODE)
             .fullName(DEFAULT_FULL_NAME)
             .sex(DEFAULT_SEX)
@@ -206,6 +211,7 @@ public class EmployeeResourceIT {
      */
     public static Employee createUpdatedEntity(EntityManager em) {
         Employee employee = new Employee()
+            .companyId(UPDATED_COMPANY_ID)
             .code(UPDATED_CODE)
             .fullName(UPDATED_FULL_NAME)
             .sex(UPDATED_SEX)
@@ -253,6 +259,7 @@ public class EmployeeResourceIT {
         List<Employee> employeeList = employeeRepository.findAll();
         assertThat(employeeList).hasSize(databaseSizeBeforeCreate + 1);
         Employee testEmployee = employeeList.get(employeeList.size() - 1);
+        assertThat(testEmployee.getCompanyId()).isEqualTo(DEFAULT_COMPANY_ID);
         assertThat(testEmployee.getCode()).isEqualTo(DEFAULT_CODE);
         assertThat(testEmployee.getFullName()).isEqualTo(DEFAULT_FULL_NAME);
         assertThat(testEmployee.getSex()).isEqualTo(DEFAULT_SEX);
@@ -310,6 +317,7 @@ public class EmployeeResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(employee.getId().intValue())))
+            .andExpect(jsonPath("$.[*].companyId").value(hasItem(DEFAULT_COMPANY_ID.intValue())))
             .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE)))
             .andExpect(jsonPath("$.[*].fullName").value(hasItem(DEFAULT_FULL_NAME)))
             .andExpect(jsonPath("$.[*].sex").value(hasItem(DEFAULT_SEX)))
@@ -319,9 +327,9 @@ public class EmployeeResourceIT {
             .andExpect(jsonPath("$.[*].identityIssue").value(hasItem(DEFAULT_IDENTITY_ISSUE)))
             .andExpect(jsonPath("$.[*].position").value(hasItem(DEFAULT_POSITION)))
             .andExpect(jsonPath("$.[*].taxCode").value(hasItem(DEFAULT_TAX_CODE)))
-            .andExpect(jsonPath("$.[*].salary").value(hasItem(DEFAULT_SALARY.doubleValue())))
-            .andExpect(jsonPath("$.[*].salaryRate").value(hasItem(DEFAULT_SALARY_RATE.doubleValue())))
-            .andExpect(jsonPath("$.[*].salarySecurity").value(hasItem(DEFAULT_SALARY_SECURITY.doubleValue())))
+            .andExpect(jsonPath("$.[*].salary").value(hasItem(DEFAULT_SALARY.intValue())))
+            .andExpect(jsonPath("$.[*].salaryRate").value(hasItem(DEFAULT_SALARY_RATE.intValue())))
+            .andExpect(jsonPath("$.[*].salarySecurity").value(hasItem(DEFAULT_SALARY_SECURITY.intValue())))
             .andExpect(jsonPath("$.[*].numOfDepends").value(hasItem(DEFAULT_NUM_OF_DEPENDS)))
             .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE)))
             .andExpect(jsonPath("$.[*].mobile").value(hasItem(DEFAULT_MOBILE)))
@@ -347,6 +355,7 @@ public class EmployeeResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(employee.getId().intValue()))
+            .andExpect(jsonPath("$.companyId").value(DEFAULT_COMPANY_ID.intValue()))
             .andExpect(jsonPath("$.code").value(DEFAULT_CODE))
             .andExpect(jsonPath("$.fullName").value(DEFAULT_FULL_NAME))
             .andExpect(jsonPath("$.sex").value(DEFAULT_SEX))
@@ -356,9 +365,9 @@ public class EmployeeResourceIT {
             .andExpect(jsonPath("$.identityIssue").value(DEFAULT_IDENTITY_ISSUE))
             .andExpect(jsonPath("$.position").value(DEFAULT_POSITION))
             .andExpect(jsonPath("$.taxCode").value(DEFAULT_TAX_CODE))
-            .andExpect(jsonPath("$.salary").value(DEFAULT_SALARY.doubleValue()))
-            .andExpect(jsonPath("$.salaryRate").value(DEFAULT_SALARY_RATE.doubleValue()))
-            .andExpect(jsonPath("$.salarySecurity").value(DEFAULT_SALARY_SECURITY.doubleValue()))
+            .andExpect(jsonPath("$.salary").value(DEFAULT_SALARY.intValue()))
+            .andExpect(jsonPath("$.salaryRate").value(DEFAULT_SALARY_RATE.intValue()))
+            .andExpect(jsonPath("$.salarySecurity").value(DEFAULT_SALARY_SECURITY.intValue()))
             .andExpect(jsonPath("$.numOfDepends").value(DEFAULT_NUM_OF_DEPENDS))
             .andExpect(jsonPath("$.phone").value(DEFAULT_PHONE))
             .andExpect(jsonPath("$.mobile").value(DEFAULT_MOBILE))
@@ -390,6 +399,111 @@ public class EmployeeResourceIT {
 
         defaultEmployeeShouldBeFound("id.lessThanOrEqual=" + id);
         defaultEmployeeShouldNotBeFound("id.lessThan=" + id);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllEmployeesByCompanyIdIsEqualToSomething() throws Exception {
+        // Initialize the database
+        employeeRepository.saveAndFlush(employee);
+
+        // Get all the employeeList where companyId equals to DEFAULT_COMPANY_ID
+        defaultEmployeeShouldBeFound("companyId.equals=" + DEFAULT_COMPANY_ID);
+
+        // Get all the employeeList where companyId equals to UPDATED_COMPANY_ID
+        defaultEmployeeShouldNotBeFound("companyId.equals=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEmployeesByCompanyIdIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        employeeRepository.saveAndFlush(employee);
+
+        // Get all the employeeList where companyId not equals to DEFAULT_COMPANY_ID
+        defaultEmployeeShouldNotBeFound("companyId.notEquals=" + DEFAULT_COMPANY_ID);
+
+        // Get all the employeeList where companyId not equals to UPDATED_COMPANY_ID
+        defaultEmployeeShouldBeFound("companyId.notEquals=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEmployeesByCompanyIdIsInShouldWork() throws Exception {
+        // Initialize the database
+        employeeRepository.saveAndFlush(employee);
+
+        // Get all the employeeList where companyId in DEFAULT_COMPANY_ID or UPDATED_COMPANY_ID
+        defaultEmployeeShouldBeFound("companyId.in=" + DEFAULT_COMPANY_ID + "," + UPDATED_COMPANY_ID);
+
+        // Get all the employeeList where companyId equals to UPDATED_COMPANY_ID
+        defaultEmployeeShouldNotBeFound("companyId.in=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEmployeesByCompanyIdIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        employeeRepository.saveAndFlush(employee);
+
+        // Get all the employeeList where companyId is not null
+        defaultEmployeeShouldBeFound("companyId.specified=true");
+
+        // Get all the employeeList where companyId is null
+        defaultEmployeeShouldNotBeFound("companyId.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllEmployeesByCompanyIdIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        employeeRepository.saveAndFlush(employee);
+
+        // Get all the employeeList where companyId is greater than or equal to DEFAULT_COMPANY_ID
+        defaultEmployeeShouldBeFound("companyId.greaterThanOrEqual=" + DEFAULT_COMPANY_ID);
+
+        // Get all the employeeList where companyId is greater than or equal to UPDATED_COMPANY_ID
+        defaultEmployeeShouldNotBeFound("companyId.greaterThanOrEqual=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEmployeesByCompanyIdIsLessThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        employeeRepository.saveAndFlush(employee);
+
+        // Get all the employeeList where companyId is less than or equal to DEFAULT_COMPANY_ID
+        defaultEmployeeShouldBeFound("companyId.lessThanOrEqual=" + DEFAULT_COMPANY_ID);
+
+        // Get all the employeeList where companyId is less than or equal to SMALLER_COMPANY_ID
+        defaultEmployeeShouldNotBeFound("companyId.lessThanOrEqual=" + SMALLER_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEmployeesByCompanyIdIsLessThanSomething() throws Exception {
+        // Initialize the database
+        employeeRepository.saveAndFlush(employee);
+
+        // Get all the employeeList where companyId is less than DEFAULT_COMPANY_ID
+        defaultEmployeeShouldNotBeFound("companyId.lessThan=" + DEFAULT_COMPANY_ID);
+
+        // Get all the employeeList where companyId is less than UPDATED_COMPANY_ID
+        defaultEmployeeShouldBeFound("companyId.lessThan=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllEmployeesByCompanyIdIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        employeeRepository.saveAndFlush(employee);
+
+        // Get all the employeeList where companyId is greater than DEFAULT_COMPANY_ID
+        defaultEmployeeShouldNotBeFound("companyId.greaterThan=" + DEFAULT_COMPANY_ID);
+
+        // Get all the employeeList where companyId is greater than SMALLER_COMPANY_ID
+        defaultEmployeeShouldBeFound("companyId.greaterThan=" + SMALLER_COMPANY_ID);
     }
 
 
@@ -2469,26 +2583,6 @@ public class EmployeeResourceIT {
         defaultEmployeeShouldNotBeFound("departmentId.equals=" + (departmentId + 1));
     }
 
-
-    @Test
-    @Transactional
-    public void getAllEmployeesByCompanyIsEqualToSomething() throws Exception {
-        // Initialize the database
-        employeeRepository.saveAndFlush(employee);
-        Company company = CompanyResourceIT.createEntity(em);
-        em.persist(company);
-        em.flush();
-        employee.setCompany(company);
-        employeeRepository.saveAndFlush(employee);
-        Long companyId = company.getId();
-
-        // Get all the employeeList where company equals to companyId
-        defaultEmployeeShouldBeFound("companyId.equals=" + companyId);
-
-        // Get all the employeeList where company equals to companyId + 1
-        defaultEmployeeShouldNotBeFound("companyId.equals=" + (companyId + 1));
-    }
-
     /**
      * Executes the search, and checks that the default entity is returned.
      */
@@ -2497,6 +2591,7 @@ public class EmployeeResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(employee.getId().intValue())))
+            .andExpect(jsonPath("$.[*].companyId").value(hasItem(DEFAULT_COMPANY_ID.intValue())))
             .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE)))
             .andExpect(jsonPath("$.[*].fullName").value(hasItem(DEFAULT_FULL_NAME)))
             .andExpect(jsonPath("$.[*].sex").value(hasItem(DEFAULT_SEX)))
@@ -2506,9 +2601,9 @@ public class EmployeeResourceIT {
             .andExpect(jsonPath("$.[*].identityIssue").value(hasItem(DEFAULT_IDENTITY_ISSUE)))
             .andExpect(jsonPath("$.[*].position").value(hasItem(DEFAULT_POSITION)))
             .andExpect(jsonPath("$.[*].taxCode").value(hasItem(DEFAULT_TAX_CODE)))
-            .andExpect(jsonPath("$.[*].salary").value(hasItem(DEFAULT_SALARY.doubleValue())))
-            .andExpect(jsonPath("$.[*].salaryRate").value(hasItem(DEFAULT_SALARY_RATE.doubleValue())))
-            .andExpect(jsonPath("$.[*].salarySecurity").value(hasItem(DEFAULT_SALARY_SECURITY.doubleValue())))
+            .andExpect(jsonPath("$.[*].salary").value(hasItem(DEFAULT_SALARY.intValue())))
+            .andExpect(jsonPath("$.[*].salaryRate").value(hasItem(DEFAULT_SALARY_RATE.intValue())))
+            .andExpect(jsonPath("$.[*].salarySecurity").value(hasItem(DEFAULT_SALARY_SECURITY.intValue())))
             .andExpect(jsonPath("$.[*].numOfDepends").value(hasItem(DEFAULT_NUM_OF_DEPENDS)))
             .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE)))
             .andExpect(jsonPath("$.[*].mobile").value(hasItem(DEFAULT_MOBILE)))
@@ -2568,6 +2663,7 @@ public class EmployeeResourceIT {
         // Disconnect from session so that the updates on updatedEmployee are not directly saved in db
         em.detach(updatedEmployee);
         updatedEmployee
+            .companyId(UPDATED_COMPANY_ID)
             .code(UPDATED_CODE)
             .fullName(UPDATED_FULL_NAME)
             .sex(UPDATED_SEX)
@@ -2602,6 +2698,7 @@ public class EmployeeResourceIT {
         List<Employee> employeeList = employeeRepository.findAll();
         assertThat(employeeList).hasSize(databaseSizeBeforeUpdate);
         Employee testEmployee = employeeList.get(employeeList.size() - 1);
+        assertThat(testEmployee.getCompanyId()).isEqualTo(UPDATED_COMPANY_ID);
         assertThat(testEmployee.getCode()).isEqualTo(UPDATED_CODE);
         assertThat(testEmployee.getFullName()).isEqualTo(UPDATED_FULL_NAME);
         assertThat(testEmployee.getSex()).isEqualTo(UPDATED_SEX);

@@ -20,7 +20,9 @@ export class StoreUpdateComponent implements OnInit {
     companyId: [],
     code: [null, [Validators.maxLength(20)]],
     name: [null, [Validators.maxLength(50)]],
-    address: [null, [Validators.maxLength(100)]]
+    description: [null, [Validators.maxLength(200)]],
+    address: [null, [Validators.maxLength(300)]],
+    isActive: []
   });
 
   constructor(protected storeService: StoreService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
@@ -38,7 +40,9 @@ export class StoreUpdateComponent implements OnInit {
       companyId: store.companyId,
       code: store.code,
       name: store.name,
-      address: store.address
+      description: store.description,
+      address: store.address,
+      isActive: store.isActive
     });
   }
 
@@ -63,7 +67,9 @@ export class StoreUpdateComponent implements OnInit {
       companyId: this.editForm.get(['companyId']).value,
       code: this.editForm.get(['code']).value,
       name: this.editForm.get(['name']).value,
-      address: this.editForm.get(['address']).value
+      description: this.editForm.get(['description']).value,
+      address: this.editForm.get(['address']).value,
+      isActive: this.editForm.get(['isActive']).value
     };
   }
 

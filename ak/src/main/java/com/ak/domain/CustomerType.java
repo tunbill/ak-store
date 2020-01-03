@@ -27,11 +27,12 @@ public class CustomerType implements Serializable {
     private Long companyId;
 
     @NotNull
-    @Size(max = 100)
-    @Column(name = "name", length = 100, nullable = false)
+    @Size(max = 50)
+    @Column(name = "name", length = 50, nullable = false)
     private String name;
 
-    @Column(name = "description")
+    @Size(max = 200)
+    @Column(name = "description", length = 200)
     private String description;
 
     @Column(name = "is_active")

@@ -6,7 +6,6 @@ import com.ak.domain.InvoiceLine;
 import com.ak.domain.Customer;
 import com.ak.domain.Terms;
 import com.ak.domain.Employee;
-import com.ak.domain.Company;
 import com.ak.repository.InvoiceRepository;
 import com.ak.service.InvoiceService;
 import com.ak.web.rest.errors.ExceptionTranslator;
@@ -27,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -45,6 +45,10 @@ import com.ak.domain.enumeration.ProcessStatus;
  */
 @SpringBootTest(classes = AkApp.class)
 public class InvoiceResourceIT {
+
+    private static final Long DEFAULT_COMPANY_ID = 1L;
+    private static final Long UPDATED_COMPANY_ID = 2L;
+    private static final Long SMALLER_COMPANY_ID = 1L - 1L;
 
     private static final String DEFAULT_INVOICE_NO = "AAAAAAAAAA";
     private static final String UPDATED_INVOICE_NO = "BBBBBBBBBB";
@@ -69,21 +73,21 @@ public class InvoiceResourceIT {
     private static final String DEFAULT_NOTES = "AAAAAAAAAA";
     private static final String UPDATED_NOTES = "BBBBBBBBBB";
 
-    private static final Double DEFAULT_PRODUCT_TOTAL = 1D;
-    private static final Double UPDATED_PRODUCT_TOTAL = 2D;
-    private static final Double SMALLER_PRODUCT_TOTAL = 1D - 1D;
+    private static final BigDecimal DEFAULT_PRODUCT_TOTAL = new BigDecimal(1);
+    private static final BigDecimal UPDATED_PRODUCT_TOTAL = new BigDecimal(2);
+    private static final BigDecimal SMALLER_PRODUCT_TOTAL = new BigDecimal(1 - 1);
 
-    private static final Double DEFAULT_VAT_TOTAL = 1D;
-    private static final Double UPDATED_VAT_TOTAL = 2D;
-    private static final Double SMALLER_VAT_TOTAL = 1D - 1D;
+    private static final BigDecimal DEFAULT_VAT_TOTAL = new BigDecimal(1);
+    private static final BigDecimal UPDATED_VAT_TOTAL = new BigDecimal(2);
+    private static final BigDecimal SMALLER_VAT_TOTAL = new BigDecimal(1 - 1);
 
-    private static final Double DEFAULT_DISCOUNT_TOTAL = 1D;
-    private static final Double UPDATED_DISCOUNT_TOTAL = 2D;
-    private static final Double SMALLER_DISCOUNT_TOTAL = 1D - 1D;
+    private static final BigDecimal DEFAULT_DISCOUNT_TOTAL = new BigDecimal(1);
+    private static final BigDecimal UPDATED_DISCOUNT_TOTAL = new BigDecimal(2);
+    private static final BigDecimal SMALLER_DISCOUNT_TOTAL = new BigDecimal(1 - 1);
 
-    private static final Double DEFAULT_TOTAL = 1D;
-    private static final Double UPDATED_TOTAL = 2D;
-    private static final Double SMALLER_TOTAL = 1D - 1D;
+    private static final BigDecimal DEFAULT_TOTAL = new BigDecimal(1);
+    private static final BigDecimal UPDATED_TOTAL = new BigDecimal(2);
+    private static final BigDecimal SMALLER_TOTAL = new BigDecimal(1 - 1);
 
     private static final ProcessStatus DEFAULT_STATUS = ProcessStatus.OPEN;
     private static final ProcessStatus UPDATED_STATUS = ProcessStatus.CLOSE;
@@ -150,6 +154,7 @@ public class InvoiceResourceIT {
      */
     public static Invoice createEntity(EntityManager em) {
         Invoice invoice = new Invoice()
+            .companyId(DEFAULT_COMPANY_ID)
             .invoiceNo(DEFAULT_INVOICE_NO)
             .invoiceDate(DEFAULT_INVOICE_DATE)
             .dueDate(DEFAULT_DUE_DATE)
@@ -176,6 +181,7 @@ public class InvoiceResourceIT {
      */
     public static Invoice createUpdatedEntity(EntityManager em) {
         Invoice invoice = new Invoice()
+            .companyId(UPDATED_COMPANY_ID)
             .invoiceNo(UPDATED_INVOICE_NO)
             .invoiceDate(UPDATED_INVOICE_DATE)
             .dueDate(UPDATED_DUE_DATE)
@@ -215,6 +221,7 @@ public class InvoiceResourceIT {
         List<Invoice> invoiceList = invoiceRepository.findAll();
         assertThat(invoiceList).hasSize(databaseSizeBeforeCreate + 1);
         Invoice testInvoice = invoiceList.get(invoiceList.size() - 1);
+        assertThat(testInvoice.getCompanyId()).isEqualTo(DEFAULT_COMPANY_ID);
         assertThat(testInvoice.getInvoiceNo()).isEqualTo(DEFAULT_INVOICE_NO);
         assertThat(testInvoice.getInvoiceDate()).isEqualTo(DEFAULT_INVOICE_DATE);
         assertThat(testInvoice.getDueDate()).isEqualTo(DEFAULT_DUE_DATE);
@@ -264,6 +271,7 @@ public class InvoiceResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(invoice.getId().intValue())))
+            .andExpect(jsonPath("$.[*].companyId").value(hasItem(DEFAULT_COMPANY_ID.intValue())))
             .andExpect(jsonPath("$.[*].invoiceNo").value(hasItem(DEFAULT_INVOICE_NO)))
             .andExpect(jsonPath("$.[*].invoiceDate").value(hasItem(DEFAULT_INVOICE_DATE.toString())))
             .andExpect(jsonPath("$.[*].dueDate").value(hasItem(DEFAULT_DUE_DATE.toString())))
@@ -271,10 +279,10 @@ public class InvoiceResourceIT {
             .andExpect(jsonPath("$.[*].accountNumber").value(hasItem(DEFAULT_ACCOUNT_NUMBER)))
             .andExpect(jsonPath("$.[*].poNumber").value(hasItem(DEFAULT_PO_NUMBER)))
             .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES)))
-            .andExpect(jsonPath("$.[*].productTotal").value(hasItem(DEFAULT_PRODUCT_TOTAL.doubleValue())))
-            .andExpect(jsonPath("$.[*].vatTotal").value(hasItem(DEFAULT_VAT_TOTAL.doubleValue())))
-            .andExpect(jsonPath("$.[*].discountTotal").value(hasItem(DEFAULT_DISCOUNT_TOTAL.doubleValue())))
-            .andExpect(jsonPath("$.[*].total").value(hasItem(DEFAULT_TOTAL.doubleValue())))
+            .andExpect(jsonPath("$.[*].productTotal").value(hasItem(DEFAULT_PRODUCT_TOTAL.intValue())))
+            .andExpect(jsonPath("$.[*].vatTotal").value(hasItem(DEFAULT_VAT_TOTAL.intValue())))
+            .andExpect(jsonPath("$.[*].discountTotal").value(hasItem(DEFAULT_DISCOUNT_TOTAL.intValue())))
+            .andExpect(jsonPath("$.[*].total").value(hasItem(DEFAULT_TOTAL.intValue())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].timeCreated").value(hasItem(DEFAULT_TIME_CREATED.toString())))
             .andExpect(jsonPath("$.[*].timeModified").value(hasItem(DEFAULT_TIME_MODIFIED.toString())))
@@ -293,6 +301,7 @@ public class InvoiceResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(invoice.getId().intValue()))
+            .andExpect(jsonPath("$.companyId").value(DEFAULT_COMPANY_ID.intValue()))
             .andExpect(jsonPath("$.invoiceNo").value(DEFAULT_INVOICE_NO))
             .andExpect(jsonPath("$.invoiceDate").value(DEFAULT_INVOICE_DATE.toString()))
             .andExpect(jsonPath("$.dueDate").value(DEFAULT_DUE_DATE.toString()))
@@ -300,10 +309,10 @@ public class InvoiceResourceIT {
             .andExpect(jsonPath("$.accountNumber").value(DEFAULT_ACCOUNT_NUMBER))
             .andExpect(jsonPath("$.poNumber").value(DEFAULT_PO_NUMBER))
             .andExpect(jsonPath("$.notes").value(DEFAULT_NOTES))
-            .andExpect(jsonPath("$.productTotal").value(DEFAULT_PRODUCT_TOTAL.doubleValue()))
-            .andExpect(jsonPath("$.vatTotal").value(DEFAULT_VAT_TOTAL.doubleValue()))
-            .andExpect(jsonPath("$.discountTotal").value(DEFAULT_DISCOUNT_TOTAL.doubleValue()))
-            .andExpect(jsonPath("$.total").value(DEFAULT_TOTAL.doubleValue()))
+            .andExpect(jsonPath("$.productTotal").value(DEFAULT_PRODUCT_TOTAL.intValue()))
+            .andExpect(jsonPath("$.vatTotal").value(DEFAULT_VAT_TOTAL.intValue()))
+            .andExpect(jsonPath("$.discountTotal").value(DEFAULT_DISCOUNT_TOTAL.intValue()))
+            .andExpect(jsonPath("$.total").value(DEFAULT_TOTAL.intValue()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.timeCreated").value(DEFAULT_TIME_CREATED.toString()))
             .andExpect(jsonPath("$.timeModified").value(DEFAULT_TIME_MODIFIED.toString()))
@@ -328,6 +337,111 @@ public class InvoiceResourceIT {
 
         defaultInvoiceShouldBeFound("id.lessThanOrEqual=" + id);
         defaultInvoiceShouldNotBeFound("id.lessThan=" + id);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllInvoicesByCompanyIdIsEqualToSomething() throws Exception {
+        // Initialize the database
+        invoiceRepository.saveAndFlush(invoice);
+
+        // Get all the invoiceList where companyId equals to DEFAULT_COMPANY_ID
+        defaultInvoiceShouldBeFound("companyId.equals=" + DEFAULT_COMPANY_ID);
+
+        // Get all the invoiceList where companyId equals to UPDATED_COMPANY_ID
+        defaultInvoiceShouldNotBeFound("companyId.equals=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInvoicesByCompanyIdIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        invoiceRepository.saveAndFlush(invoice);
+
+        // Get all the invoiceList where companyId not equals to DEFAULT_COMPANY_ID
+        defaultInvoiceShouldNotBeFound("companyId.notEquals=" + DEFAULT_COMPANY_ID);
+
+        // Get all the invoiceList where companyId not equals to UPDATED_COMPANY_ID
+        defaultInvoiceShouldBeFound("companyId.notEquals=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInvoicesByCompanyIdIsInShouldWork() throws Exception {
+        // Initialize the database
+        invoiceRepository.saveAndFlush(invoice);
+
+        // Get all the invoiceList where companyId in DEFAULT_COMPANY_ID or UPDATED_COMPANY_ID
+        defaultInvoiceShouldBeFound("companyId.in=" + DEFAULT_COMPANY_ID + "," + UPDATED_COMPANY_ID);
+
+        // Get all the invoiceList where companyId equals to UPDATED_COMPANY_ID
+        defaultInvoiceShouldNotBeFound("companyId.in=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInvoicesByCompanyIdIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        invoiceRepository.saveAndFlush(invoice);
+
+        // Get all the invoiceList where companyId is not null
+        defaultInvoiceShouldBeFound("companyId.specified=true");
+
+        // Get all the invoiceList where companyId is null
+        defaultInvoiceShouldNotBeFound("companyId.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllInvoicesByCompanyIdIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        invoiceRepository.saveAndFlush(invoice);
+
+        // Get all the invoiceList where companyId is greater than or equal to DEFAULT_COMPANY_ID
+        defaultInvoiceShouldBeFound("companyId.greaterThanOrEqual=" + DEFAULT_COMPANY_ID);
+
+        // Get all the invoiceList where companyId is greater than or equal to UPDATED_COMPANY_ID
+        defaultInvoiceShouldNotBeFound("companyId.greaterThanOrEqual=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInvoicesByCompanyIdIsLessThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        invoiceRepository.saveAndFlush(invoice);
+
+        // Get all the invoiceList where companyId is less than or equal to DEFAULT_COMPANY_ID
+        defaultInvoiceShouldBeFound("companyId.lessThanOrEqual=" + DEFAULT_COMPANY_ID);
+
+        // Get all the invoiceList where companyId is less than or equal to SMALLER_COMPANY_ID
+        defaultInvoiceShouldNotBeFound("companyId.lessThanOrEqual=" + SMALLER_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInvoicesByCompanyIdIsLessThanSomething() throws Exception {
+        // Initialize the database
+        invoiceRepository.saveAndFlush(invoice);
+
+        // Get all the invoiceList where companyId is less than DEFAULT_COMPANY_ID
+        defaultInvoiceShouldNotBeFound("companyId.lessThan=" + DEFAULT_COMPANY_ID);
+
+        // Get all the invoiceList where companyId is less than UPDATED_COMPANY_ID
+        defaultInvoiceShouldBeFound("companyId.lessThan=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInvoicesByCompanyIdIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        invoiceRepository.saveAndFlush(invoice);
+
+        // Get all the invoiceList where companyId is greater than DEFAULT_COMPANY_ID
+        defaultInvoiceShouldNotBeFound("companyId.greaterThan=" + DEFAULT_COMPANY_ID);
+
+        // Get all the invoiceList where companyId is greater than SMALLER_COMPANY_ID
+        defaultInvoiceShouldBeFound("companyId.greaterThan=" + SMALLER_COMPANY_ID);
     }
 
 
@@ -1796,26 +1910,6 @@ public class InvoiceResourceIT {
         defaultInvoiceShouldNotBeFound("employeeId.equals=" + (employeeId + 1));
     }
 
-
-    @Test
-    @Transactional
-    public void getAllInvoicesByCompanyIsEqualToSomething() throws Exception {
-        // Initialize the database
-        invoiceRepository.saveAndFlush(invoice);
-        Company company = CompanyResourceIT.createEntity(em);
-        em.persist(company);
-        em.flush();
-        invoice.setCompany(company);
-        invoiceRepository.saveAndFlush(invoice);
-        Long companyId = company.getId();
-
-        // Get all the invoiceList where company equals to companyId
-        defaultInvoiceShouldBeFound("companyId.equals=" + companyId);
-
-        // Get all the invoiceList where company equals to companyId + 1
-        defaultInvoiceShouldNotBeFound("companyId.equals=" + (companyId + 1));
-    }
-
     /**
      * Executes the search, and checks that the default entity is returned.
      */
@@ -1824,6 +1918,7 @@ public class InvoiceResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(invoice.getId().intValue())))
+            .andExpect(jsonPath("$.[*].companyId").value(hasItem(DEFAULT_COMPANY_ID.intValue())))
             .andExpect(jsonPath("$.[*].invoiceNo").value(hasItem(DEFAULT_INVOICE_NO)))
             .andExpect(jsonPath("$.[*].invoiceDate").value(hasItem(DEFAULT_INVOICE_DATE.toString())))
             .andExpect(jsonPath("$.[*].dueDate").value(hasItem(DEFAULT_DUE_DATE.toString())))
@@ -1831,10 +1926,10 @@ public class InvoiceResourceIT {
             .andExpect(jsonPath("$.[*].accountNumber").value(hasItem(DEFAULT_ACCOUNT_NUMBER)))
             .andExpect(jsonPath("$.[*].poNumber").value(hasItem(DEFAULT_PO_NUMBER)))
             .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES)))
-            .andExpect(jsonPath("$.[*].productTotal").value(hasItem(DEFAULT_PRODUCT_TOTAL.doubleValue())))
-            .andExpect(jsonPath("$.[*].vatTotal").value(hasItem(DEFAULT_VAT_TOTAL.doubleValue())))
-            .andExpect(jsonPath("$.[*].discountTotal").value(hasItem(DEFAULT_DISCOUNT_TOTAL.doubleValue())))
-            .andExpect(jsonPath("$.[*].total").value(hasItem(DEFAULT_TOTAL.doubleValue())))
+            .andExpect(jsonPath("$.[*].productTotal").value(hasItem(DEFAULT_PRODUCT_TOTAL.intValue())))
+            .andExpect(jsonPath("$.[*].vatTotal").value(hasItem(DEFAULT_VAT_TOTAL.intValue())))
+            .andExpect(jsonPath("$.[*].discountTotal").value(hasItem(DEFAULT_DISCOUNT_TOTAL.intValue())))
+            .andExpect(jsonPath("$.[*].total").value(hasItem(DEFAULT_TOTAL.intValue())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].timeCreated").value(hasItem(DEFAULT_TIME_CREATED.toString())))
             .andExpect(jsonPath("$.[*].timeModified").value(hasItem(DEFAULT_TIME_MODIFIED.toString())))
@@ -1887,6 +1982,7 @@ public class InvoiceResourceIT {
         // Disconnect from session so that the updates on updatedInvoice are not directly saved in db
         em.detach(updatedInvoice);
         updatedInvoice
+            .companyId(UPDATED_COMPANY_ID)
             .invoiceNo(UPDATED_INVOICE_NO)
             .invoiceDate(UPDATED_INVOICE_DATE)
             .dueDate(UPDATED_DUE_DATE)
@@ -1913,6 +2009,7 @@ public class InvoiceResourceIT {
         List<Invoice> invoiceList = invoiceRepository.findAll();
         assertThat(invoiceList).hasSize(databaseSizeBeforeUpdate);
         Invoice testInvoice = invoiceList.get(invoiceList.size() - 1);
+        assertThat(testInvoice.getCompanyId()).isEqualTo(UPDATED_COMPANY_ID);
         assertThat(testInvoice.getInvoiceNo()).isEqualTo(UPDATED_INVOICE_NO);
         assertThat(testInvoice.getInvoiceDate()).isEqualTo(UPDATED_INVOICE_DATE);
         assertThat(testInvoice.getDueDate()).isEqualTo(UPDATED_DUE_DATE);

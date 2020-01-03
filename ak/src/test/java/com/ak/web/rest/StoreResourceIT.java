@@ -34,14 +34,23 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = AkApp.class)
 public class StoreResourceIT {
 
+    private static final Long DEFAULT_COMPANY_ID = 1L;
+    private static final Long UPDATED_COMPANY_ID = 2L;
+
     private static final String DEFAULT_CODE = "AAAAAAAAAA";
     private static final String UPDATED_CODE = "BBBBBBBBBB";
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
+    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+
     private static final String DEFAULT_ADDRESS = "AAAAAAAAAA";
     private static final String UPDATED_ADDRESS = "BBBBBBBBBB";
+
+    private static final Boolean DEFAULT_IS_ACTIVE = false;
+    private static final Boolean UPDATED_IS_ACTIVE = true;
 
     @Autowired
     private StoreRepository storeRepository;
@@ -88,9 +97,12 @@ public class StoreResourceIT {
      */
     public static Store createEntity(EntityManager em) {
         Store store = new Store()
+            .companyId(DEFAULT_COMPANY_ID)
             .code(DEFAULT_CODE)
             .name(DEFAULT_NAME)
-            .address(DEFAULT_ADDRESS);
+            .description(DEFAULT_DESCRIPTION)
+            .address(DEFAULT_ADDRESS)
+            .isActive(DEFAULT_IS_ACTIVE);
         return store;
     }
     /**
@@ -101,9 +113,12 @@ public class StoreResourceIT {
      */
     public static Store createUpdatedEntity(EntityManager em) {
         Store store = new Store()
+            .companyId(UPDATED_COMPANY_ID)
             .code(UPDATED_CODE)
             .name(UPDATED_NAME)
-            .address(UPDATED_ADDRESS);
+            .description(UPDATED_DESCRIPTION)
+            .address(UPDATED_ADDRESS)
+            .isActive(UPDATED_IS_ACTIVE);
         return store;
     }
 
@@ -127,9 +142,12 @@ public class StoreResourceIT {
         List<Store> storeList = storeRepository.findAll();
         assertThat(storeList).hasSize(databaseSizeBeforeCreate + 1);
         Store testStore = storeList.get(storeList.size() - 1);
+        assertThat(testStore.getCompanyId()).isEqualTo(DEFAULT_COMPANY_ID);
         assertThat(testStore.getCode()).isEqualTo(DEFAULT_CODE);
         assertThat(testStore.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testStore.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testStore.getAddress()).isEqualTo(DEFAULT_ADDRESS);
+        assertThat(testStore.isIsActive()).isEqualTo(DEFAULT_IS_ACTIVE);
     }
 
     @Test
@@ -163,9 +181,12 @@ public class StoreResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(store.getId().intValue())))
+            .andExpect(jsonPath("$.[*].companyId").value(hasItem(DEFAULT_COMPANY_ID.intValue())))
             .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS)));
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].address").value(hasItem(DEFAULT_ADDRESS)))
+            .andExpect(jsonPath("$.[*].isActive").value(hasItem(DEFAULT_IS_ACTIVE.booleanValue())));
     }
     
     @Test
@@ -179,9 +200,12 @@ public class StoreResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(store.getId().intValue()))
+            .andExpect(jsonPath("$.companyId").value(DEFAULT_COMPANY_ID.intValue()))
             .andExpect(jsonPath("$.code").value(DEFAULT_CODE))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
-            .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS));
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
+            .andExpect(jsonPath("$.address").value(DEFAULT_ADDRESS))
+            .andExpect(jsonPath("$.isActive").value(DEFAULT_IS_ACTIVE.booleanValue()));
     }
 
     @Test
@@ -205,9 +229,12 @@ public class StoreResourceIT {
         // Disconnect from session so that the updates on updatedStore are not directly saved in db
         em.detach(updatedStore);
         updatedStore
+            .companyId(UPDATED_COMPANY_ID)
             .code(UPDATED_CODE)
             .name(UPDATED_NAME)
-            .address(UPDATED_ADDRESS);
+            .description(UPDATED_DESCRIPTION)
+            .address(UPDATED_ADDRESS)
+            .isActive(UPDATED_IS_ACTIVE);
 
         restStoreMockMvc.perform(put("/api/stores")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -218,9 +245,12 @@ public class StoreResourceIT {
         List<Store> storeList = storeRepository.findAll();
         assertThat(storeList).hasSize(databaseSizeBeforeUpdate);
         Store testStore = storeList.get(storeList.size() - 1);
+        assertThat(testStore.getCompanyId()).isEqualTo(UPDATED_COMPANY_ID);
         assertThat(testStore.getCode()).isEqualTo(UPDATED_CODE);
         assertThat(testStore.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testStore.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testStore.getAddress()).isEqualTo(UPDATED_ADDRESS);
+        assertThat(testStore.isIsActive()).isEqualTo(UPDATED_IS_ACTIVE);
     }
 
     @Test

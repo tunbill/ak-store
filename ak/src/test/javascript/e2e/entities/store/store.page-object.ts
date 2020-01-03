@@ -29,7 +29,9 @@ export class StoreUpdatePage {
   companyIdInput = element(by.id('field_companyId'));
   codeInput = element(by.id('field_code'));
   nameInput = element(by.id('field_name'));
+  descriptionInput = element(by.id('field_description'));
   addressInput = element(by.id('field_address'));
+  isActiveInput = element(by.id('field_isActive'));
 
   async getPageTitle() {
     return this.pageTitle.getAttribute('jhiTranslate');
@@ -59,12 +61,24 @@ export class StoreUpdatePage {
     return await this.nameInput.getAttribute('value');
   }
 
+  async setDescriptionInput(description) {
+    await this.descriptionInput.sendKeys(description);
+  }
+
+  async getDescriptionInput() {
+    return await this.descriptionInput.getAttribute('value');
+  }
+
   async setAddressInput(address) {
     await this.addressInput.sendKeys(address);
   }
 
   async getAddressInput() {
     return await this.addressInput.getAttribute('value');
+  }
+
+  getIsActiveInput() {
+    return this.isActiveInput;
   }
 
   async save() {

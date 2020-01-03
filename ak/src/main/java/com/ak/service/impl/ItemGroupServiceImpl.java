@@ -77,4 +77,9 @@ public class ItemGroupServiceImpl implements ItemGroupService {
         log.debug("Request to delete ItemGroup : {}", id);
         itemGroupRepository.deleteById(id);
     }
+
+	@Override
+	public Page<ItemGroup> findByCompanyId(Long companyId, Pageable pageable) {
+		return itemGroupRepository.findByCompanyId(companyId, pageable);
+	}
 }

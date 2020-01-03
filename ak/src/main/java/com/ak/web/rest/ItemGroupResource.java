@@ -1,7 +1,10 @@
 package com.ak.web.rest;
 
 import com.ak.domain.ItemGroup;
+import com.ak.domain.User;
+import com.ak.security.SecurityUtils;
 import com.ak.service.ItemGroupService;
+import com.ak.service.UserService;
 import com.ak.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -40,9 +43,12 @@ public class ItemGroupResource {
     private String applicationName;
 
     private final ItemGroupService itemGroupService;
+    
+    private final UserService userService;
 
-    public ItemGroupResource(ItemGroupService itemGroupService) {
+    public ItemGroupResource(ItemGroupService itemGroupService, UserService userService) {
         this.itemGroupService = itemGroupService;
+        this.userService = userService;
     }
 
     /**
@@ -58,6 +64,9 @@ public class ItemGroupResource {
         if (itemGroup.getId() != null) {
             throw new BadRequestAlertException("A new itemGroup cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        itemGroup.setCompanyId(user.get().getCompanyId());
         ItemGroup result = itemGroupService.save(itemGroup);
         return ResponseEntity.created(new URI("/api/item-groups/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -79,6 +88,9 @@ public class ItemGroupResource {
         if (itemGroup.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        itemGroup.setCompanyId(user.get().getCompanyId());
         ItemGroup result = itemGroupService.save(itemGroup);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, itemGroup.getId().toString()))
@@ -96,7 +108,9 @@ public class ItemGroupResource {
     @GetMapping("/item-groups")
     public ResponseEntity<List<ItemGroup>> getAllItemGroups(Pageable pageable) {
         log.debug("REST request to get a page of ItemGroups");
-        Page<ItemGroup> page = itemGroupService.findAll(pageable);
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        Page<ItemGroup> page = itemGroupService.findByCompanyId(user.get().getCompanyId(), pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

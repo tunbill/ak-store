@@ -4,7 +4,6 @@ import com.ak.AkApp;
 import com.ak.domain.InvoiceLine;
 import com.ak.domain.Invoice;
 import com.ak.domain.Item;
-import com.ak.domain.Company;
 import com.ak.repository.InvoiceLineRepository;
 import com.ak.service.InvoiceLineService;
 import com.ak.web.rest.errors.ExceptionTranslator;
@@ -25,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.ak.web.rest.TestUtil.createFormattingConversionService;
@@ -40,6 +40,10 @@ import com.ak.domain.enumeration.ProcessStatus;
 @SpringBootTest(classes = AkApp.class)
 public class InvoiceLineResourceIT {
 
+    private static final Long DEFAULT_COMPANY_ID = 1L;
+    private static final Long UPDATED_COMPANY_ID = 2L;
+    private static final Long SMALLER_COMPANY_ID = 1L - 1L;
+
     private static final Integer DEFAULT_DISPLAY_ORDER = 1;
     private static final Integer UPDATED_DISPLAY_ORDER = 2;
     private static final Integer SMALLER_DISPLAY_ORDER = 1 - 1;
@@ -50,21 +54,21 @@ public class InvoiceLineResourceIT {
     private static final String DEFAULT_UNIT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_UNIT_NAME = "BBBBBBBBBB";
 
-    private static final Double DEFAULT_QUANTITY = 1D;
-    private static final Double UPDATED_QUANTITY = 2D;
-    private static final Double SMALLER_QUANTITY = 1D - 1D;
+    private static final BigDecimal DEFAULT_QUANTITY = new BigDecimal(1);
+    private static final BigDecimal UPDATED_QUANTITY = new BigDecimal(2);
+    private static final BigDecimal SMALLER_QUANTITY = new BigDecimal(1 - 1);
 
-    private static final Double DEFAULT_RATE = 1D;
-    private static final Double UPDATED_RATE = 2D;
-    private static final Double SMALLER_RATE = 1D - 1D;
+    private static final BigDecimal DEFAULT_RATE = new BigDecimal(1);
+    private static final BigDecimal UPDATED_RATE = new BigDecimal(2);
+    private static final BigDecimal SMALLER_RATE = new BigDecimal(1 - 1);
 
-    private static final Double DEFAULT_AMOUNT = 1D;
-    private static final Double UPDATED_AMOUNT = 2D;
-    private static final Double SMALLER_AMOUNT = 1D - 1D;
+    private static final BigDecimal DEFAULT_AMOUNT = new BigDecimal(1);
+    private static final BigDecimal UPDATED_AMOUNT = new BigDecimal(2);
+    private static final BigDecimal SMALLER_AMOUNT = new BigDecimal(1 - 1);
 
-    private static final Double DEFAULT_DISCOUNT_PCT = 1D;
-    private static final Double UPDATED_DISCOUNT_PCT = 2D;
-    private static final Double SMALLER_DISCOUNT_PCT = 1D - 1D;
+    private static final BigDecimal DEFAULT_DISCOUNT_PCT = new BigDecimal(1);
+    private static final BigDecimal UPDATED_DISCOUNT_PCT = new BigDecimal(2);
+    private static final BigDecimal SMALLER_DISCOUNT_PCT = new BigDecimal(1 - 1);
 
     private static final String DEFAULT_ACCOUNT_NUMBER = "AAAAAAAAAA";
     private static final String UPDATED_ACCOUNT_NUMBER = "BBBBBBBBBB";
@@ -120,6 +124,7 @@ public class InvoiceLineResourceIT {
      */
     public static InvoiceLine createEntity(EntityManager em) {
         InvoiceLine invoiceLine = new InvoiceLine()
+            .companyId(DEFAULT_COMPANY_ID)
             .displayOrder(DEFAULT_DISPLAY_ORDER)
             .itemName(DEFAULT_ITEM_NAME)
             .unitName(DEFAULT_UNIT_NAME)
@@ -139,6 +144,7 @@ public class InvoiceLineResourceIT {
      */
     public static InvoiceLine createUpdatedEntity(EntityManager em) {
         InvoiceLine invoiceLine = new InvoiceLine()
+            .companyId(UPDATED_COMPANY_ID)
             .displayOrder(UPDATED_DISPLAY_ORDER)
             .itemName(UPDATED_ITEM_NAME)
             .unitName(UPDATED_UNIT_NAME)
@@ -171,6 +177,7 @@ public class InvoiceLineResourceIT {
         List<InvoiceLine> invoiceLineList = invoiceLineRepository.findAll();
         assertThat(invoiceLineList).hasSize(databaseSizeBeforeCreate + 1);
         InvoiceLine testInvoiceLine = invoiceLineList.get(invoiceLineList.size() - 1);
+        assertThat(testInvoiceLine.getCompanyId()).isEqualTo(DEFAULT_COMPANY_ID);
         assertThat(testInvoiceLine.getDisplayOrder()).isEqualTo(DEFAULT_DISPLAY_ORDER);
         assertThat(testInvoiceLine.getItemName()).isEqualTo(DEFAULT_ITEM_NAME);
         assertThat(testInvoiceLine.getUnitName()).isEqualTo(DEFAULT_UNIT_NAME);
@@ -213,13 +220,14 @@ public class InvoiceLineResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(invoiceLine.getId().intValue())))
+            .andExpect(jsonPath("$.[*].companyId").value(hasItem(DEFAULT_COMPANY_ID.intValue())))
             .andExpect(jsonPath("$.[*].displayOrder").value(hasItem(DEFAULT_DISPLAY_ORDER)))
             .andExpect(jsonPath("$.[*].itemName").value(hasItem(DEFAULT_ITEM_NAME)))
             .andExpect(jsonPath("$.[*].unitName").value(hasItem(DEFAULT_UNIT_NAME)))
-            .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY.doubleValue())))
-            .andExpect(jsonPath("$.[*].rate").value(hasItem(DEFAULT_RATE.doubleValue())))
-            .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.doubleValue())))
-            .andExpect(jsonPath("$.[*].discountPct").value(hasItem(DEFAULT_DISCOUNT_PCT.doubleValue())))
+            .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY.intValue())))
+            .andExpect(jsonPath("$.[*].rate").value(hasItem(DEFAULT_RATE.intValue())))
+            .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.intValue())))
+            .andExpect(jsonPath("$.[*].discountPct").value(hasItem(DEFAULT_DISCOUNT_PCT.intValue())))
             .andExpect(jsonPath("$.[*].accountNumber").value(hasItem(DEFAULT_ACCOUNT_NUMBER)))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
     }
@@ -235,13 +243,14 @@ public class InvoiceLineResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(invoiceLine.getId().intValue()))
+            .andExpect(jsonPath("$.companyId").value(DEFAULT_COMPANY_ID.intValue()))
             .andExpect(jsonPath("$.displayOrder").value(DEFAULT_DISPLAY_ORDER))
             .andExpect(jsonPath("$.itemName").value(DEFAULT_ITEM_NAME))
             .andExpect(jsonPath("$.unitName").value(DEFAULT_UNIT_NAME))
-            .andExpect(jsonPath("$.quantity").value(DEFAULT_QUANTITY.doubleValue()))
-            .andExpect(jsonPath("$.rate").value(DEFAULT_RATE.doubleValue()))
-            .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT.doubleValue()))
-            .andExpect(jsonPath("$.discountPct").value(DEFAULT_DISCOUNT_PCT.doubleValue()))
+            .andExpect(jsonPath("$.quantity").value(DEFAULT_QUANTITY.intValue()))
+            .andExpect(jsonPath("$.rate").value(DEFAULT_RATE.intValue()))
+            .andExpect(jsonPath("$.amount").value(DEFAULT_AMOUNT.intValue()))
+            .andExpect(jsonPath("$.discountPct").value(DEFAULT_DISCOUNT_PCT.intValue()))
             .andExpect(jsonPath("$.accountNumber").value(DEFAULT_ACCOUNT_NUMBER))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
     }
@@ -263,6 +272,111 @@ public class InvoiceLineResourceIT {
 
         defaultInvoiceLineShouldBeFound("id.lessThanOrEqual=" + id);
         defaultInvoiceLineShouldNotBeFound("id.lessThan=" + id);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllInvoiceLinesByCompanyIdIsEqualToSomething() throws Exception {
+        // Initialize the database
+        invoiceLineRepository.saveAndFlush(invoiceLine);
+
+        // Get all the invoiceLineList where companyId equals to DEFAULT_COMPANY_ID
+        defaultInvoiceLineShouldBeFound("companyId.equals=" + DEFAULT_COMPANY_ID);
+
+        // Get all the invoiceLineList where companyId equals to UPDATED_COMPANY_ID
+        defaultInvoiceLineShouldNotBeFound("companyId.equals=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInvoiceLinesByCompanyIdIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        invoiceLineRepository.saveAndFlush(invoiceLine);
+
+        // Get all the invoiceLineList where companyId not equals to DEFAULT_COMPANY_ID
+        defaultInvoiceLineShouldNotBeFound("companyId.notEquals=" + DEFAULT_COMPANY_ID);
+
+        // Get all the invoiceLineList where companyId not equals to UPDATED_COMPANY_ID
+        defaultInvoiceLineShouldBeFound("companyId.notEquals=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInvoiceLinesByCompanyIdIsInShouldWork() throws Exception {
+        // Initialize the database
+        invoiceLineRepository.saveAndFlush(invoiceLine);
+
+        // Get all the invoiceLineList where companyId in DEFAULT_COMPANY_ID or UPDATED_COMPANY_ID
+        defaultInvoiceLineShouldBeFound("companyId.in=" + DEFAULT_COMPANY_ID + "," + UPDATED_COMPANY_ID);
+
+        // Get all the invoiceLineList where companyId equals to UPDATED_COMPANY_ID
+        defaultInvoiceLineShouldNotBeFound("companyId.in=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInvoiceLinesByCompanyIdIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        invoiceLineRepository.saveAndFlush(invoiceLine);
+
+        // Get all the invoiceLineList where companyId is not null
+        defaultInvoiceLineShouldBeFound("companyId.specified=true");
+
+        // Get all the invoiceLineList where companyId is null
+        defaultInvoiceLineShouldNotBeFound("companyId.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllInvoiceLinesByCompanyIdIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        invoiceLineRepository.saveAndFlush(invoiceLine);
+
+        // Get all the invoiceLineList where companyId is greater than or equal to DEFAULT_COMPANY_ID
+        defaultInvoiceLineShouldBeFound("companyId.greaterThanOrEqual=" + DEFAULT_COMPANY_ID);
+
+        // Get all the invoiceLineList where companyId is greater than or equal to UPDATED_COMPANY_ID
+        defaultInvoiceLineShouldNotBeFound("companyId.greaterThanOrEqual=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInvoiceLinesByCompanyIdIsLessThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        invoiceLineRepository.saveAndFlush(invoiceLine);
+
+        // Get all the invoiceLineList where companyId is less than or equal to DEFAULT_COMPANY_ID
+        defaultInvoiceLineShouldBeFound("companyId.lessThanOrEqual=" + DEFAULT_COMPANY_ID);
+
+        // Get all the invoiceLineList where companyId is less than or equal to SMALLER_COMPANY_ID
+        defaultInvoiceLineShouldNotBeFound("companyId.lessThanOrEqual=" + SMALLER_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInvoiceLinesByCompanyIdIsLessThanSomething() throws Exception {
+        // Initialize the database
+        invoiceLineRepository.saveAndFlush(invoiceLine);
+
+        // Get all the invoiceLineList where companyId is less than DEFAULT_COMPANY_ID
+        defaultInvoiceLineShouldNotBeFound("companyId.lessThan=" + DEFAULT_COMPANY_ID);
+
+        // Get all the invoiceLineList where companyId is less than UPDATED_COMPANY_ID
+        defaultInvoiceLineShouldBeFound("companyId.lessThan=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllInvoiceLinesByCompanyIdIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        invoiceLineRepository.saveAndFlush(invoiceLine);
+
+        // Get all the invoiceLineList where companyId is greater than DEFAULT_COMPANY_ID
+        defaultInvoiceLineShouldNotBeFound("companyId.greaterThan=" + DEFAULT_COMPANY_ID);
+
+        // Get all the invoiceLineList where companyId is greater than SMALLER_COMPANY_ID
+        defaultInvoiceLineShouldBeFound("companyId.greaterThan=" + SMALLER_COMPANY_ID);
     }
 
 
@@ -1116,26 +1230,6 @@ public class InvoiceLineResourceIT {
         defaultInvoiceLineShouldNotBeFound("itemId.equals=" + (itemId + 1));
     }
 
-
-    @Test
-    @Transactional
-    public void getAllInvoiceLinesByCompanyIsEqualToSomething() throws Exception {
-        // Initialize the database
-        invoiceLineRepository.saveAndFlush(invoiceLine);
-        Company company = CompanyResourceIT.createEntity(em);
-        em.persist(company);
-        em.flush();
-        invoiceLine.setCompany(company);
-        invoiceLineRepository.saveAndFlush(invoiceLine);
-        Long companyId = company.getId();
-
-        // Get all the invoiceLineList where company equals to companyId
-        defaultInvoiceLineShouldBeFound("companyId.equals=" + companyId);
-
-        // Get all the invoiceLineList where company equals to companyId + 1
-        defaultInvoiceLineShouldNotBeFound("companyId.equals=" + (companyId + 1));
-    }
-
     /**
      * Executes the search, and checks that the default entity is returned.
      */
@@ -1144,13 +1238,14 @@ public class InvoiceLineResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(invoiceLine.getId().intValue())))
+            .andExpect(jsonPath("$.[*].companyId").value(hasItem(DEFAULT_COMPANY_ID.intValue())))
             .andExpect(jsonPath("$.[*].displayOrder").value(hasItem(DEFAULT_DISPLAY_ORDER)))
             .andExpect(jsonPath("$.[*].itemName").value(hasItem(DEFAULT_ITEM_NAME)))
             .andExpect(jsonPath("$.[*].unitName").value(hasItem(DEFAULT_UNIT_NAME)))
-            .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY.doubleValue())))
-            .andExpect(jsonPath("$.[*].rate").value(hasItem(DEFAULT_RATE.doubleValue())))
-            .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.doubleValue())))
-            .andExpect(jsonPath("$.[*].discountPct").value(hasItem(DEFAULT_DISCOUNT_PCT.doubleValue())))
+            .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY.intValue())))
+            .andExpect(jsonPath("$.[*].rate").value(hasItem(DEFAULT_RATE.intValue())))
+            .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.intValue())))
+            .andExpect(jsonPath("$.[*].discountPct").value(hasItem(DEFAULT_DISCOUNT_PCT.intValue())))
             .andExpect(jsonPath("$.[*].accountNumber").value(hasItem(DEFAULT_ACCOUNT_NUMBER)))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
 
@@ -1200,6 +1295,7 @@ public class InvoiceLineResourceIT {
         // Disconnect from session so that the updates on updatedInvoiceLine are not directly saved in db
         em.detach(updatedInvoiceLine);
         updatedInvoiceLine
+            .companyId(UPDATED_COMPANY_ID)
             .displayOrder(UPDATED_DISPLAY_ORDER)
             .itemName(UPDATED_ITEM_NAME)
             .unitName(UPDATED_UNIT_NAME)
@@ -1219,6 +1315,7 @@ public class InvoiceLineResourceIT {
         List<InvoiceLine> invoiceLineList = invoiceLineRepository.findAll();
         assertThat(invoiceLineList).hasSize(databaseSizeBeforeUpdate);
         InvoiceLine testInvoiceLine = invoiceLineList.get(invoiceLineList.size() - 1);
+        assertThat(testInvoiceLine.getCompanyId()).isEqualTo(UPDATED_COMPANY_ID);
         assertThat(testInvoiceLine.getDisplayOrder()).isEqualTo(UPDATED_DISPLAY_ORDER);
         assertThat(testInvoiceLine.getItemName()).isEqualTo(UPDATED_ITEM_NAME);
         assertThat(testInvoiceLine.getUnitName()).isEqualTo(UPDATED_UNIT_NAME);

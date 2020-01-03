@@ -19,7 +19,9 @@ export class ItemGroupUpdateComponent implements OnInit {
     id: [],
     companyId: [],
     code: [null, [Validators.maxLength(10)]],
-    name: [null, [Validators.required, Validators.maxLength(200)]]
+    name: [null, [Validators.required, Validators.maxLength(50)]],
+    description: [null, [Validators.maxLength(200)]],
+    isActive: []
   });
 
   constructor(protected itemGroupService: ItemGroupService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
@@ -36,7 +38,9 @@ export class ItemGroupUpdateComponent implements OnInit {
       id: itemGroup.id,
       companyId: itemGroup.companyId,
       code: itemGroup.code,
-      name: itemGroup.name
+      name: itemGroup.name,
+      description: itemGroup.description,
+      isActive: itemGroup.isActive
     });
   }
 
@@ -60,7 +64,9 @@ export class ItemGroupUpdateComponent implements OnInit {
       id: this.editForm.get(['id']).value,
       companyId: this.editForm.get(['companyId']).value,
       code: this.editForm.get(['code']).value,
-      name: this.editForm.get(['name']).value
+      name: this.editForm.get(['name']).value,
+      description: this.editForm.get(['description']).value,
+      isActive: this.editForm.get(['isActive']).value
     };
   }
 

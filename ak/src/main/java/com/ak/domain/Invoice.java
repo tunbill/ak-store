@@ -42,7 +42,8 @@ public class Invoice implements Serializable {
     @Column(name = "due_date")
     private LocalDate dueDate;
 
-    @Column(name = "billing_address")
+    @Size(max = 300)
+    @Column(name = "billing_address", length = 300)
     private String billingAddress;
 
     @Size(max = 10)
@@ -53,7 +54,8 @@ public class Invoice implements Serializable {
     @Column(name = "po_number", length = 20)
     private String poNumber;
 
-    @Column(name = "notes")
+    @Size(max = 200)
+    @Column(name = "notes", length = 200)
     private String notes;
 
     @Column(name = "product_total", precision = 21, scale = 2)

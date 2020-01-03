@@ -1,11 +1,11 @@
-id;company_id;code;name
-1;91484;integrated;modular red
-2;21268;Bedfordshire Strateg;Towels applications
-3;8534;Officer Bedfordshire;application scale
-4;42678;solid state;turquoise orchid
-5;3654;Street New Jersey;reciprocal
-6;71405;Macedonia Japan;target Rhode Island
-7;15524;Pants;Tasty navigate didactic
-8;89743;Indonesia auxiliary;Pizza bus withdrawal
-9;2709;white Distributed;Avon Checking Account impactful
-10;56944;THX;Re-contextualized Licensed
+id;company_id;code;name;description;is_active
+1;4696;Chips microchip;Generic;Business-focused generate grid-enabled;false
+2;91551;card Home Loan Accou;invoice Research;Bedfordshire 4th generation Equatorial Guinea;false
+3;59507;Refined Granite Saus;Course robust bricks-and-clicks;Buckinghamshire Nepalese Rupee;false
+4;45968;Licensed;auxiliary;Engineer Toys Fantastic;false
+5;9158;Principal Soft Quali;Cocos (Keeling) Islands Awesome;USB alarm 1080p;true
+6;72410;invoice Engineer Cen;magenta Associate;Argentine Peso Handcrafted Rubber Sausages Officer;true
+7;56794;Product Music;card azure Frozen;Data Shoal;true
+8;5488;Harbors South Georgi;Money Market Account Organic;Cliff;true
+9;69628;magnetic interface;Kansas;Maldives bluetooth policy;true
+10;52016;e-commerce SSL web-r;JBOD Books;sky blue matrix Data;false

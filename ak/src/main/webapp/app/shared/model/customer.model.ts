@@ -15,6 +15,7 @@ export interface ICustomer {
   mobile?: string;
   fax?: string;
   email?: string;
+  website?: string;
   taxCode?: string;
   accountNumber?: string;
   bankAccount?: string;
@@ -26,6 +27,8 @@ export interface ICustomer {
   creditLimit?: number;
   notes?: string;
   contactName?: string;
+  contactMobile?: string;
+  contactEmail?: string;
   isActive?: boolean;
   timeCreated?: Moment;
   timeModified?: Moment;
@@ -49,6 +52,7 @@ export class Customer implements ICustomer {
     public mobile?: string,
     public fax?: string,
     public email?: string,
+    public website?: string,
     public taxCode?: string,
     public accountNumber?: string,
     public bankAccount?: string,
@@ -60,6 +64,8 @@ export class Customer implements ICustomer {
     public creditLimit?: number,
     public notes?: string,
     public contactName?: string,
+    public contactMobile?: string,
+    public contactEmail?: string,
     public isActive?: boolean,
     public timeCreated?: Moment,
     public timeModified?: Moment,

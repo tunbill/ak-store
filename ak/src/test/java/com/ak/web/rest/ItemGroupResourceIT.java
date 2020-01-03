@@ -34,11 +34,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = AkApp.class)
 public class ItemGroupResourceIT {
 
+    private static final Long DEFAULT_COMPANY_ID = 1L;
+    private static final Long UPDATED_COMPANY_ID = 2L;
+
     private static final String DEFAULT_CODE = "AAAAAAAAAA";
     private static final String UPDATED_CODE = "BBBBBBBBBB";
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+
+    private static final Boolean DEFAULT_IS_ACTIVE = false;
+    private static final Boolean UPDATED_IS_ACTIVE = true;
 
     @Autowired
     private ItemGroupRepository itemGroupRepository;
@@ -85,8 +94,11 @@ public class ItemGroupResourceIT {
      */
     public static ItemGroup createEntity(EntityManager em) {
         ItemGroup itemGroup = new ItemGroup()
+            .companyId(DEFAULT_COMPANY_ID)
             .code(DEFAULT_CODE)
-            .name(DEFAULT_NAME);
+            .name(DEFAULT_NAME)
+            .description(DEFAULT_DESCRIPTION)
+            .isActive(DEFAULT_IS_ACTIVE);
         return itemGroup;
     }
     /**
@@ -97,8 +109,11 @@ public class ItemGroupResourceIT {
      */
     public static ItemGroup createUpdatedEntity(EntityManager em) {
         ItemGroup itemGroup = new ItemGroup()
+            .companyId(UPDATED_COMPANY_ID)
             .code(UPDATED_CODE)
-            .name(UPDATED_NAME);
+            .name(UPDATED_NAME)
+            .description(UPDATED_DESCRIPTION)
+            .isActive(UPDATED_IS_ACTIVE);
         return itemGroup;
     }
 
@@ -122,8 +137,11 @@ public class ItemGroupResourceIT {
         List<ItemGroup> itemGroupList = itemGroupRepository.findAll();
         assertThat(itemGroupList).hasSize(databaseSizeBeforeCreate + 1);
         ItemGroup testItemGroup = itemGroupList.get(itemGroupList.size() - 1);
+        assertThat(testItemGroup.getCompanyId()).isEqualTo(DEFAULT_COMPANY_ID);
         assertThat(testItemGroup.getCode()).isEqualTo(DEFAULT_CODE);
         assertThat(testItemGroup.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testItemGroup.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testItemGroup.isIsActive()).isEqualTo(DEFAULT_IS_ACTIVE);
     }
 
     @Test
@@ -175,8 +193,11 @@ public class ItemGroupResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(itemGroup.getId().intValue())))
+            .andExpect(jsonPath("$.[*].companyId").value(hasItem(DEFAULT_COMPANY_ID.intValue())))
             .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE)))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].isActive").value(hasItem(DEFAULT_IS_ACTIVE.booleanValue())));
     }
     
     @Test
@@ -190,8 +211,11 @@ public class ItemGroupResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(itemGroup.getId().intValue()))
+            .andExpect(jsonPath("$.companyId").value(DEFAULT_COMPANY_ID.intValue()))
             .andExpect(jsonPath("$.code").value(DEFAULT_CODE))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
+            .andExpect(jsonPath("$.isActive").value(DEFAULT_IS_ACTIVE.booleanValue()));
     }
 
     @Test
@@ -215,8 +239,11 @@ public class ItemGroupResourceIT {
         // Disconnect from session so that the updates on updatedItemGroup are not directly saved in db
         em.detach(updatedItemGroup);
         updatedItemGroup
+            .companyId(UPDATED_COMPANY_ID)
             .code(UPDATED_CODE)
-            .name(UPDATED_NAME);
+            .name(UPDATED_NAME)
+            .description(UPDATED_DESCRIPTION)
+            .isActive(UPDATED_IS_ACTIVE);
 
         restItemGroupMockMvc.perform(put("/api/item-groups")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -227,8 +254,11 @@ public class ItemGroupResourceIT {
         List<ItemGroup> itemGroupList = itemGroupRepository.findAll();
         assertThat(itemGroupList).hasSize(databaseSizeBeforeUpdate);
         ItemGroup testItemGroup = itemGroupList.get(itemGroupList.size() - 1);
+        assertThat(testItemGroup.getCompanyId()).isEqualTo(UPDATED_COMPANY_ID);
         assertThat(testItemGroup.getCode()).isEqualTo(UPDATED_CODE);
         assertThat(testItemGroup.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testItemGroup.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testItemGroup.isIsActive()).isEqualTo(UPDATED_IS_ACTIVE);
     }
 
     @Test

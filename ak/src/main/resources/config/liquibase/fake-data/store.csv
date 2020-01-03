@@ -1,11 +1,11 @@
-id;company_id;code;name;address
-1;11689;Tactics Credit Card ;Belize Dollar Bacon;Investment Account Rwanda Customer
-2;78859;Cheese orchestration;Steel salmon application;USB scalable
-3;82125;Fantastic indexing;Investment Account;haptic Shoes
-4;22925;application driver;Credit Card Account Nevada;Persistent transparent Chips
-5;90845;Idaho strategize;value-added Savings Account;Connecticut Avon Money Market Account
-6;1811;HDD Security Virgini;solid state Clothing deposit;Maine Checking Account markets
-7;73644;Configuration;District Wooden Visionary;hacking
-8;12466;National FTP Czech R;Investment Account streamline;sticky neural Kids
-9;33349;synergize;JSON National;interactive capacitor
-10;45221;Assimilated Unions;Devolved;Avon web-readiness
+id;company_id;code;name;description;address;is_active
+1;74996;indigo National;Expressway;Tools Street;Arkansas reciprocal;true
+2;45328;Malaysia supply-chai;Borders hack;Pants;Tasty navigate didactic;true
+3;64399;schemas Industrial;calculating;withdrawal Toys white;olive;true
+4;1971;Incredible multi-byt;THX;Re-contextualized Licensed;Producer;true
+5;85569;parsing matrix Beliz;empower;Senior;deposit;true
+6;20788;Music Salad North Ca;circuit Forward;frictionless solution-oriented;distributed Computers;true
+7;62414;users Guinea;SQL lavender;transmit Wooden COM;Agent Squares;false
+8;42521;Beauty optimal;Philippine Peso incentivize;Metal;methodologies Granite Corporate;true
+9;27230;Sports Global Soft;Bedfordshire Awesome Cotton Tuna;calculating yellow;Wooden;false
+10;90001;USB;Phased payment;Towels Internal;seize generate;false

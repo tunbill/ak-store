@@ -42,12 +42,22 @@ describe('Store e2e test', () => {
       storeUpdatePage.setCompanyIdInput('5'),
       storeUpdatePage.setCodeInput('code'),
       storeUpdatePage.setNameInput('name'),
+      storeUpdatePage.setDescriptionInput('description'),
       storeUpdatePage.setAddressInput('address')
     ]);
     expect(await storeUpdatePage.getCompanyIdInput()).to.eq('5', 'Expected companyId value to be equals to 5');
     expect(await storeUpdatePage.getCodeInput()).to.eq('code', 'Expected Code value to be equals to code');
     expect(await storeUpdatePage.getNameInput()).to.eq('name', 'Expected Name value to be equals to name');
+    expect(await storeUpdatePage.getDescriptionInput()).to.eq('description', 'Expected Description value to be equals to description');
     expect(await storeUpdatePage.getAddressInput()).to.eq('address', 'Expected Address value to be equals to address');
+    const selectedIsActive = storeUpdatePage.getIsActiveInput();
+    if (await selectedIsActive.isSelected()) {
+      await storeUpdatePage.getIsActiveInput().click();
+      expect(await storeUpdatePage.getIsActiveInput().isSelected(), 'Expected isActive not to be selected').to.be.false;
+    } else {
+      await storeUpdatePage.getIsActiveInput().click();
+      expect(await storeUpdatePage.getIsActiveInput().isSelected(), 'Expected isActive to be selected').to.be.true;
+    }
     await storeUpdatePage.save();
     expect(await storeUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;
 

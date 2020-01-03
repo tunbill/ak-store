@@ -41,11 +41,21 @@ describe('ItemGroup e2e test', () => {
     await promise.all([
       itemGroupUpdatePage.setCompanyIdInput('5'),
       itemGroupUpdatePage.setCodeInput('code'),
-      itemGroupUpdatePage.setNameInput('name')
+      itemGroupUpdatePage.setNameInput('name'),
+      itemGroupUpdatePage.setDescriptionInput('description')
     ]);
     expect(await itemGroupUpdatePage.getCompanyIdInput()).to.eq('5', 'Expected companyId value to be equals to 5');
     expect(await itemGroupUpdatePage.getCodeInput()).to.eq('code', 'Expected Code value to be equals to code');
     expect(await itemGroupUpdatePage.getNameInput()).to.eq('name', 'Expected Name value to be equals to name');
+    expect(await itemGroupUpdatePage.getDescriptionInput()).to.eq('description', 'Expected Description value to be equals to description');
+    const selectedIsActive = itemGroupUpdatePage.getIsActiveInput();
+    if (await selectedIsActive.isSelected()) {
+      await itemGroupUpdatePage.getIsActiveInput().click();
+      expect(await itemGroupUpdatePage.getIsActiveInput().isSelected(), 'Expected isActive not to be selected').to.be.false;
+    } else {
+      await itemGroupUpdatePage.getIsActiveInput().click();
+      expect(await itemGroupUpdatePage.getIsActiveInput().isSelected(), 'Expected isActive to be selected').to.be.true;
+    }
     await itemGroupUpdatePage.save();
     expect(await itemGroupUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;
 

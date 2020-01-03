@@ -18,19 +18,19 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr>
-            <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
-            <th scope="col" ><span jhiTranslate="akApp.jobType.companyId">Company Id</span></th>
             <th scope="col" ><span jhiTranslate="akApp.jobType.code">Code</span></th>
             <th scope="col" ><span jhiTranslate="akApp.jobType.name">Name</span></th>
+            <th scope="col" ><span jhiTranslate="akApp.jobType.description">Description</span></th>
+            <th scope="col" ><span jhiTranslate="akApp.jobType.isActive">Is Active</span></th>
             <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let jobType of jobTypes ;trackBy: trackId">
-                <td><a [routerLink]="['/job-type', jobType.id, 'view' ]">{{jobType.id}}</a></td>
-                <td>{{jobType.companyId}}</td>
                 <td>{{jobType.code}}</td>
                 <td>{{jobType.name}}</td>
+                <td>{{jobType.description}}</td>
+                <td>{{jobType.isActive ? "C" : "K"}}</td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

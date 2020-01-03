@@ -2,17 +2,25 @@
     "name": "CustomerType",
     "fields": [
         {
+            "fieldName": "companyId",
+            "fieldType": "Long"
+        },
+        {
             "fieldName": "name",
             "fieldType": "String",
             "fieldValidateRules": [
                 "required",
                 "maxlength"
             ],
-            "fieldValidateRulesMaxlength": 100
+            "fieldValidateRulesMaxlength": 50
         },
         {
             "fieldName": "description",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 200
         },
         {
             "fieldName": "isActive",
@@ -25,21 +33,14 @@
             "otherEntityName": "customer",
             "otherEntityRelationshipName": "customerType",
             "relationshipName": "customer"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "company",
-            "otherEntityRelationshipName": "customerType",
-            "relationshipName": "company",
-            "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20191228110004",
+    "changelogDate": "20200102134857",
     "entityTableName": "customer_type",
     "dto": "no",
     "pagination": "pagination",
-    "service": "serviceClass",
-    "jpaMetamodelFiltering": true,
+    "service": "no",
+    "jpaMetamodelFiltering": false,
     "fluentMethods": true,
     "readOnly": false,
     "clientRootFolder": "",

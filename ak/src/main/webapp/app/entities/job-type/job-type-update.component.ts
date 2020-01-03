@@ -19,7 +19,9 @@ export class JobTypeUpdateComponent implements OnInit {
     id: [],
     companyId: [],
     code: [null, [Validators.maxLength(20)]],
-    name: [null, [Validators.required, Validators.maxLength(100)]]
+    name: [null, [Validators.required, Validators.maxLength(50)]],
+    description: [null, [Validators.maxLength(200)]],
+    isActive: []
   });
 
   constructor(protected jobTypeService: JobTypeService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
@@ -36,7 +38,9 @@ export class JobTypeUpdateComponent implements OnInit {
       id: jobType.id,
       companyId: jobType.companyId,
       code: jobType.code,
-      name: jobType.name
+      name: jobType.name,
+      description: jobType.description,
+      isActive: jobType.isActive
     });
   }
 
@@ -60,7 +64,9 @@ export class JobTypeUpdateComponent implements OnInit {
       id: this.editForm.get(['id']).value,
       companyId: this.editForm.get(['companyId']).value,
       code: this.editForm.get(['code']).value,
-      name: this.editForm.get(['name']).value
+      name: this.editForm.get(['name']).value,
+      description: this.editForm.get(['description']).value,
+      isActive: this.editForm.get(['isActive']).value
     };
   }
 

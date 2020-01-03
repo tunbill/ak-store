@@ -21,6 +21,7 @@ entity Province {
 }
 
 entity Customer	{
+	companyId Long,
 	isVendor Boolean,
 	vendorId Long,
 	code String required maxlength(20) unique,
@@ -34,11 +35,11 @@ entity Customer	{
 	accountNumber String maxlength(20),
 	bankAccount String maxlength(20),
 	bankName String,
-	balance Double,
-	totalBalance Double,
-	openBalance Double,
+	balance BigDecimal,
+	totalBalance BigDecimal,
+	openBalance BigDecimal,
 	openBalanceDate Instant,
-	creditLimit Double,
+	creditLimit BigDecimal,
 	notes String,
 	contactName String maxlength(50),
 	isActive Boolean,
@@ -49,6 +50,7 @@ entity Customer	{
 }
 
 entity CustomerType	{
+	companyId Long,
 	name String required maxlength(100),
 	description String,
 	isActive Boolean
@@ -65,17 +67,20 @@ entity Terms {
 }
 
 entity Store	{
+	companyId Long,
 	code String maxlength(20),
 	name String maxlength(50),
 	address String maxlength(100)
 }
 
 entity Department	{
+	companyId Long,
 	code String maxlength(20),
 	name String maxlength(100) required
 }
 
 entity Jobs	{
+	companyId Long,
 	code String maxlength(20),
 	name String maxlength(100),
 	status Integer,
@@ -88,11 +93,13 @@ entity Jobs	{
 }
 
 entity JobType	{
+	companyId Long,
 	code String maxlength(20),
 	name String maxlength(100) required
 }
 
 entity Employee	{
+	companyId Long,
 	code String maxlength(20),
 	fullName String maxlength(80),
 	sex Integer,
@@ -102,9 +109,9 @@ entity Employee	{
 	identityIssue String maxlength(100),
 	position String maxlength(50),
 	taxCode String maxlength(20),
-	salary Double,
-	salaryRate Double,
-	salarySecurity Double,
+	salary BigDecimal,
+	salaryRate BigDecimal,
+	salarySecurity BigDecimal,
 	numOfDepends Integer,
 	phone String maxlength(20),
 	mobile String maxlength(20),
@@ -120,14 +127,15 @@ entity Employee	{
 }
 
 entity Item {
+	companyId Long,
 	code String maxlength(20),
 	name String maxlength(150) required,
 	description String maxlength(200),
 	type ItemType required,
-	skuNum Double,
+	skuNum BigDecimal,
 	vatTax VATTax,
-	importTax Double,
-	exportTax Double,
+	importTax BigDecimal,
+	exportTax BigDecimal,
 	inventoryPriceMethod PriceMethod,
 	accountItem String maxlength(10),
 	isAllowModified Boolean,
@@ -172,16 +180,19 @@ enum PriceMethod {
 }
 
 entity Unit {
+	companyId Long,
 	code String maxlength(10),
 	name String maxlength(10) required
 }
 
 entity ItemGroup {
+	companyId Long,
 	code String maxlength(10),
 	name String maxlength(200) required
 }
 
 entity Invoice {
+	companyId Long,
 	invoiceNo String maxlength(20),
 	invoiceDate LocalDate,
 	dueDate LocalDate,
@@ -189,10 +200,10 @@ entity Invoice {
 	accountNumber String maxlength(10),
 	poNumber String maxlength(20),
 	notes String,
-	productTotal Double,
-	vatTotal Double,
-	discountTotal Double,
-	total Double,
+	productTotal BigDecimal,
+	vatTotal BigDecimal,
+	discountTotal BigDecimal,
+	total BigDecimal,
 	status ProcessStatus,
 	timeCreated Instant,
 	timeModified Instant,
@@ -206,13 +217,14 @@ enum ProcessStatus	{
 }
 
 entity InvoiceLine {
+	companyId Long,
 	displayOrder Integer,
 	itemName String maxlength(150),
 	unitName String maxlength(10),
-	quantity Double,
-	rate Double,
-	amount Double,
-	discountPct Double,
+	quantity BigDecimal,
+	rate BigDecimal,
+	amount BigDecimal,
+	discountPct BigDecimal,
 	accountNumber String,
 	status ProcessStatus
 }
@@ -251,22 +263,6 @@ relationship OneToMany {
 	Invoice{invoiceLine} to InvoiceLine,
 	Item{invoiceLine} to InvoiceLine
 }
-
-relationship OneToMany {
-	Company{customerType} to CustomerType,
-	Company{customer} to Customer,
-	Company{store} to Store,
-	Company{department} to Department,
-	Company{jobs} to Jobs,
-	Company{jobType} to JobType,
-	Company{employee} to Employee,
-	Company{item} to Item,
-	Company{ItemGroup} to ItemGroup,
-	Company{unit} to Unit
-	Company{invoice} to Invoice
-	Company{invoiceLine} to InvoiceLine
-}
-
 
 // Set pagination options
 paginate Terms, Unit, ItemGroup, InvoiceLine  with infinite-scroll

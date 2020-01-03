@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(StoreService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new Store(0, 0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new Store(0, 0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', false);
     });
 
     describe('Service methods', () => {
@@ -59,7 +59,9 @@ describe('Service Tests', () => {
             companyId: 1,
             code: 'BBBBBB',
             name: 'BBBBBB',
-            address: 'BBBBBB'
+            description: 'BBBBBB',
+            address: 'BBBBBB',
+            isActive: true
           },
           elemDefault
         );
@@ -80,7 +82,9 @@ describe('Service Tests', () => {
             companyId: 1,
             code: 'BBBBBB',
             name: 'BBBBBB',
-            address: 'BBBBBB'
+            description: 'BBBBBB',
+            address: 'BBBBBB',
+            isActive: true
           },
           elemDefault
         );

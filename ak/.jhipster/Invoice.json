@@ -2,6 +2,10 @@
     "name": "Invoice",
     "fields": [
         {
+            "fieldName": "companyId",
+            "fieldType": "Long"
+        },
+        {
             "fieldName": "invoiceNo",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -19,7 +23,11 @@
         },
         {
             "fieldName": "billingAddress",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 300
         },
         {
             "fieldName": "accountNumber",
@@ -39,23 +47,27 @@
         },
         {
             "fieldName": "notes",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 200
         },
         {
             "fieldName": "productTotal",
-            "fieldType": "Double"
+            "fieldType": "BigDecimal"
         },
         {
             "fieldName": "vatTotal",
-            "fieldType": "Double"
+            "fieldType": "BigDecimal"
         },
         {
             "fieldName": "discountTotal",
-            "fieldType": "Double"
+            "fieldType": "BigDecimal"
         },
         {
             "fieldName": "total",
-            "fieldType": "Double"
+            "fieldType": "BigDecimal"
         },
         {
             "fieldName": "status",
@@ -106,16 +118,9 @@
             "otherEntityRelationshipName": "invoice",
             "relationshipName": "employee",
             "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "company",
-            "otherEntityRelationshipName": "invoice",
-            "relationshipName": "company",
-            "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20191228110014",
+    "changelogDate": "20200102134907",
     "entityTableName": "invoice",
     "dto": "no",
     "pagination": "pagination",

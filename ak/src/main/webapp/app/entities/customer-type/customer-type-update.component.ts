@@ -18,8 +18,8 @@ export class CustomerTypeUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     companyId: [],
-    name: [null, [Validators.required, Validators.maxLength(100)]],
-    description: [],
+    name: [null, [Validators.required, Validators.maxLength(50)]],
+    description: [null, [Validators.maxLength(200)]],
     isActive: []
   });
 

@@ -2,6 +2,10 @@
     "name": "Jobs",
     "fields": [
         {
+            "fieldName": "companyId",
+            "fieldType": "Long"
+        },
+        {
             "fieldName": "code",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -47,11 +51,19 @@
             "fieldValidateRules": [
                 "maxlength"
             ],
-            "fieldValidateRulesMaxlength": 200
+            "fieldValidateRulesMaxlength": 300
         },
         {
             "fieldName": "notes",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 200
+        },
+        {
+            "fieldName": "isActive",
+            "fieldType": "Boolean"
         }
     ],
     "relationships": [
@@ -61,16 +73,9 @@
             "otherEntityRelationshipName": "jobs",
             "relationshipName": "jobType",
             "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "company",
-            "otherEntityRelationshipName": "jobs",
-            "relationshipName": "company",
-            "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20191228110008",
+    "changelogDate": "20200102134901",
     "entityTableName": "jobs",
     "dto": "no",
     "pagination": "pagination",

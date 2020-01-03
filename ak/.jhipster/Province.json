@@ -19,7 +19,7 @@
             "relationshipName": "company"
         }
     ],
-    "changelogDate": "20191228110002",
+    "changelogDate": "20200102134855",
     "entityTableName": "province",
     "dto": "no",
     "pagination": "no",

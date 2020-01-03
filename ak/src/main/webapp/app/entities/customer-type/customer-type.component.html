@@ -18,8 +18,6 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="companyId"><span jhiTranslate="akApp.customerType.companyId">Company Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="name"><span jhiTranslate="akApp.customerType.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="description"><span jhiTranslate="akApp.customerType.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th scope="col"  jhiSortBy="isActive"><span jhiTranslate="akApp.customerType.isActive">Is Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -28,11 +26,9 @@
             </thead>
             <tbody>
             <tr *ngFor="let customerType of customerTypes ;trackBy: trackId">
-                <td><a [routerLink]="['/customer-type', customerType.id, 'view' ]">{{customerType.id}}</a></td>
-                <td>{{customerType.companyId}}</td>
                 <td>{{customerType.name}}</td>
                 <td>{{customerType.description}}</td>
-                <td>{{customerType.isActive}}</td>
+                <td>{{customerType.isActive ? "C" : "K"}}</td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

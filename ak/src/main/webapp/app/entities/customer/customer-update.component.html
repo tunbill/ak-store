@@ -1,193 +1,306 @@
 <div class="row justify-content-center">
-    <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-            <h2 id="ak-customer-heading" jhiTranslate="akApp.customer.home.createOrEditLabel">Create or edit a Customer</h2>
-            <div>
-                <ak-alert-error></ak-alert-error>
-                <div class="form-group" [hidden]="!editForm.get('id').value">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
-                        readonly />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.companyId" for="field_companyId">Company Id</label>
-                    <input type="number" class="form-control" name="companyId" id="field_companyId"
-                           formControlName="companyId"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.isVendor" for="field_isVendor">Is Vendor</label>
-                    <input type="checkbox" class="form-control" name="isVendor" id="field_isVendor"
-                           formControlName="isVendor"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.vendorId" for="field_vendorId">Vendor Id</label>
-                    <input type="number" class="form-control" name="vendorId" id="field_vendorId"
-                           formControlName="vendorId"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.code" for="field_code">Code</label>
-                    <input type="text" class="form-control" name="code" id="field_code"
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+        <h2 id="ak-customer-heading" jhiTranslate="akApp.customer.home.createOrEditLabel">Create or edit a Customer</h2>
+            <ak-alert-error></ak-alert-error>
+            <div class="form-group" [hidden]="true">
+                <input type="hidden" class="form-control" id="id" name="id" formControlName="id" 
+                readonly />
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="akApp.customer.companyName" for="field_companyName">Company Name</label>
+                        <input type="text" class="form-control" name="companyName" id="field_companyName"
+                           formControlName="companyName"/>
+                        <div *ngIf="editForm.get('companyName').invalid && (editForm.get('companyName').dirty || editForm.get('companyName').touched)">
+                            <small class="form-text text-danger"
+                               *ngIf="editForm.get('companyName').errors.required" jhiTranslate="entity.validation.required">
+                            This field is required.
+                            </small>
+                            <small class="form-text text-danger"
+                               *ngIf="editForm.get('companyName').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 150 }">
+                            This field cannot be longer than 150 characters.
+                            </small>
+                        </div>
+                    </div>
+               </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="akApp.customer.code" for="field_code">Code</label>
+                        <input type="text" class="form-control" name="code" id="field_code"
                            formControlName="code"/>
-                    <div *ngIf="editForm.get('code').invalid && (editForm.get('code').dirty || editForm.get('code').touched)">
-                        <small class="form-text text-danger"
+                        <div *ngIf="editForm.get('code').invalid && (editForm.get('code').dirty || editForm.get('code').touched)">
+                             <small class="form-text text-danger"
                                *ngIf="editForm.get('code').errors.required" jhiTranslate="entity.validation.required">
                         This field is required.
-                        </small>
-                        <small class="form-text text-danger"
+                            </small>
+                            <small class="form-text text-danger"
                                *ngIf="editForm.get('code').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
                         This field cannot be longer than 20 characters.
-                        </small>
+                            </small>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.companyName" for="field_companyName">Company Name</label>
-                    <input type="text" class="form-control" name="companyName" id="field_companyName"
-                           formControlName="companyName"/>
-                    <div *ngIf="editForm.get('companyName').invalid && (editForm.get('companyName').dirty || editForm.get('companyName').touched)">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('companyName').errors.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="akApp.customer.isVendor" for="field_isVendor">Is Vendor</label>
+                        <input type="checkbox" class="form-control" name="isVendor" id="field_isVendor"
+                           formControlName="isVendor"/>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.address" for="field_address">Address</label>
-                    <input type="text" class="form-control" name="address" id="field_address"
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="akApp.customer.address" for="field_address">Address</label>
+                        <input type="text" class="form-control" name="address" id="field_address"
                            formControlName="address"/>
+                        <div *ngIf="editForm.get('address').invalid && (editForm.get('address').dirty || editForm.get('address').touched)">
+                            <small class="form-text text-danger"
+                               *ngIf="editForm.get('address').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 300 }">
+                             This field cannot be longer than 300 characters.
+                            </small>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.phone" for="field_phone">Phone</label>
-                    <input type="text" class="form-control" name="phone" id="field_phone"
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="akApp.customer.phone" for="field_phone">Phone</label>
+                        <input type="text" class="form-control" name="phone" id="field_phone"
                            formControlName="phone"/>
-                    <div *ngIf="editForm.get('phone').invalid && (editForm.get('phone').dirty || editForm.get('phone').touched)">
+                        <div *ngIf="editForm.get('phone').invalid && (editForm.get('phone').dirty || editForm.get('phone').touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('phone').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
-                        This field cannot be longer than 50 characters.
+                               *ngIf="editForm.get('phone').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 30 }">
+                        This field cannot be longer than 30 characters.
                         </small>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.mobile" for="field_mobile">Mobile</label>
-                    <input type="text" class="form-control" name="mobile" id="field_mobile"
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="akApp.customer.mobile" for="field_mobile">Mobile</label>
+                        <input type="text" class="form-control" name="mobile" id="field_mobile"
                            formControlName="mobile"/>
-                    <div *ngIf="editForm.get('mobile').invalid && (editForm.get('mobile').dirty || editForm.get('mobile').touched)">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('mobile').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
-                        This field cannot be longer than 50 characters.
-                        </small>
+                        <div *ngIf="editForm.get('mobile').invalid && (editForm.get('mobile').dirty || editForm.get('mobile').touched)">
+                            <small class="form-text text-danger"
+                               *ngIf="editForm.get('mobile').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 30 }">
+                             This field cannot be longer than 30 characters.
+                            </small>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.fax" for="field_fax">Fax</label>
-                    <input type="text" class="form-control" name="fax" id="field_fax"
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="akApp.customer.fax" for="field_fax">Fax</label>
+                        <input type="text" class="form-control" name="fax" id="field_fax"
                            formControlName="fax"/>
-                    <div *ngIf="editForm.get('fax').invalid && (editForm.get('fax').dirty || editForm.get('fax').touched)">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('fax').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
-                        This field cannot be longer than 50 characters.
-                        </small>
+                        <div *ngIf="editForm.get('fax').invalid && (editForm.get('fax').dirty || editForm.get('fax').touched)">
+                             <small class="form-text text-danger"
+                               *ngIf="editForm.get('fax').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 30 }">
+                            This field cannot be longer than 30 characters.
+                            </small>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.email" for="field_email">Email</label>
-                    <input type="text" class="form-control" name="email" id="field_email"
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="akApp.customer.email" for="field_email">Email</label>
+                        <input type="text" class="form-control" name="email" id="field_email"
                            formControlName="email"/>
-                    <div *ngIf="editForm.get('email').invalid && (editForm.get('email').dirty || editForm.get('email').touched)">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('email').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
-                        This field cannot be longer than 50 characters.
-                        </small>
-                        <small class="form-text text-danger"
+                        <div *ngIf="editForm.get('email').invalid && (editForm.get('email').dirty || editForm.get('email').touched)">
+                            <small class="form-text text-danger"
+                               *ngIf="editForm.get('email').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 100 }">
+                            This field cannot be longer than 100 characters.
+                            </small>
+                            <small class="form-text text-danger"
                                *ngIf="editForm.get('email').errors.pattern" jhiTranslate="entity.validation.pattern" [translateValues]="{ pattern: 'Email' }">
                             This field should follow pattern for "Email".
-                        </small>
+                            </small>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
                     <label class="form-control-label" jhiTranslate="akApp.customer.taxCode" for="field_taxCode">Tax Code</label>
                     <input type="text" class="form-control" name="taxCode" id="field_taxCode"
                            formControlName="taxCode"/>
-                    <div *ngIf="editForm.get('taxCode').invalid && (editForm.get('taxCode').dirty || editForm.get('taxCode').touched)">
-                        <small class="form-text text-danger"
+                        <div *ngIf="editForm.get('taxCode').invalid && (editForm.get('taxCode').dirty || editForm.get('taxCode').touched)">
+                            <small class="form-text text-danger"
                                *ngIf="editForm.get('taxCode').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 30 }">
-                        This field cannot be longer than 30 characters.
-                        </small>
+                            This field cannot be longer than 30 characters.
+                            </small>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.accountNumber" for="field_accountNumber">Account Number</label>
-                    <input type="text" class="form-control" name="accountNumber" id="field_accountNumber"
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="akApp.customer.creditLimit" for="field_creditLimit">Credit Limit</label>
+                         <input type="number" class="form-control" name="creditLimit" id="field_creditLimit"
+                           formControlName="creditLimit"/>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="akApp.customer.accountNumber" for="field_accountNumber">Account Number</label>
+                        <input type="text" class="form-control" name="accountNumber" id="field_accountNumber"
                            formControlName="accountNumber"/>
-                    <div *ngIf="editForm.get('accountNumber').invalid && (editForm.get('accountNumber').dirty || editForm.get('accountNumber').touched)">
-                        <small class="form-text text-danger"
+                        <div *ngIf="editForm.get('accountNumber').invalid && (editForm.get('accountNumber').dirty || editForm.get('accountNumber').touched)">
+                            <small class="form-text text-danger"
                                *ngIf="editForm.get('accountNumber').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
                         This field cannot be longer than 20 characters.
-                        </small>
+                            </small>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.bankAccount" for="field_bankAccount">Bank Account</label>
-                    <input type="text" class="form-control" name="bankAccount" id="field_bankAccount"
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="akApp.customer.customerType" for="field_customerType">Customer Type</label>
+                         <select class="form-control" id="field_customerType" name="customerType" formControlName="customerType">
+                            <option [ngValue]="null"></option>
+                            <option [ngValue]="customerTypeOption.id === editForm.get('customerType').value?.id ? editForm.get('customerType').value : customerTypeOption" *ngFor="let customerTypeOption of customertypes; trackBy: trackCustomerTypeById">{{customerTypeOption.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                 <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="akApp.customer.terms" for="field_terms">Terms</label>
+                         <select class="form-control" id="field_terms" name="terms" formControlName="terms">
+                            <option [ngValue]="null"></option>
+                            <option [ngValue]="termsOption.id === editForm.get('terms').value?.id ? editForm.get('terms').value : termsOption" *ngFor="let termsOption of terms; trackBy: trackTermsById">{{termsOption.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="akApp.customer.bankAccount" for="field_bankAccount">Bank Account</label>
+                         <input type="text" class="form-control" name="bankAccount" id="field_bankAccount"
                            formControlName="bankAccount"/>
-                    <div *ngIf="editForm.get('bankAccount').invalid && (editForm.get('bankAccount').dirty || editForm.get('bankAccount').touched)">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('bankAccount').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
-                        This field cannot be longer than 20 characters.
-                        </small>
+                        <div *ngIf="editForm.get('bankAccount').invalid && (editForm.get('bankAccount').dirty || editForm.get('bankAccount').touched)">
+                            <small class="form-text text-danger"
+                                   *ngIf="editForm.get('bankAccount').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                            This field cannot be longer than 20 characters.
+                            </small>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.bankName" for="field_bankName">Bank Name</label>
-                    <input type="text" class="form-control" name="bankName" id="field_bankName"
+                <div class="col-sm-9">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="akApp.customer.bankName" for="field_bankName">Bank Name</label>
+                         <input type="text" class="form-control" name="bankName" id="field_bankName"
                            formControlName="bankName"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.balance" for="field_balance">Balance</label>
-                    <input type="number" class="form-control" name="balance" id="field_balance"
-                           formControlName="balance"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.totalBalance" for="field_totalBalance">Total Balance</label>
-                    <input type="number" class="form-control" name="totalBalance" id="field_totalBalance"
-                           formControlName="totalBalance"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.openBalance" for="field_openBalance">Open Balance</label>
-                    <input type="number" class="form-control" name="openBalance" id="field_openBalance"
-                           formControlName="openBalance"/>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.openBalanceDate" for="field_openBalanceDate">Open Balance Date</label>
-                    <div class="d-flex">
-                        <input id="field_openBalanceDate" type="datetime-local" class="form-control" name="openBalanceDate" formControlName="openBalanceDate" placeholder="YYYY-MM-DD HH:mm"/>
+                         <div *ngIf="editForm.get('bankName').invalid && (editForm.get('bankName').dirty || editForm.get('bankName').touched)">
+                            <small class="form-text text-danger"
+                                 *ngIf="editForm.get('bankName').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 150 }">
+                             This field cannot be longer than 150 characters.
+                            </small>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.creditLimit" for="field_creditLimit">Credit Limit</label>
-                    <input type="number" class="form-control" name="creditLimit" id="field_creditLimit"
-                           formControlName="creditLimit"/>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                     <div class="form-group">
+                         <label class="form-control-label" jhiTranslate="akApp.customer.openBalance" for="field_openBalance">Open Balance</label>
+                        <input type="number" class="form-control" name="openBalance" id="field_openBalance"
+                           formControlName="openBalance"/>
+                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.notes" for="field_notes">Notes</label>
-                    <input type="text" class="form-control" name="notes" id="field_notes"
-                           formControlName="notes"/>
+                <div class="col-sm-3">
+                   <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.customer.openBalanceDate" for="field_openBalanceDate">Open Balance Date</label>
+                        <div class="d-flex">
+                        <input id="field_openBalanceDate" type="datetime-local" class="form-control" name="openBalanceDate" formControlName="openBalanceDate" placeholder="YYYY-MM-DD HH:mm"/>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.contactName" for="field_contactName">Contact Name</label>
-                    <input type="text" class="form-control" name="contactName" id="field_contactName"
-                           formControlName="contactName"/>
-                    <div *ngIf="editForm.get('contactName').invalid && (editForm.get('contactName').dirty || editForm.get('contactName').touched)">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.customer.website" for="field_website">Website</label>
+                    <input type="text" class="form-control" name="website" id="field_website"
+                           formControlName="website"/>
+                        <div *ngIf="editForm.get('website').invalid && (editForm.get('website').dirty || editForm.get('website').touched)">
                         <small class="form-text text-danger"
+                               *ngIf="editForm.get('website').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 150 }">
+                        This field cannot be longer than 150 characters.
+                        </small>
+                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="akApp.customer.contactName" for="field_contactName">Contact Name</label>
+                         <input type="text" class="form-control" name="contactName" id="field_contactName"
+                           formControlName="contactName"/>
+                        <div *ngIf="editForm.get('contactName').invalid && (editForm.get('contactName').dirty || editForm.get('contactName').touched)">
+                            <small class="form-text text-danger"
                                *ngIf="editForm.get('contactName').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
+                            This field cannot be longer than 50 characters.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+               <div class="col-sm-2">
+                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.customer.contactMobile" for="field_contactMobile">Contact Mobile</label>
+                    <input type="text" class="form-control" name="contactMobile" id="field_contactMobile"
+                           formControlName="contactMobile"/>
+                    <div *ngIf="editForm.get('contactMobile').invalid && (editForm.get('contactMobile').dirty || editForm.get('contactMobile').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('contactMobile').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
                         This field cannot be longer than 50 characters.
                         </small>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.isActive" for="field_isActive">Is Active</label>
-                    <input type="checkbox" class="form-control" name="isActive" id="field_isActive"
+              </div> 
+               <div class="col-sm-6">
+                    <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.customer.contactEmail" for="field_contactEmail">Contact Email</label>
+                    <input type="text" class="form-control" name="contactEmail" id="field_contactEmail"
+                           formControlName="contactEmail"/>
+                        <div *ngIf="editForm.get('contactEmail').invalid && (editForm.get('contactEmail').dirty || editForm.get('contactEmail').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('contactEmail').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 100 }">
+                        This field cannot be longer than 100 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('contactEmail').errors.pattern" jhiTranslate="entity.validation.pattern" [translateValues]="{ pattern: 'Contact Email' }">
+                            This field should follow pattern for "Contact Email".
+                        </small>
+                        </div>
+                    </div>
+               </div> 
+                <div class="col-sm-1">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="akApp.customer.isActive" for="field_isActive">Is Active</label>
+                         <input type="checkbox" class="form-control" name="isActive" id="field_isActive"
                            formControlName="isActive"/>
+                    </div>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                   <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="akApp.customer.notes" for="field_notes">Notes</label>
+                        <textarea class="form-control" name="notes" id="field_notes" formControlName="notes" maxlength="140" rows="2"></textarea>
+                        <div *ngIf="editForm.get('notes').invalid && (editForm.get('notes').dirty || editForm.get('notes').touched)">
+                             <small class="form-text text-danger"
+                               *ngIf="editForm.get('notes').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 200 }">
+                        This field cannot be longer than 200 characters.
+                             </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<!--
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="akApp.customer.timeCreated" for="field_timeCreated">Time Created</label>
                     <div class="d-flex">
@@ -211,21 +324,8 @@
                            formControlName="userIdModified"/>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.customerType" for="field_customerType">Customer Type</label>
-                    <select class="form-control" id="field_customerType" name="customerType" formControlName="customerType">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="customerTypeOption.id === editForm.get('customerType').value?.id ? editForm.get('customerType').value : customerTypeOption" *ngFor="let customerTypeOption of customertypes; trackBy: trackCustomerTypeById">{{customerTypeOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.customer.terms" for="field_terms">Terms</label>
-                    <select class="form-control" id="field_terms" name="terms" formControlName="terms">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="termsOption.id === editForm.get('terms').value?.id ? editForm.get('terms').value : termsOption" *ngFor="let termsOption of terms; trackBy: trackTermsById">{{termsOption.id}}</option>
-                    </select>
-                </div>
-            </div>
+-->
+
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
@@ -235,5 +335,4 @@
                 </button>
             </div>
         </form>
-    </div>
 </div>

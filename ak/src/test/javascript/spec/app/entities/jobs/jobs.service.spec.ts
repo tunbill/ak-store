@@ -24,7 +24,7 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new Jobs(0, 0, 'AAAAAAA', 'AAAAAAA', 0, currentDate, currentDate, 0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new Jobs(0, 0, 'AAAAAAA', 'AAAAAAA', 0, currentDate, currentDate, 0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', false);
     });
 
     describe('Service methods', () => {
@@ -83,7 +83,8 @@ describe('Service Tests', () => {
             estimate: 1,
             investor: 'BBBBBB',
             address: 'BBBBBB',
-            notes: 'BBBBBB'
+            notes: 'BBBBBB',
+            isActive: true
           },
           elemDefault
         );
@@ -116,7 +117,8 @@ describe('Service Tests', () => {
             estimate: 1,
             investor: 'BBBBBB',
             address: 'BBBBBB',
-            notes: 'BBBBBB'
+            notes: 'BBBBBB',
+            isActive: true
           },
           elemDefault
         );

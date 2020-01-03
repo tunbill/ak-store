@@ -145,5 +145,9 @@
     "idexists": "Thêm mới {{ entityName }} không được trùng với định danh đã tồn tại",
     "idnull": "Invalid ID"
   },
+  "active": {
+    "true": "Đang hoạt động",
+    "false": "Không hoạt động"
+  },
   "footer": "Đây là chân trang của bạn"
 }

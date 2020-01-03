@@ -5,6 +5,7 @@
         "title": "Employees",
         "createLabel": "Create a new Employee",
         "createOrEditLabel": "Create or edit a Employee",
+        "search": "Search for Employee by Name or Code",
         "notFound": "No Employees found"
       },
       "created": "A new Employee is created with identifier {{ param }}",

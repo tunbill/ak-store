@@ -16,7 +16,7 @@
                 "required",
                 "maxlength"
             ],
-            "fieldValidateRulesMaxlength": 100
+            "fieldValidateRulesMaxlength": 50
         },
         {
             "fieldName": "dayOfMonthDue",
@@ -49,7 +49,7 @@
             "relationshipName": "invoice"
         }
     ],
-    "changelogDate": "20191228110005",
+    "changelogDate": "20200102134858",
     "entityTableName": "terms",
     "dto": "no",
     "pagination": "infinite-scroll",

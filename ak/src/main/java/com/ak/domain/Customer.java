@@ -41,28 +41,34 @@ public class Customer implements Serializable {
     private String code;
 
     @NotNull
-    @Column(name = "company_name", nullable = false)
+    @Size(max = 150)
+    @Column(name = "company_name", length = 150, nullable = false)
     private String companyName;
 
-    @Column(name = "address")
+    @Size(max = 300)
+    @Column(name = "address", length = 300)
     private String address;
 
-    @Size(max = 50)
-    @Column(name = "phone", length = 50)
+    @Size(max = 30)
+    @Column(name = "phone", length = 30)
     private String phone;
 
-    @Size(max = 50)
-    @Column(name = "mobile", length = 50)
+    @Size(max = 30)
+    @Column(name = "mobile", length = 30)
     private String mobile;
 
-    @Size(max = 50)
-    @Column(name = "fax", length = 50)
+    @Size(max = 30)
+    @Column(name = "fax", length = 30)
     private String fax;
 
-    @Size(max = 50)
+    @Size(max = 100)
     @Pattern(regexp = "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$")
-    @Column(name = "email", length = 50)
+    @Column(name = "email", length = 100)
     private String email;
+
+    @Size(max = 150)
+    @Column(name = "website", length = 150)
+    private String website;
 
     @Size(max = 30)
     @Column(name = "tax_code", length = 30)
@@ -76,7 +82,8 @@ public class Customer implements Serializable {
     @Column(name = "bank_account", length = 20)
     private String bankAccount;
 
-    @Column(name = "bank_name")
+    @Size(max = 150)
+    @Column(name = "bank_name", length = 150)
     private String bankName;
 
     @Column(name = "balance", precision = 21, scale = 2)
@@ -94,12 +101,22 @@ public class Customer implements Serializable {
     @Column(name = "credit_limit", precision = 21, scale = 2)
     private BigDecimal creditLimit;
 
-    @Column(name = "notes")
+    @Size(max = 200)
+    @Column(name = "notes", length = 200)
     private String notes;
 
     @Size(max = 50)
     @Column(name = "contact_name", length = 50)
     private String contactName;
+
+    @Size(max = 50)
+    @Column(name = "contact_mobile", length = 50)
+    private String contactMobile;
+
+    @Size(max = 100)
+    @Pattern(regexp = "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$")
+    @Column(name = "contact_email", length = 100)
+    private String contactEmail;
 
     @Column(name = "is_active")
     private Boolean isActive;
@@ -267,6 +284,19 @@ public class Customer implements Serializable {
         this.email = email;
     }
 
+    public String getWebsite() {
+        return website;
+    }
+
+    public Customer website(String website) {
+        this.website = website;
+        return this;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
     public String getTaxCode() {
         return taxCode;
     }
@@ -408,6 +438,32 @@ public class Customer implements Serializable {
 
     public void setContactName(String contactName) {
         this.contactName = contactName;
+    }
+
+    public String getContactMobile() {
+        return contactMobile;
+    }
+
+    public Customer contactMobile(String contactMobile) {
+        this.contactMobile = contactMobile;
+        return this;
+    }
+
+    public void setContactMobile(String contactMobile) {
+        this.contactMobile = contactMobile;
+    }
+
+    public String getContactEmail() {
+        return contactEmail;
+    }
+
+    public Customer contactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
+        return this;
+    }
+
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
     }
 
     public Boolean isIsActive() {
@@ -557,6 +613,7 @@ public class Customer implements Serializable {
             ", mobile='" + getMobile() + "'" +
             ", fax='" + getFax() + "'" +
             ", email='" + getEmail() + "'" +
+            ", website='" + getWebsite() + "'" +
             ", taxCode='" + getTaxCode() + "'" +
             ", accountNumber='" + getAccountNumber() + "'" +
             ", bankAccount='" + getBankAccount() + "'" +
@@ -568,6 +625,8 @@ public class Customer implements Serializable {
             ", creditLimit=" + getCreditLimit() +
             ", notes='" + getNotes() + "'" +
             ", contactName='" + getContactName() + "'" +
+            ", contactMobile='" + getContactMobile() + "'" +
+            ", contactEmail='" + getContactEmail() + "'" +
             ", isActive='" + isIsActive() + "'" +
             ", timeCreated='" + getTimeCreated() + "'" +
             ", timeModified='" + getTimeModified() + "'" +

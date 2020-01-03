@@ -1,3 +1,4 @@
+
 package com.ak.service;
 
 import java.util.List;
@@ -98,7 +99,11 @@ public class CustomerQueryService extends QueryService<Customer> {
                 specification = specification.and(buildStringSpecification(criteria.getCode(), Customer_.code));
             }
             if (criteria.getCompanyName() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getCompanyName(), Customer_.companyName));
+                specification = specification.and(buildStringSpecification(criteria.getCompanyName(), Customer_.companyName)
+                		.or((buildStringSpecification(criteria.getCompanyName(), Customer_.code)))
+                		.or((buildStringSpecification(criteria.getCompanyName(), Customer_.phone))
+                		.or((buildStringSpecification(criteria.getCompanyName(), Customer_.mobile))
+                				)));
             }
             if (criteria.getAddress() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getAddress(), Customer_.address));
@@ -114,6 +119,9 @@ public class CustomerQueryService extends QueryService<Customer> {
             }
             if (criteria.getEmail() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getEmail(), Customer_.email));
+            }
+            if (criteria.getWebsite() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getWebsite(), Customer_.website));
             }
             if (criteria.getTaxCode() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getTaxCode(), Customer_.taxCode));
@@ -148,6 +156,12 @@ public class CustomerQueryService extends QueryService<Customer> {
             if (criteria.getContactName() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getContactName(), Customer_.contactName));
             }
+            if (criteria.getContactMobile() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getContactMobile(), Customer_.contactMobile));
+            }
+            if (criteria.getContactEmail() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getContactEmail(), Customer_.contactEmail));
+            } 
             if (criteria.getIsActive() != null) {
                 specification = specification.and(buildSpecification(criteria.getIsActive(), Customer_.isActive));
             }

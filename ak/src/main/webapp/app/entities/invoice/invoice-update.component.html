@@ -4,7 +4,7 @@
             <h2 id="ak-invoice-heading" jhiTranslate="akApp.invoice.home.createOrEditLabel">Create or edit a Invoice</h2>
             <div>
                 <ak-alert-error></ak-alert-error>
-                <div class="form-group" [hidden]="!editForm.get('id').value">
+                <div class="form-group" [hidden]="true">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id" formControlName="id"
                         readonly />
@@ -47,6 +47,12 @@
                     <label class="form-control-label" jhiTranslate="akApp.invoice.billingAddress" for="field_billingAddress">Billing Address</label>
                     <input type="text" class="form-control" name="billingAddress" id="field_billingAddress"
                            formControlName="billingAddress"/>
+                    <div *ngIf="editForm.get('billingAddress').invalid && (editForm.get('billingAddress').dirty || editForm.get('billingAddress').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('billingAddress').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 300 }">
+                        This field cannot be longer than 300 characters.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="akApp.invoice.accountNumber" for="field_accountNumber">Account Number</label>
@@ -74,6 +80,12 @@
                     <label class="form-control-label" jhiTranslate="akApp.invoice.notes" for="field_notes">Notes</label>
                     <input type="text" class="form-control" name="notes" id="field_notes"
                            formControlName="notes"/>
+                    <div *ngIf="editForm.get('notes').invalid && (editForm.get('notes').dirty || editForm.get('notes').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('notes').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 200 }">
+                        This field cannot be longer than 200 characters.
+                        </small>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="akApp.invoice.productTotal" for="field_productTotal">Product Total</label>

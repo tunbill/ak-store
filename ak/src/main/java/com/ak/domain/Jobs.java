@@ -50,12 +50,16 @@ public class Jobs implements Serializable {
     @Column(name = "investor", length = 100)
     private String investor;
 
-    @Size(max = 200)
-    @Column(name = "address", length = 200)
+    @Size(max = 300)
+    @Column(name = "address", length = 300)
     private String address;
 
-    @Column(name = "notes")
+    @Size(max = 200)
+    @Column(name = "notes", length = 200)
     private String notes;
+
+    @Column(name = "is_active")
+    private Boolean isActive;
 
     @ManyToOne
     @JsonIgnoreProperties("jobs")
@@ -200,6 +204,19 @@ public class Jobs implements Serializable {
         this.notes = notes;
     }
 
+    public Boolean isIsActive() {
+        return isActive;
+    }
+
+    public Jobs isActive(Boolean isActive) {
+        this.isActive = isActive;
+        return this;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
     public JobType getJobType() {
         return jobType;
     }
@@ -244,6 +261,7 @@ public class Jobs implements Serializable {
             ", investor='" + getInvestor() + "'" +
             ", address='" + getAddress() + "'" +
             ", notes='" + getNotes() + "'" +
+            ", isActive='" + isIsActive() + "'" +
             "}";
     }
 }

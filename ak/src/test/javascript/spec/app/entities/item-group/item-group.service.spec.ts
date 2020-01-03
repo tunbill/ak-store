@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(ItemGroupService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new ItemGroup(0, 0, 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new ItemGroup(0, 0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', false);
     });
 
     describe('Service methods', () => {
@@ -58,7 +58,9 @@ describe('Service Tests', () => {
           {
             companyId: 1,
             code: 'BBBBBB',
-            name: 'BBBBBB'
+            name: 'BBBBBB',
+            description: 'BBBBBB',
+            isActive: true
           },
           elemDefault
         );
@@ -78,7 +80,9 @@ describe('Service Tests', () => {
           {
             companyId: 1,
             code: 'BBBBBB',
-            name: 'BBBBBB'
+            name: 'BBBBBB',
+            description: 'BBBBBB',
+            isActive: true
           },
           elemDefault
         );

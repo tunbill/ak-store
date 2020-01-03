@@ -26,14 +26,17 @@ public class Unit implements Serializable {
     @Column(name = "company_id")
     private Long companyId;
 
-    @Size(max = 10)
-    @Column(name = "code", length = 10)
-    private String code;
-
     @NotNull
     @Size(max = 10)
     @Column(name = "name", length = 10, nullable = false)
     private String name;
+
+    @Size(max = 200)
+    @Column(name = "description", length = 200)
+    private String description;
+
+    @Column(name = "is_active")
+    private Boolean isActive;
 
     @OneToMany(mappedBy = "unit")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -61,19 +64,6 @@ public class Unit implements Serializable {
         this.companyId = companyId;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public Unit code(String code) {
-        this.code = code;
-        return this;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public String getName() {
         return name;
     }
@@ -85,6 +75,32 @@ public class Unit implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Unit description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Boolean isIsActive() {
+        return isActive;
+    }
+
+    public Unit isActive(Boolean isActive) {
+        this.isActive = isActive;
+        return this;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
     }
 
     public Set<Item> getItems() {
@@ -134,8 +150,9 @@ public class Unit implements Serializable {
         return "Unit{" +
             "id=" + getId() +
             ", companyId=" + getCompanyId() +
-            ", code='" + getCode() + "'" +
             ", name='" + getName() + "'" +
+            ", description='" + getDescription() + "'" +
+            ", isActive='" + isIsActive() + "'" +
             "}";
     }
 }

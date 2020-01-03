@@ -148,5 +148,9 @@
     "idexists": "A new {{ entityName }} cannot already have an ID",
     "idnull": "Invalid ID"
   },
+  "active": {
+    "true": "Active ",
+    "false": "Non Active"
+  },
   "footer": "This is your footer"
 }

@@ -3,7 +3,6 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { map } from 'rxjs/operators';
 
 import { SERVER_API_URL } from 'app/app.constants';
@@ -16,6 +15,7 @@ type EntityArrayResponseType = HttpResponse<ICustomer[]>;
 @Injectable({ providedIn: 'root' })
 export class CustomerService {
   public resourceUrl = SERVER_API_URL + 'api/customers';
+  public resourceSearchUrl = SERVER_API_URL + 'api/_search/customers';
 
   constructor(protected http: HttpClient) {}
 
@@ -48,6 +48,13 @@ export class CustomerService {
 
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  search(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http
+      .get<ICustomer[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
   protected convertDateFromClient(customer: ICustomer): ICustomer {

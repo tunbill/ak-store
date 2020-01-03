@@ -13,6 +13,7 @@ export interface IJobs {
   investor?: string;
   address?: string;
   notes?: string;
+  isActive?: boolean;
   jobType?: IJobType;
 }
 
@@ -29,6 +30,9 @@ export class Jobs implements IJobs {
     public investor?: string,
     public address?: string,
     public notes?: string,
+    public isActive?: boolean,
     public jobType?: IJobType
-  ) {}
+  ) {
+    this.isActive = this.isActive || false;
+  }
 }

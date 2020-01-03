@@ -19,7 +19,7 @@
             "relationshipName": "company"
         }
     ],
-    "changelogDate": "20191228110001",
+    "changelogDate": "20200102134854",
     "entityTableName": "industry",
     "dto": "no",
     "pagination": "no",

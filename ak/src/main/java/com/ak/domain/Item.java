@@ -133,10 +133,12 @@ public class Item implements Serializable {
     @Column(name = "height")
     private Double height;
 
-    @Column(name = "color")
+    @Size(max = 50)
+    @Column(name = "color", length = 50)
     private String color;
 
-    @Column(name = "specification")
+    @Size(max = 300)
+    @Column(name = "specification", length = 300)
     private String specification;
 
     @Lob

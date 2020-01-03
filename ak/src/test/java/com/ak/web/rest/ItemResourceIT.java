@@ -6,7 +6,6 @@ import com.ak.domain.InvoiceLine;
 import com.ak.domain.Unit;
 import com.ak.domain.ItemGroup;
 import com.ak.domain.Store;
-import com.ak.domain.Company;
 import com.ak.repository.ItemRepository;
 import com.ak.service.ItemService;
 import com.ak.web.rest.errors.ExceptionTranslator;
@@ -28,6 +27,7 @@ import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -47,6 +47,10 @@ import com.ak.domain.enumeration.PriceMethod;
 @SpringBootTest(classes = AkApp.class)
 public class ItemResourceIT {
 
+    private static final Long DEFAULT_COMPANY_ID = 1L;
+    private static final Long UPDATED_COMPANY_ID = 2L;
+    private static final Long SMALLER_COMPANY_ID = 1L - 1L;
+
     private static final String DEFAULT_CODE = "AAAAAAAAAA";
     private static final String UPDATED_CODE = "BBBBBBBBBB";
 
@@ -59,20 +63,20 @@ public class ItemResourceIT {
     private static final ItemType DEFAULT_TYPE = ItemType.PRODUCT;
     private static final ItemType UPDATED_TYPE = ItemType.SERVICE;
 
-    private static final Double DEFAULT_SKU_NUM = 1D;
-    private static final Double UPDATED_SKU_NUM = 2D;
-    private static final Double SMALLER_SKU_NUM = 1D - 1D;
+    private static final BigDecimal DEFAULT_SKU_NUM = new BigDecimal(1);
+    private static final BigDecimal UPDATED_SKU_NUM = new BigDecimal(2);
+    private static final BigDecimal SMALLER_SKU_NUM = new BigDecimal(1 - 1);
 
     private static final VATTax DEFAULT_VAT_TAX = VATTax.VAT5;
     private static final VATTax UPDATED_VAT_TAX = VATTax.VAT10;
 
-    private static final Double DEFAULT_IMPORT_TAX = 1D;
-    private static final Double UPDATED_IMPORT_TAX = 2D;
-    private static final Double SMALLER_IMPORT_TAX = 1D - 1D;
+    private static final BigDecimal DEFAULT_IMPORT_TAX = new BigDecimal(1);
+    private static final BigDecimal UPDATED_IMPORT_TAX = new BigDecimal(2);
+    private static final BigDecimal SMALLER_IMPORT_TAX = new BigDecimal(1 - 1);
 
-    private static final Double DEFAULT_EXPORT_TAX = 1D;
-    private static final Double UPDATED_EXPORT_TAX = 2D;
-    private static final Double SMALLER_EXPORT_TAX = 1D - 1D;
+    private static final BigDecimal DEFAULT_EXPORT_TAX = new BigDecimal(1);
+    private static final BigDecimal UPDATED_EXPORT_TAX = new BigDecimal(2);
+    private static final BigDecimal SMALLER_EXPORT_TAX = new BigDecimal(1 - 1);
 
     private static final PriceMethod DEFAULT_INVENTORY_PRICE_METHOD = PriceMethod.AVERAGE;
     private static final PriceMethod UPDATED_INVENTORY_PRICE_METHOD = PriceMethod.FIFO;
@@ -208,6 +212,7 @@ public class ItemResourceIT {
      */
     public static Item createEntity(EntityManager em) {
         Item item = new Item()
+            .companyId(DEFAULT_COMPANY_ID)
             .code(DEFAULT_CODE)
             .name(DEFAULT_NAME)
             .description(DEFAULT_DESCRIPTION)
@@ -253,6 +258,7 @@ public class ItemResourceIT {
      */
     public static Item createUpdatedEntity(EntityManager em) {
         Item item = new Item()
+            .companyId(UPDATED_COMPANY_ID)
             .code(UPDATED_CODE)
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
@@ -311,6 +317,7 @@ public class ItemResourceIT {
         List<Item> itemList = itemRepository.findAll();
         assertThat(itemList).hasSize(databaseSizeBeforeCreate + 1);
         Item testItem = itemList.get(itemList.size() - 1);
+        assertThat(testItem.getCompanyId()).isEqualTo(DEFAULT_COMPANY_ID);
         assertThat(testItem.getCode()).isEqualTo(DEFAULT_CODE);
         assertThat(testItem.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testItem.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
@@ -415,14 +422,15 @@ public class ItemResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(item.getId().intValue())))
+            .andExpect(jsonPath("$.[*].companyId").value(hasItem(DEFAULT_COMPANY_ID.intValue())))
             .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
-            .andExpect(jsonPath("$.[*].skuNum").value(hasItem(DEFAULT_SKU_NUM.doubleValue())))
+            .andExpect(jsonPath("$.[*].skuNum").value(hasItem(DEFAULT_SKU_NUM.intValue())))
             .andExpect(jsonPath("$.[*].vatTax").value(hasItem(DEFAULT_VAT_TAX.toString())))
-            .andExpect(jsonPath("$.[*].importTax").value(hasItem(DEFAULT_IMPORT_TAX.doubleValue())))
-            .andExpect(jsonPath("$.[*].exportTax").value(hasItem(DEFAULT_EXPORT_TAX.doubleValue())))
+            .andExpect(jsonPath("$.[*].importTax").value(hasItem(DEFAULT_IMPORT_TAX.intValue())))
+            .andExpect(jsonPath("$.[*].exportTax").value(hasItem(DEFAULT_EXPORT_TAX.intValue())))
             .andExpect(jsonPath("$.[*].inventoryPriceMethod").value(hasItem(DEFAULT_INVENTORY_PRICE_METHOD.toString())))
             .andExpect(jsonPath("$.[*].accountItem").value(hasItem(DEFAULT_ACCOUNT_ITEM)))
             .andExpect(jsonPath("$.[*].isAllowModified").value(hasItem(DEFAULT_IS_ALLOW_MODIFIED.booleanValue())))
@@ -463,14 +471,15 @@ public class ItemResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(item.getId().intValue()))
+            .andExpect(jsonPath("$.companyId").value(DEFAULT_COMPANY_ID.intValue()))
             .andExpect(jsonPath("$.code").value(DEFAULT_CODE))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
             .andExpect(jsonPath("$.type").value(DEFAULT_TYPE.toString()))
-            .andExpect(jsonPath("$.skuNum").value(DEFAULT_SKU_NUM.doubleValue()))
+            .andExpect(jsonPath("$.skuNum").value(DEFAULT_SKU_NUM.intValue()))
             .andExpect(jsonPath("$.vatTax").value(DEFAULT_VAT_TAX.toString()))
-            .andExpect(jsonPath("$.importTax").value(DEFAULT_IMPORT_TAX.doubleValue()))
-            .andExpect(jsonPath("$.exportTax").value(DEFAULT_EXPORT_TAX.doubleValue()))
+            .andExpect(jsonPath("$.importTax").value(DEFAULT_IMPORT_TAX.intValue()))
+            .andExpect(jsonPath("$.exportTax").value(DEFAULT_EXPORT_TAX.intValue()))
             .andExpect(jsonPath("$.inventoryPriceMethod").value(DEFAULT_INVENTORY_PRICE_METHOD.toString()))
             .andExpect(jsonPath("$.accountItem").value(DEFAULT_ACCOUNT_ITEM))
             .andExpect(jsonPath("$.isAllowModified").value(DEFAULT_IS_ALLOW_MODIFIED.booleanValue()))
@@ -517,6 +526,111 @@ public class ItemResourceIT {
 
         defaultItemShouldBeFound("id.lessThanOrEqual=" + id);
         defaultItemShouldNotBeFound("id.lessThan=" + id);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllItemsByCompanyIdIsEqualToSomething() throws Exception {
+        // Initialize the database
+        itemRepository.saveAndFlush(item);
+
+        // Get all the itemList where companyId equals to DEFAULT_COMPANY_ID
+        defaultItemShouldBeFound("companyId.equals=" + DEFAULT_COMPANY_ID);
+
+        // Get all the itemList where companyId equals to UPDATED_COMPANY_ID
+        defaultItemShouldNotBeFound("companyId.equals=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllItemsByCompanyIdIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        itemRepository.saveAndFlush(item);
+
+        // Get all the itemList where companyId not equals to DEFAULT_COMPANY_ID
+        defaultItemShouldNotBeFound("companyId.notEquals=" + DEFAULT_COMPANY_ID);
+
+        // Get all the itemList where companyId not equals to UPDATED_COMPANY_ID
+        defaultItemShouldBeFound("companyId.notEquals=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllItemsByCompanyIdIsInShouldWork() throws Exception {
+        // Initialize the database
+        itemRepository.saveAndFlush(item);
+
+        // Get all the itemList where companyId in DEFAULT_COMPANY_ID or UPDATED_COMPANY_ID
+        defaultItemShouldBeFound("companyId.in=" + DEFAULT_COMPANY_ID + "," + UPDATED_COMPANY_ID);
+
+        // Get all the itemList where companyId equals to UPDATED_COMPANY_ID
+        defaultItemShouldNotBeFound("companyId.in=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllItemsByCompanyIdIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        itemRepository.saveAndFlush(item);
+
+        // Get all the itemList where companyId is not null
+        defaultItemShouldBeFound("companyId.specified=true");
+
+        // Get all the itemList where companyId is null
+        defaultItemShouldNotBeFound("companyId.specified=false");
+    }
+
+    @Test
+    @Transactional
+    public void getAllItemsByCompanyIdIsGreaterThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        itemRepository.saveAndFlush(item);
+
+        // Get all the itemList where companyId is greater than or equal to DEFAULT_COMPANY_ID
+        defaultItemShouldBeFound("companyId.greaterThanOrEqual=" + DEFAULT_COMPANY_ID);
+
+        // Get all the itemList where companyId is greater than or equal to UPDATED_COMPANY_ID
+        defaultItemShouldNotBeFound("companyId.greaterThanOrEqual=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllItemsByCompanyIdIsLessThanOrEqualToSomething() throws Exception {
+        // Initialize the database
+        itemRepository.saveAndFlush(item);
+
+        // Get all the itemList where companyId is less than or equal to DEFAULT_COMPANY_ID
+        defaultItemShouldBeFound("companyId.lessThanOrEqual=" + DEFAULT_COMPANY_ID);
+
+        // Get all the itemList where companyId is less than or equal to SMALLER_COMPANY_ID
+        defaultItemShouldNotBeFound("companyId.lessThanOrEqual=" + SMALLER_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllItemsByCompanyIdIsLessThanSomething() throws Exception {
+        // Initialize the database
+        itemRepository.saveAndFlush(item);
+
+        // Get all the itemList where companyId is less than DEFAULT_COMPANY_ID
+        defaultItemShouldNotBeFound("companyId.lessThan=" + DEFAULT_COMPANY_ID);
+
+        // Get all the itemList where companyId is less than UPDATED_COMPANY_ID
+        defaultItemShouldBeFound("companyId.lessThan=" + UPDATED_COMPANY_ID);
+    }
+
+    @Test
+    @Transactional
+    public void getAllItemsByCompanyIdIsGreaterThanSomething() throws Exception {
+        // Initialize the database
+        itemRepository.saveAndFlush(item);
+
+        // Get all the itemList where companyId is greater than DEFAULT_COMPANY_ID
+        defaultItemShouldNotBeFound("companyId.greaterThan=" + DEFAULT_COMPANY_ID);
+
+        // Get all the itemList where companyId is greater than SMALLER_COMPANY_ID
+        defaultItemShouldBeFound("companyId.greaterThan=" + SMALLER_COMPANY_ID);
     }
 
 
@@ -3234,26 +3348,6 @@ public class ItemResourceIT {
         defaultItemShouldNotBeFound("storeId.equals=" + (storeId + 1));
     }
 
-
-    @Test
-    @Transactional
-    public void getAllItemsByCompanyIsEqualToSomething() throws Exception {
-        // Initialize the database
-        itemRepository.saveAndFlush(item);
-        Company company = CompanyResourceIT.createEntity(em);
-        em.persist(company);
-        em.flush();
-        item.setCompany(company);
-        itemRepository.saveAndFlush(item);
-        Long companyId = company.getId();
-
-        // Get all the itemList where company equals to companyId
-        defaultItemShouldBeFound("companyId.equals=" + companyId);
-
-        // Get all the itemList where company equals to companyId + 1
-        defaultItemShouldNotBeFound("companyId.equals=" + (companyId + 1));
-    }
-
     /**
      * Executes the search, and checks that the default entity is returned.
      */
@@ -3262,14 +3356,15 @@ public class ItemResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(item.getId().intValue())))
+            .andExpect(jsonPath("$.[*].companyId").value(hasItem(DEFAULT_COMPANY_ID.intValue())))
             .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
             .andExpect(jsonPath("$.[*].type").value(hasItem(DEFAULT_TYPE.toString())))
-            .andExpect(jsonPath("$.[*].skuNum").value(hasItem(DEFAULT_SKU_NUM.doubleValue())))
+            .andExpect(jsonPath("$.[*].skuNum").value(hasItem(DEFAULT_SKU_NUM.intValue())))
             .andExpect(jsonPath("$.[*].vatTax").value(hasItem(DEFAULT_VAT_TAX.toString())))
-            .andExpect(jsonPath("$.[*].importTax").value(hasItem(DEFAULT_IMPORT_TAX.doubleValue())))
-            .andExpect(jsonPath("$.[*].exportTax").value(hasItem(DEFAULT_EXPORT_TAX.doubleValue())))
+            .andExpect(jsonPath("$.[*].importTax").value(hasItem(DEFAULT_IMPORT_TAX.intValue())))
+            .andExpect(jsonPath("$.[*].exportTax").value(hasItem(DEFAULT_EXPORT_TAX.intValue())))
             .andExpect(jsonPath("$.[*].inventoryPriceMethod").value(hasItem(DEFAULT_INVENTORY_PRICE_METHOD.toString())))
             .andExpect(jsonPath("$.[*].accountItem").value(hasItem(DEFAULT_ACCOUNT_ITEM)))
             .andExpect(jsonPath("$.[*].isAllowModified").value(hasItem(DEFAULT_IS_ALLOW_MODIFIED.booleanValue())))
@@ -3344,6 +3439,7 @@ public class ItemResourceIT {
         // Disconnect from session so that the updates on updatedItem are not directly saved in db
         em.detach(updatedItem);
         updatedItem
+            .companyId(UPDATED_COMPANY_ID)
             .code(UPDATED_CODE)
             .name(UPDATED_NAME)
             .description(UPDATED_DESCRIPTION)
@@ -3389,6 +3485,7 @@ public class ItemResourceIT {
         List<Item> itemList = itemRepository.findAll();
         assertThat(itemList).hasSize(databaseSizeBeforeUpdate);
         Item testItem = itemList.get(itemList.size() - 1);
+        assertThat(testItem.getCompanyId()).isEqualTo(UPDATED_COMPANY_ID);
         assertThat(testItem.getCode()).isEqualTo(UPDATED_CODE);
         assertThat(testItem.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testItem.getDescription()).isEqualTo(UPDATED_DESCRIPTION);

@@ -41,11 +41,21 @@ describe('Department e2e test', () => {
     await promise.all([
       departmentUpdatePage.setCompanyIdInput('5'),
       departmentUpdatePage.setCodeInput('code'),
-      departmentUpdatePage.setNameInput('name')
+      departmentUpdatePage.setNameInput('name'),
+      departmentUpdatePage.setDescriptionInput('description')
     ]);
     expect(await departmentUpdatePage.getCompanyIdInput()).to.eq('5', 'Expected companyId value to be equals to 5');
     expect(await departmentUpdatePage.getCodeInput()).to.eq('code', 'Expected Code value to be equals to code');
     expect(await departmentUpdatePage.getNameInput()).to.eq('name', 'Expected Name value to be equals to name');
+    expect(await departmentUpdatePage.getDescriptionInput()).to.eq('description', 'Expected Description value to be equals to description');
+    const selectedIsActive = departmentUpdatePage.getIsActiveInput();
+    if (await selectedIsActive.isSelected()) {
+      await departmentUpdatePage.getIsActiveInput().click();
+      expect(await departmentUpdatePage.getIsActiveInput().isSelected(), 'Expected isActive not to be selected').to.be.false;
+    } else {
+      await departmentUpdatePage.getIsActiveInput().click();
+      expect(await departmentUpdatePage.getIsActiveInput().isSelected(), 'Expected isActive to be selected').to.be.true;
+    }
     await departmentUpdatePage.save();
     expect(await departmentUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;
 

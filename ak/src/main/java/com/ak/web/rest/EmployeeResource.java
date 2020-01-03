@@ -1,11 +1,18 @@
 package com.ak.web.rest;
 
+import com.ak.domain.Customer;
 import com.ak.domain.Employee;
+import com.ak.domain.User;
+import com.ak.security.SecurityUtils;
 import com.ak.service.EmployeeService;
+import com.ak.service.UserService;
 import com.ak.web.rest.errors.BadRequestAlertException;
+import com.ak.service.dto.CustomerCriteria;
 import com.ak.service.dto.EmployeeCriteria;
 import com.ak.service.EmployeeQueryService;
 
+import io.github.jhipster.service.filter.LongFilter;
+import io.github.jhipster.service.filter.StringFilter;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -44,10 +51,13 @@ public class EmployeeResource {
     private final EmployeeService employeeService;
 
     private final EmployeeQueryService employeeQueryService;
+    
+    private final UserService userService;
 
-    public EmployeeResource(EmployeeService employeeService, EmployeeQueryService employeeQueryService) {
+    public EmployeeResource(EmployeeService employeeService, EmployeeQueryService employeeQueryService, UserService userService) {
         this.employeeService = employeeService;
         this.employeeQueryService = employeeQueryService;
+        this.userService = userService;
     }
 
     /**
@@ -63,6 +73,9 @@ public class EmployeeResource {
         if (employee.getId() != null) {
             throw new BadRequestAlertException("A new employee cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        employee.setCompanyId(user.get().getCompanyId());
         Employee result = employeeService.save(employee);
         return ResponseEntity.created(new URI("/api/employees/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -84,6 +97,9 @@ public class EmployeeResource {
         if (employee.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        employee.setCompanyId(user.get().getCompanyId());
         Employee result = employeeService.save(employee);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, employee.getId().toString()))
@@ -102,6 +118,11 @@ public class EmployeeResource {
     @GetMapping("/employees")
     public ResponseEntity<List<Employee>> getAllEmployees(EmployeeCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Employees by criteria: {}", criteria);
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        LongFilter companyId = new LongFilter();
+        companyId.setEquals(user.get().getCompanyId());
+        criteria.setCompanyId(companyId);
         Page<Employee> page = employeeQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
@@ -116,6 +137,10 @@ public class EmployeeResource {
     @GetMapping("/employees/count")
     public ResponseEntity<Long> countEmployees(EmployeeCriteria criteria) {
         log.debug("REST request to count Employees by criteria: {}", criteria);
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        LongFilter companyId = new LongFilter();
+        companyId.setEquals(user.get().getCompanyId());
         return ResponseEntity.ok().body(employeeQueryService.countByCriteria(criteria));
     }
 
@@ -144,4 +169,28 @@ public class EmployeeResource {
         employeeService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+    
+    /**
+     * {@code SEARCH  /_search/employees?query=:query} : search for the employee responding
+     * to the query.
+     *
+     * @param query the query of the employee search.
+     * @param pageable the pagination information.
+     * @return the result of the search.
+     */
+	@GetMapping("/_search/employees")
+    public ResponseEntity<List<Employee>> searchEmployees(@RequestParam String query, Pageable pageable) {
+        log.debug("REST request to search for a page of Employees for query {}", query);
+        EmployeeCriteria criteria = new EmployeeCriteria();
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        LongFilter companyId = new LongFilter();
+        companyId.setEquals(user.get().getCompanyId());
+        criteria.setCompanyId(companyId);
+        StringFilter sf = new StringFilter();        
+        criteria.setFullName(sf.setContains(query));
+        Page<Employee> page = employeeQueryService.findByCriteria(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }  
 }

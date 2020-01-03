@@ -4,15 +4,10 @@
             <h2 id="ak-jobs-heading" jhiTranslate="akApp.jobs.home.createOrEditLabel">Create or edit a Jobs</h2>
             <div>
                 <ak-alert-error></ak-alert-error>
-                <div class="form-group" [hidden]="!editForm.get('id').value">
+                <div class="form-group" [hidden]="true">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id" formControlName="id"
                         readonly />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="akApp.jobs.companyId" for="field_companyId">Company Id</label>
-                    <input type="number" class="form-control" name="companyId" id="field_companyId"
-                           formControlName="companyId"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="akApp.jobs.code" for="field_code">Code</label>
@@ -81,15 +76,25 @@
                            formControlName="address"/>
                     <div *ngIf="editForm.get('address').invalid && (editForm.get('address').dirty || editForm.get('address').touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('address').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 200 }">
-                        This field cannot be longer than 200 characters.
+                               *ngIf="editForm.get('address').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 300 }">
+                        This field cannot be longer than 300 characters.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="akApp.jobs.notes" for="field_notes">Notes</label>
-                    <input type="text" class="form-control" name="notes" id="field_notes"
-                           formControlName="notes"/>
+                    <textarea class="form-control" name="notes" id="field_notes" formControlName="descripnotestion" maxlength="140" rows="3"></textarea>
+                    <div *ngIf="editForm.get('notes').invalid && (editForm.get('notes').dirty || editForm.get('notes').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('notes').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 200 }">
+                        This field cannot be longer than 200 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="akApp.jobs.isActive" for="field_isActive">Is Active</label>
+                    <input type="checkbox" class="form-control" name="isActive" id="field_isActive"
+                           formControlName="isActive"/>
                 </div>
 
                 <div class="form-group">

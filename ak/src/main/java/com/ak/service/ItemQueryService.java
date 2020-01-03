@@ -92,7 +92,9 @@ public class ItemQueryService extends QueryService<Item> {
                 specification = specification.and(buildStringSpecification(criteria.getCode(), Item_.code));
             }
             if (criteria.getName() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getName(), Item_.name));
+                specification = specification.and(buildStringSpecification(criteria.getName(), Item_.name)
+                		.or(buildStringSpecification(criteria.getName(), Item_.code))
+                		);
             }
             if (criteria.getDescription() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getDescription(), Item_.description));

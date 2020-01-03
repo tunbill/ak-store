@@ -19,7 +19,9 @@
       "companyId": "Company Id",
       "code": "Code",
       "name": "Name",
+      "description": "Description",
       "address": "Address",
+      "isActive": "Is Active",
       "item": "Item"
     }
   }

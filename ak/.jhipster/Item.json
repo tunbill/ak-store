@@ -2,6 +2,10 @@
     "name": "Item",
     "fields": [
         {
+            "fieldName": "companyId",
+            "fieldType": "Long"
+        },
+        {
             "fieldName": "code",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -36,7 +40,7 @@
         },
         {
             "fieldName": "skuNum",
-            "fieldType": "Double"
+            "fieldType": "BigDecimal"
         },
         {
             "fieldName": "vatTax",
@@ -45,11 +49,11 @@
         },
         {
             "fieldName": "importTax",
-            "fieldType": "Double"
+            "fieldType": "BigDecimal"
         },
         {
             "fieldName": "exportTax",
-            "fieldType": "Double"
+            "fieldType": "BigDecimal"
         },
         {
             "fieldName": "inventoryPriceMethod",
@@ -174,11 +178,19 @@
         },
         {
             "fieldName": "color",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
         },
         {
             "fieldName": "specification",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 300
         },
         {
             "fieldName": "itemImage",
@@ -233,16 +245,9 @@
             "otherEntityRelationshipName": "item",
             "relationshipName": "store",
             "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "company",
-            "otherEntityRelationshipName": "item",
-            "relationshipName": "company",
-            "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20191228110011",
+    "changelogDate": "20200102134904",
     "entityTableName": "item",
     "dto": "no",
     "pagination": "pagination",

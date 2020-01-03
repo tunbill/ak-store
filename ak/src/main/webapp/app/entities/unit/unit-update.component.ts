@@ -18,8 +18,9 @@ export class UnitUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     companyId: [],
-    code: [null, [Validators.maxLength(10)]],
-    name: [null, [Validators.required, Validators.maxLength(10)]]
+    name: [null, [Validators.required, Validators.maxLength(10)]],
+    description: [null, [Validators.maxLength(200)]],
+    isActive: []
   });
 
   constructor(protected unitService: UnitService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
@@ -35,8 +36,9 @@ export class UnitUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: unit.id,
       companyId: unit.companyId,
-      code: unit.code,
-      name: unit.name
+      name: unit.name,
+      description: unit.description,
+      isActive: unit.isActive
     });
   }
 
@@ -59,8 +61,9 @@ export class UnitUpdateComponent implements OnInit {
       ...new Unit(),
       id: this.editForm.get(['id']).value,
       companyId: this.editForm.get(['companyId']).value,
-      code: this.editForm.get(['code']).value,
-      name: this.editForm.get(['name']).value
+      name: this.editForm.get(['name']).value,
+      description: this.editForm.get(['description']).value,
+      isActive: this.editForm.get(['isActive']).value
     };
   }
 

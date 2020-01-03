@@ -2,6 +2,10 @@
     "name": "Customer",
     "fields": [
         {
+            "fieldName": "companyId",
+            "fieldType": "Long"
+        },
+        {
             "fieldName": "isVendor",
             "fieldType": "Boolean"
         },
@@ -23,12 +27,18 @@
             "fieldName": "companyName",
             "fieldType": "String",
             "fieldValidateRules": [
-                "required"
-            ]
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
         },
         {
             "fieldName": "address",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 300
         },
         {
             "fieldName": "phone",
@@ -36,7 +46,7 @@
             "fieldValidateRules": [
                 "maxlength"
             ],
-            "fieldValidateRulesMaxlength": 50
+            "fieldValidateRulesMaxlength": 30
         },
         {
             "fieldName": "mobile",
@@ -44,7 +54,7 @@
             "fieldValidateRules": [
                 "maxlength"
             ],
-            "fieldValidateRulesMaxlength": 50
+            "fieldValidateRulesMaxlength": 30
         },
         {
             "fieldName": "fax",
@@ -52,7 +62,7 @@
             "fieldValidateRules": [
                 "maxlength"
             ],
-            "fieldValidateRulesMaxlength": 50
+            "fieldValidateRulesMaxlength": 30
         },
         {
             "fieldName": "email",
@@ -61,8 +71,16 @@
                 "maxlength",
                 "pattern"
             ],
-            "fieldValidateRulesMaxlength": 50,
+            "fieldValidateRulesMaxlength": 100,
             "fieldValidateRulesPattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+        },
+        {
+            "fieldName": "website",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
         },
         {
             "fieldName": "taxCode",
@@ -90,19 +108,23 @@
         },
         {
             "fieldName": "bankName",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 150
         },
         {
             "fieldName": "balance",
-            "fieldType": "Double"
+            "fieldType": "BigDecimal"
         },
         {
             "fieldName": "totalBalance",
-            "fieldType": "Double"
+            "fieldType": "BigDecimal"
         },
         {
             "fieldName": "openBalance",
-            "fieldType": "Double"
+            "fieldType": "BigDecimal"
         },
         {
             "fieldName": "openBalanceDate",
@@ -110,11 +132,15 @@
         },
         {
             "fieldName": "creditLimit",
-            "fieldType": "Double"
+            "fieldType": "BigDecimal"
         },
         {
             "fieldName": "notes",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 200
         },
         {
             "fieldName": "contactName",
@@ -123,6 +149,24 @@
                 "maxlength"
             ],
             "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "contactMobile",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "contactEmail",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength",
+                "pattern"
+            ],
+            "fieldValidateRulesMaxlength": 100,
+            "fieldValidateRulesPattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
         },
         {
             "fieldName": "isActive",
@@ -165,16 +209,9 @@
             "otherEntityRelationshipName": "customer",
             "relationshipName": "terms",
             "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "company",
-            "otherEntityRelationshipName": "customer",
-            "relationshipName": "company",
-            "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20191228110003",
+    "changelogDate": "20200102134856",
     "entityTableName": "customer",
     "dto": "no",
     "pagination": "pagination",

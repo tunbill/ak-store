@@ -33,11 +33,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = AkApp.class)
 public class DepartmentResourceIT {
 
+    private static final Long DEFAULT_COMPANY_ID = 1L;
+    private static final Long UPDATED_COMPANY_ID = 2L;
+
     private static final String DEFAULT_CODE = "AAAAAAAAAA";
     private static final String UPDATED_CODE = "BBBBBBBBBB";
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+
+    private static final Boolean DEFAULT_IS_ACTIVE = false;
+    private static final Boolean UPDATED_IS_ACTIVE = true;
 
     @Autowired
     private DepartmentRepository departmentRepository;
@@ -81,8 +90,11 @@ public class DepartmentResourceIT {
      */
     public static Department createEntity(EntityManager em) {
         Department department = new Department()
+            .companyId(DEFAULT_COMPANY_ID)
             .code(DEFAULT_CODE)
-            .name(DEFAULT_NAME);
+            .name(DEFAULT_NAME)
+            .description(DEFAULT_DESCRIPTION)
+            .isActive(DEFAULT_IS_ACTIVE);
         return department;
     }
     /**
@@ -93,8 +105,11 @@ public class DepartmentResourceIT {
      */
     public static Department createUpdatedEntity(EntityManager em) {
         Department department = new Department()
+            .companyId(UPDATED_COMPANY_ID)
             .code(UPDATED_CODE)
-            .name(UPDATED_NAME);
+            .name(UPDATED_NAME)
+            .description(UPDATED_DESCRIPTION)
+            .isActive(UPDATED_IS_ACTIVE);
         return department;
     }
 
@@ -118,8 +133,11 @@ public class DepartmentResourceIT {
         List<Department> departmentList = departmentRepository.findAll();
         assertThat(departmentList).hasSize(databaseSizeBeforeCreate + 1);
         Department testDepartment = departmentList.get(departmentList.size() - 1);
+        assertThat(testDepartment.getCompanyId()).isEqualTo(DEFAULT_COMPANY_ID);
         assertThat(testDepartment.getCode()).isEqualTo(DEFAULT_CODE);
         assertThat(testDepartment.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testDepartment.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testDepartment.isIsActive()).isEqualTo(DEFAULT_IS_ACTIVE);
     }
 
     @Test
@@ -171,8 +189,11 @@ public class DepartmentResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(department.getId().intValue())))
+            .andExpect(jsonPath("$.[*].companyId").value(hasItem(DEFAULT_COMPANY_ID.intValue())))
             .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE)))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
+            .andExpect(jsonPath("$.[*].isActive").value(hasItem(DEFAULT_IS_ACTIVE.booleanValue())));
     }
     
     @Test
@@ -186,8 +207,11 @@ public class DepartmentResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(department.getId().intValue()))
+            .andExpect(jsonPath("$.companyId").value(DEFAULT_COMPANY_ID.intValue()))
             .andExpect(jsonPath("$.code").value(DEFAULT_CODE))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION))
+            .andExpect(jsonPath("$.isActive").value(DEFAULT_IS_ACTIVE.booleanValue()));
     }
 
     @Test
@@ -211,8 +235,11 @@ public class DepartmentResourceIT {
         // Disconnect from session so that the updates on updatedDepartment are not directly saved in db
         em.detach(updatedDepartment);
         updatedDepartment
+            .companyId(UPDATED_COMPANY_ID)
             .code(UPDATED_CODE)
-            .name(UPDATED_NAME);
+            .name(UPDATED_NAME)
+            .description(UPDATED_DESCRIPTION)
+            .isActive(UPDATED_IS_ACTIVE);
 
         restDepartmentMockMvc.perform(put("/api/departments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -223,8 +250,11 @@ public class DepartmentResourceIT {
         List<Department> departmentList = departmentRepository.findAll();
         assertThat(departmentList).hasSize(databaseSizeBeforeUpdate);
         Department testDepartment = departmentList.get(departmentList.size() - 1);
+        assertThat(testDepartment.getCompanyId()).isEqualTo(UPDATED_COMPANY_ID);
         assertThat(testDepartment.getCode()).isEqualTo(UPDATED_CODE);
         assertThat(testDepartment.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testDepartment.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testDepartment.isIsActive()).isEqualTo(UPDATED_IS_ACTIVE);
     }
 
     @Test

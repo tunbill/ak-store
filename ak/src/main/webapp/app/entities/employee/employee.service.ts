@@ -16,6 +16,7 @@ type EntityArrayResponseType = HttpResponse<IEmployee[]>;
 @Injectable({ providedIn: 'root' })
 export class EmployeeService {
   public resourceUrl = SERVER_API_URL + 'api/employees';
+  public resourceSearchUrl = SERVER_API_URL + 'api/_search/employees';
 
   constructor(protected http: HttpClient) {}
 
@@ -48,6 +49,13 @@ export class EmployeeService {
 
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  search(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http
+      .get<IEmployee[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
   protected convertDateFromClient(employee: IEmployee): IEmployee {

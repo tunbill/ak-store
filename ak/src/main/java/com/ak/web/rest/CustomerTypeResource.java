@@ -1,10 +1,11 @@
 package com.ak.web.rest;
 
 import com.ak.domain.CustomerType;
-import com.ak.service.CustomerTypeService;
+import com.ak.domain.User;
+import com.ak.repository.CustomerTypeRepository;
+import com.ak.security.SecurityUtils;
+import com.ak.service.UserService;
 import com.ak.web.rest.errors.BadRequestAlertException;
-import com.ak.service.dto.CustomerTypeCriteria;
-import com.ak.service.CustomerTypeQueryService;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -18,6 +19,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional; 
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,6 +34,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api")
+@Transactional
 public class CustomerTypeResource {
 
     private final Logger log = LoggerFactory.getLogger(CustomerTypeResource.class);
@@ -41,13 +44,13 @@ public class CustomerTypeResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
-    private final CustomerTypeService customerTypeService;
+    private final CustomerTypeRepository customerTypeRepository;
+    
+    private final UserService userService;
 
-    private final CustomerTypeQueryService customerTypeQueryService;
-
-    public CustomerTypeResource(CustomerTypeService customerTypeService, CustomerTypeQueryService customerTypeQueryService) {
-        this.customerTypeService = customerTypeService;
-        this.customerTypeQueryService = customerTypeQueryService;
+    public CustomerTypeResource(CustomerTypeRepository customerTypeRepository, UserService userService) {
+        this.customerTypeRepository = customerTypeRepository;
+        this.userService = userService;
     }
 
     /**
@@ -63,7 +66,10 @@ public class CustomerTypeResource {
         if (customerType.getId() != null) {
             throw new BadRequestAlertException("A new customerType cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        CustomerType result = customerTypeService.save(customerType);
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        customerType.setCompanyId(user.get().getCompanyId());
+        CustomerType result = customerTypeRepository.save(customerType);
         return ResponseEntity.created(new URI("/api/customer-types/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -84,7 +90,10 @@ public class CustomerTypeResource {
         if (customerType.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        CustomerType result = customerTypeService.save(customerType);
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        customerType.setCompanyId(user.get().getCompanyId());
+        CustomerType result = customerTypeRepository.save(customerType);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, customerType.getId().toString()))
             .body(result);
@@ -96,28 +105,19 @@ public class CustomerTypeResource {
 
      * @param pageable the pagination information.
 
-     * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of customerTypes in body.
      */
     @GetMapping("/customer-types")
-    public ResponseEntity<List<CustomerType>> getAllCustomerTypes(CustomerTypeCriteria criteria, Pageable pageable) {
-        log.debug("REST request to get CustomerTypes by criteria: {}", criteria);
-        Page<CustomerType> page = customerTypeQueryService.findByCriteria(criteria, pageable);
+    public ResponseEntity<List<CustomerType>> getAllCustomerTypes(Pageable pageable) {
+        log.debug("REST request to get a page of CustomerTypes");
+        Optional<String>  login = SecurityUtils.getCurrentUserLogin();
+        Optional<User> user = userService.getUserWithAuthoritiesByLogin(login.get());
+        log.info("companyId===================="+user.get().getCompanyId());
+        Page<CustomerType> page = customerTypeRepository.findByCompanyId(user.get().getCompanyId(), pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
-    /**
-    * {@code GET  /customer-types/count} : count all the customerTypes.
-    *
-    * @param criteria the criteria which the requested entities should match.
-    * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
-    */
-    @GetMapping("/customer-types/count")
-    public ResponseEntity<Long> countCustomerTypes(CustomerTypeCriteria criteria) {
-        log.debug("REST request to count CustomerTypes by criteria: {}", criteria);
-        return ResponseEntity.ok().body(customerTypeQueryService.countByCriteria(criteria));
-    }
 
     /**
      * {@code GET  /customer-types/:id} : get the "id" customerType.
@@ -128,7 +128,7 @@ public class CustomerTypeResource {
     @GetMapping("/customer-types/{id}")
     public ResponseEntity<CustomerType> getCustomerType(@PathVariable Long id) {
         log.debug("REST request to get CustomerType : {}", id);
-        Optional<CustomerType> customerType = customerTypeService.findOne(id);
+        Optional<CustomerType> customerType = customerTypeRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(customerType);
     }
 
@@ -141,7 +141,7 @@ public class CustomerTypeResource {
     @DeleteMapping("/customer-types/{id}")
     public ResponseEntity<Void> deleteCustomerType(@PathVariable Long id) {
         log.debug("REST request to delete CustomerType : {}", id);
-        customerTypeService.delete(id);
+        customerTypeRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }

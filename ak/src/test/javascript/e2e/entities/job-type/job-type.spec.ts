@@ -41,11 +41,21 @@ describe('JobType e2e test', () => {
     await promise.all([
       jobTypeUpdatePage.setCompanyIdInput('5'),
       jobTypeUpdatePage.setCodeInput('code'),
-      jobTypeUpdatePage.setNameInput('name')
+      jobTypeUpdatePage.setNameInput('name'),
+      jobTypeUpdatePage.setDescriptionInput('description')
     ]);
     expect(await jobTypeUpdatePage.getCompanyIdInput()).to.eq('5', 'Expected companyId value to be equals to 5');
     expect(await jobTypeUpdatePage.getCodeInput()).to.eq('code', 'Expected Code value to be equals to code');
     expect(await jobTypeUpdatePage.getNameInput()).to.eq('name', 'Expected Name value to be equals to name');
+    expect(await jobTypeUpdatePage.getDescriptionInput()).to.eq('description', 'Expected Description value to be equals to description');
+    const selectedIsActive = jobTypeUpdatePage.getIsActiveInput();
+    if (await selectedIsActive.isSelected()) {
+      await jobTypeUpdatePage.getIsActiveInput().click();
+      expect(await jobTypeUpdatePage.getIsActiveInput().isSelected(), 'Expected isActive not to be selected').to.be.false;
+    } else {
+      await jobTypeUpdatePage.getIsActiveInput().click();
+      expect(await jobTypeUpdatePage.getIsActiveInput().isSelected(), 'Expected isActive to be selected').to.be.true;
+    }
     await jobTypeUpdatePage.save();
     expect(await jobTypeUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;
 

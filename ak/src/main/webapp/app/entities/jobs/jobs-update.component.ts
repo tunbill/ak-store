@@ -33,8 +33,9 @@ export class JobsUpdateComponent implements OnInit {
     endDate: [],
     estimate: [],
     investor: [null, [Validators.maxLength(100)]],
-    address: [null, [Validators.maxLength(200)]],
-    notes: [],
+    address: [null, [Validators.maxLength(300)]],
+    notes: [null, [Validators.maxLength(200)]],
+    isActive: [],
     jobType: []
   });
 
@@ -69,6 +70,7 @@ export class JobsUpdateComponent implements OnInit {
       investor: jobs.investor,
       address: jobs.address,
       notes: jobs.notes,
+      isActive: jobs.isActive,
       jobType: jobs.jobType
     });
   }
@@ -101,6 +103,7 @@ export class JobsUpdateComponent implements OnInit {
       investor: this.editForm.get(['investor']).value,
       address: this.editForm.get(['address']).value,
       notes: this.editForm.get(['notes']).value,
+      isActive: this.editForm.get(['isActive']).value,
       jobType: this.editForm.get(['jobType']).value
     };
   }

@@ -2,6 +2,10 @@
     "name": "Department",
     "fields": [
         {
+            "fieldName": "companyId",
+            "fieldType": "Long"
+        },
+        {
             "fieldName": "code",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -16,7 +20,19 @@
                 "maxlength",
                 "required"
             ],
-            "fieldValidateRulesMaxlength": 100
+            "fieldValidateRulesMaxlength": 50
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 200
+        },
+        {
+            "fieldName": "isActive",
+            "fieldType": "Boolean"
         }
     ],
     "relationships": [
@@ -25,16 +41,9 @@
             "otherEntityName": "employee",
             "otherEntityRelationshipName": "department",
             "relationshipName": "employee"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "company",
-            "otherEntityRelationshipName": "department",
-            "relationshipName": "company",
-            "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20191228110007",
+    "changelogDate": "20200102134900",
     "entityTableName": "department",
     "dto": "no",
     "pagination": "pagination",

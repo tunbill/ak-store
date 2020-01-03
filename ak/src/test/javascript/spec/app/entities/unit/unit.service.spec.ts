@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(UnitService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new Unit(0, 0, 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new Unit(0, 0, 'AAAAAAA', 'AAAAAAA', false);
     });
 
     describe('Service methods', () => {
@@ -57,8 +57,9 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             companyId: 1,
-            code: 'BBBBBB',
-            name: 'BBBBBB'
+            name: 'BBBBBB',
+            description: 'BBBBBB',
+            isActive: true
           },
           elemDefault
         );
@@ -77,8 +78,9 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             companyId: 1,
-            code: 'BBBBBB',
-            name: 'BBBBBB'
+            name: 'BBBBBB',
+            description: 'BBBBBB',
+            isActive: true
           },
           elemDefault
         );

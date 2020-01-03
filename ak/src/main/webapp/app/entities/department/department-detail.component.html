@@ -5,10 +5,6 @@
             <hr>
             <ak-alert-error></ak-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="akApp.department.companyId">Company Id</span></dt>
-                <dd>
-                    <span>{{department.companyId}}</span>
-                </dd>
                 <dt><span jhiTranslate="akApp.department.code">Code</span></dt>
                 <dd>
                     <span>{{department.code}}</span>
@@ -16,6 +12,14 @@
                 <dt><span jhiTranslate="akApp.department.name">Name</span></dt>
                 <dd>
                     <span>{{department.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.department.description">Description</span></dt>
+                <dd>
+                    <span>{{department.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.department.isActive">Is Active</span></dt>
+                <dd>
+                    <span>{{department.isActive ? "C" : "K"}}</span>
                 </dd>
             </dl>
 

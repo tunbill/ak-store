@@ -56,7 +56,7 @@ describe('Employee e2e test', () => {
       employeeUpdatePage.setPhoneInput('phone'),
       employeeUpdatePage.setMobileInput('mobile'),
       employeeUpdatePage.setEmailInput(
-        'Xosajs*yIX~y}ujD!;6N|A,bW~ep*$2+UoK&amp;!&gt;Dz{#5DxX&amp;2A@UC[eA0Z50FZ&#34;J]&lt;D++Ygtfa.|L*M{}DvX`ic.wgZQx?m#&gt;&#34;8zc{ndjEZd|E^|NJWE&#39;+hxF(d.S;AEp&amp;o$5/&#39;&#39;eNNWysCYMkLDHK&gt;y-|G3B+i`-BU7{9Cz&#39;-g&lt;I2YD*LA*h$v&#39;m&lt;'
+        'F`joscaY&amp;B0p3@(Z-c#EF&amp;H0aiZ^D^%xw#PwRI(i_u&gt;8/,Nd!1z&#39;/f={IbbAL1v-or.$7hvS&#39;Ab|ZZG~WBA,wJTd+!ifJ^Uv#/u]^WRi&lt;[#.CwdVSnPM|tO3ELtrnfA:5F.|+%Uh(%*f]0?l[SH66`'
       ),
       employeeUpdatePage.setBankAccountInput('bankAccount'),
       employeeUpdatePage.setBankNameInput('bankName'),
@@ -90,8 +90,8 @@ describe('Employee e2e test', () => {
     expect(await employeeUpdatePage.getPhoneInput()).to.eq('phone', 'Expected Phone value to be equals to phone');
     expect(await employeeUpdatePage.getMobileInput()).to.eq('mobile', 'Expected Mobile value to be equals to mobile');
     expect(await employeeUpdatePage.getEmailInput()).to.eq(
-      'Xosajs*yIX~y}ujD!;6N|A,bW~ep*$2+UoK&amp;!&gt;Dz{#5DxX&amp;2A@UC[eA0Z50FZ&#34;J]&lt;D++Ygtfa.|L*M{}DvX`ic.wgZQx?m#&gt;&#34;8zc{ndjEZd|E^|NJWE&#39;+hxF(d.S;AEp&amp;o$5/&#39;&#39;eNNWysCYMkLDHK&gt;y-|G3B+i`-BU7{9Cz&#39;-g&lt;I2YD*LA*h$v&#39;m&lt;',
-      'Expected Email value to be equals to Xosajs*yIX~y}ujD!;6N|A,bW~ep*$2+UoK&amp;!&gt;Dz{#5DxX&amp;2A@UC[eA0Z50FZ&#34;J]&lt;D++Ygtfa.|L*M{}DvX`ic.wgZQx?m#&gt;&#34;8zc{ndjEZd|E^|NJWE&#39;+hxF(d.S;AEp&amp;o$5/&#39;&#39;eNNWysCYMkLDHK&gt;y-|G3B+i`-BU7{9Cz&#39;-g&lt;I2YD*LA*h$v&#39;m&lt;'
+      'F`joscaY&amp;B0p3@(Z-c#EF&amp;H0aiZ^D^%xw#PwRI(i_u&gt;8/,Nd!1z&#39;/f={IbbAL1v-or.$7hvS&#39;Ab|ZZG~WBA,wJTd+!ifJ^Uv#/u]^WRi&lt;[#.CwdVSnPM|tO3ELtrnfA:5F.|+%Uh(%*f]0?l[SH66`',
+      'Expected Email value to be equals to F`joscaY&amp;B0p3@(Z-c#EF&amp;H0aiZ^D^%xw#PwRI(i_u&gt;8/,Nd!1z&#39;/f={IbbAL1v-or.$7hvS&#39;Ab|ZZG~WBA,wJTd+!ifJ^Uv#/u]^WRi&lt;[#.CwdVSnPM|tO3ELtrnfA:5F.|+%Uh(%*f]0?l[SH66`'
     );
     expect(await employeeUpdatePage.getBankAccountInput()).to.eq('bankAccount', 'Expected BankAccount value to be equals to bankAccount');
     expect(await employeeUpdatePage.getBankNameInput()).to.eq('bankName', 'Expected BankName value to be equals to bankName');

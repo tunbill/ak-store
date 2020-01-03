@@ -2,6 +2,10 @@
     "name": "Store",
     "fields": [
         {
+            "fieldName": "companyId",
+            "fieldType": "Long"
+        },
+        {
             "fieldName": "code",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -18,12 +22,24 @@
             "fieldValidateRulesMaxlength": 50
         },
         {
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 200
+        },
+        {
             "fieldName": "address",
             "fieldType": "String",
             "fieldValidateRules": [
                 "maxlength"
             ],
-            "fieldValidateRulesMaxlength": 100
+            "fieldValidateRulesMaxlength": 300
+        },
+        {
+            "fieldName": "isActive",
+            "fieldType": "Boolean"
         }
     ],
     "relationships": [
@@ -32,16 +48,9 @@
             "otherEntityName": "item",
             "otherEntityRelationshipName": "store",
             "relationshipName": "item"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "company",
-            "otherEntityRelationshipName": "store",
-            "relationshipName": "company",
-            "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20191228110006",
+    "changelogDate": "20200102134859",
     "entityTableName": "store",
     "dto": "no",
     "pagination": "pagination",
