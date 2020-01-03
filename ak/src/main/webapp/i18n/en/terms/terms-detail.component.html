@@ -1,0 +1,47 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="terms">
+            <h2><span jhiTranslate="akApp.terms.detail.title">Terms</span> {{terms.id}}</h2>
+            <hr>
+            <ak-alert-error></ak-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="akApp.terms.code">Code</span></dt>
+                <dd>
+                    <span>{{terms.code}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.terms.name">Name</span></dt>
+                <dd>
+                    <span>{{terms.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.terms.dayOfMonthDue">Day Of Month Due</span></dt>
+                <dd>
+                    <span>{{terms.dayOfMonthDue}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.terms.dueNextMonthDays">Due Next Month Days</span></dt>
+                <dd>
+                    <span>{{terms.dueNextMonthDays}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.terms.discountDayOfMonth">Discount Day Of Month</span></dt>
+                <dd>
+                    <span>{{terms.discountDayOfMonth}}</span>
+                </dd>
+                <dt><span jhiTranslate="akApp.terms.discountPct">Discount Pct</span></dt>
+                <dd>
+                    <span>{{terms.discountPct}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/terms', terms.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
