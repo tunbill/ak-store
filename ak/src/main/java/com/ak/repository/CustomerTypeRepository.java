@@ -1,11 +1,11 @@
 package com.ak.repository;
-import com.ak.domain.CustomerType;
-import com.ak.domain.Department;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
+
+import com.ak.domain.CustomerType;
 
 
 /**
