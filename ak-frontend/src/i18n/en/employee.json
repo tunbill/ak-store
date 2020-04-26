@@ -1,0 +1,49 @@
+{
+  "akApp": {
+    "employee": {
+      "home": {
+        "title": "Employees",
+        "createLabel": "Create a new Employee",
+        "createOrEditLabel": "Create or edit a Employee",
+        "search": "Search for Employee by Name or Code",
+        "notFound": "No Employees found"
+      },
+      "created": "A new Employee is created with identifier {{ param }}",
+      "updated": "A Employee is updated with identifier {{ param }}",
+      "deleted": "A Employee is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Employee {{ id }}?"
+      },
+      "detail": {
+        "title": "Employee"
+      },
+      "companyId": "Company Id",
+      "code": "Code",
+      "fullName": "Full Name",
+      "sex": "Sex",
+      "birthday": "Birthday",
+      "identityCard": "Identity Card",
+      "identityDate": "Identity Date",
+      "identityIssue": "Identity Issue",
+      "position": "Position",
+      "taxCode": "Tax Code",
+      "salary": "Salary",
+      "salaryRate": "Salary Rate",
+      "salarySecurity": "Salary Security",
+      "numOfDepends": "Num Of Depends",
+      "phone": "Phone",
+      "mobile": "Mobile",
+      "email": "Email",
+      "bankAccount": "Bank Account",
+      "bankName": "Bank Name",
+      "nodes": "Nodes",
+      "isActive": "Is Active",
+      "timeCreated": "Time Created",
+      "timeModified": "Time Modified",
+      "userIdCreated": "User Id Created",
+      "userIdModified": "User Id Modified",
+      "invoice": "Invoice",
+      "department": "Department"
+    }
+  }
+}

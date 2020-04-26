@@ -1,0 +1,47 @@
+{
+  "akApp": {
+    "company": {
+      "home": {
+        "title": "Companies",
+        "createLabel": "Thêm mới một Company",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Company",
+        "search": "Tìm Company",
+        "notFound": "No Companies found"
+      },
+      "created": "Một Company mới được tạo với định danh {{ param }}",
+      "updated": "Một Company cập nhật với định danh {{ param }}",
+      "deleted": "Một Company đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Company {{ id }}?"
+      },
+      "detail": {
+        "title": "Company"
+      },
+      "name": "Name",
+      "address": "Address",
+      "logo": "Logo",
+      "email": "Email",
+      "startDate": "Start Date",
+      "numOfUsers": "Num Of Users",
+      "type": "Type",
+      "isActive": "Is Active",
+      "timeCreated": "Time Created",
+      "timeModified": "Time Modified",
+      "userId": "User Id",
+      "customerType": "Customer Type",
+      "customer": "Customer",
+      "store": "Store",
+      "department": "Department",
+      "jobs": "Jobs",
+      "jobType": "Job Type",
+      "employee": "Employee",
+      "item": "Item",
+      "itemGroup": "Item Group",
+      "unit": "Unit",
+      "invoice": "Invoice",
+      "invoiceLine": "Invoice Line",
+      "industry": "Industry",
+      "province": "Province"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "akApp": {
+    "customer": {
+      "home": {
+        "title": "Danh sách Khách hàng",
+        "createLabel": "Thêm Khách hàng",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Khách hàng",
+        "search": "Tìm theo Tên, Mã, Điện thoại",
+        "notFound": "Không tìm thấy Khách hạng nào "
+      },
+      "created": "Một Khách hàng mới được tạo với định danh {{ param }}",
+      "updated": "Một Khách hàng cập nhật với định danh {{ param }}",
+      "deleted": "Một Khách hàng đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Khách hàng {{ id }}?"
+      },
+      "detail": {
+        "title": "Khách hàng"
+      },
+      "companyId": "Company Id",
+      "isVendor": "Là Nhà cung cấp",
+      "vendorId": "Vendor Id",
+      "code": "Mã Khách hàng",
+      "companyName": "Tên Khách hàng",
+      "address": "Địa chỉ",
+      "phone": "Điện thoại",
+      "mobile": "Di động",
+      "fax": "Fax",
+      "email": "Email",
+      "website": "Website",
+      "taxCode": "Mã số thuế",
+      "accountNumber": "Account Number",
+      "bankAccount": "Tài khoản Ngân hàng",
+      "bankName": "Tên Ngân hàng",
+      "balance": "Sồ dư",
+      "totalBalance": "Tổng sồ dư",
+      "openBalance": "Sồ dư ban đầu",
+      "openBalanceDate": "Ngày Sồ dư",
+      "creditLimit": "Hạn mức",
+      "notes": "Ghi chú",
+      "contactName": "Người liên hệ",
+      "contactMobile": "Di động",
+      "contactEmail": "Email",
+      "isActive": "Hoạt động",
+      "timeCreated": "Time Created",
+      "timeModified": "Time Modified",
+      "userIdCreated": "User Id Created",
+      "userIdModified": "User Id Modified",
+      "invoice": "Invoice",
+      "customerType": "Loại Khách hàng",
+      "terms": "Điều kiện thanh toán"
+    }
+  }
+}

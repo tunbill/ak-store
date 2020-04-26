@@ -1,0 +1,27 @@
+{
+  "akApp": {
+    "department": {
+      "home": {
+        "title": "Danh sách Phòng ban",
+        "createLabel": "Thêm mới Phòng ban",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Phòng ban",
+        "notFound": "No Departments found"
+      },
+      "created": "Một Phòng ban mới được tạo với định danh {{ param }}",
+      "updated": "Một Phòng ban cập nhật với định danh {{ param }}",
+      "deleted": "Một Phòng ban đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Phòng ban {{ id }}?"
+      },
+      "detail": {
+        "title": "Phòng ban"
+      },
+      "companyId": "Company Id",
+      "code": "Mã Phòng ban",
+      "name": "Tên Phòng ban",
+      "description": "Ghi chú",
+      "isActive": "Hoạt động",
+      "employee": "Employee"
+    }
+  }
+}

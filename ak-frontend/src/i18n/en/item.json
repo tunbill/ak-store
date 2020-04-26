@@ -1,0 +1,60 @@
+{
+  "akApp": {
+    "item": {
+      "home": {
+        "title": "Items",
+        "createLabel": "Create a new Item",
+        "createOrEditLabel": "Create or edit a Item",
+        "notFound": "No Items found"
+      },
+      "created": "A new Item is created with identifier {{ param }}",
+      "updated": "A Item is updated with identifier {{ param }}",
+      "deleted": "A Item is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Item {{ id }}?"
+      },
+      "detail": {
+        "title": "Item"
+      },
+      "companyId": "Company Id",
+      "code": "Code",
+      "name": "Name",
+      "description": "Description",
+      "type": "Type",
+      "skuNum": "Sku Num",
+      "vatTax": "Vat Tax",
+      "importTax": "Import Tax",
+      "exportTax": "Export Tax",
+      "inventoryPriceMethod": "Inventory Price Method",
+      "accountItem": "Account Item",
+      "isAllowModified": "Is Allow Modified",
+      "accountCost": "Account Cost",
+      "accountRevenue": "Account Revenue",
+      "accountInternalRevenue": "Account Internal Revenue",
+      "accountSaleReturn": "Account Sale Return",
+      "accountSalePrice": "Account Sale Price",
+      "accountAgency": "Account Agency",
+      "accountRawProduct": "Account Raw Product",
+      "accountCostDifference": "Account Cost Difference",
+      "accountDiscount": "Account Discount",
+      "saleDesc": "Sale Desc",
+      "purchaseDesc": "Purchase Desc",
+      "weight": "Weight",
+      "lenght": "Lenght",
+      "wide": "Wide",
+      "height": "Height",
+      "color": "Color",
+      "specification": "Specification",
+      "itemImage": "Item Image",
+      "isActive": "Is Active",
+      "timeCreated": "Time Created",
+      "timeModified": "Time Modified",
+      "userIdCreated": "User Id Created",
+      "userIdModified": "User Id Modified",
+      "invoiceLine": "Invoice Line",
+      "unit": "Unit",
+      "itemGroup": "Item Group",
+      "store": "Store"
+    }
+  }
+}

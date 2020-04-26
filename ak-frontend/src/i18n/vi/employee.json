@@ -1,0 +1,49 @@
+{
+  "akApp": {
+    "employee": {
+      "home": {
+        "title": "Danh sáchh Nhân viên ",
+        "createLabel": "Thêm Nhân viên",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Nhân viên",
+        "search": "Tìm theo Tên, Mã, Số điện thoại  ",
+        "notFound": "Không tìm thấy Nhân viên nào"
+      },
+      "created": "Một Nhân viên mới được tạo với định danh {{ param }}",
+      "updated": "Một Nhân viên cập nhật với định danh {{ param }}",
+      "deleted": "Một Nhân viên đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Nhân viên {{ id }}?"
+      },
+      "detail": {
+        "title": "Nhân viên"
+      },
+      "companyId": "Company Id",
+      "code": "Mã Nhân viên ",
+      "fullName": "Họ và tên ",
+      "sex": "Giới tính  ",
+      "birthday": "Ngày sinh",
+      "identityCard": "Số CMND",
+      "identityDate": "Ngày CMND",
+      "identityIssue": "Nơi cấp CMND",
+      "position": "Vị trí",
+      "taxCode": "Mã sồ thuế cá nhân",
+      "salary": "Lương",
+      "salaryRate": "Hệ số lương",
+      "salarySecurity": "Lương BHXH",
+      "numOfDepends": "Số người phụ thuộc",
+      "phone": "Điện thoại",
+      "mobile": "Di động",
+      "email": "Email",
+      "bankAccount": "Tài khoản Ngân hàng",
+      "bankName": "Tên Ngân hàng",
+      "nodes": "Ghi chú",
+      "isActive": "Hoạt động",
+      "timeCreated": "Time Created",
+      "timeModified": "Time Modified",
+      "userIdCreated": "User Id Created",
+      "userIdModified": "User Id Modified",
+      "invoice": "Invoice",
+      "department": "Phòng ban"
+    }
+  }
+}

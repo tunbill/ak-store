@@ -1,0 +1,33 @@
+{
+  "akApp": {
+    "invoiceLine": {
+      "home": {
+        "title": "Invoice Lines",
+        "createLabel": "Create a new Invoice Line",
+        "createOrEditLabel": "Create or edit a Invoice Line",
+        "notFound": "No Invoice Lines found"
+      },
+      "created": "A new Invoice Line is created with identifier {{ param }}",
+      "updated": "A Invoice Line is updated with identifier {{ param }}",
+      "deleted": "A Invoice Line is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Invoice Line {{ id }}?"
+      },
+      "detail": {
+        "title": "Invoice Line"
+      },
+      "companyId": "Company Id",
+      "displayOrder": "Display Order",
+      "itemName": "Item Name",
+      "unitName": "Unit Name",
+      "quantity": "Quantity",
+      "rate": "Rate",
+      "amount": "Amount",
+      "discountPct": "Discount Pct",
+      "accountNumber": "Account Number",
+      "status": "Status",
+      "invoice": "Invoice",
+      "item": "Item"
+    }
+  }
+}

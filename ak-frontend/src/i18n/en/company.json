@@ -1,0 +1,47 @@
+{
+  "akApp": {
+    "company": {
+      "home": {
+        "title": "Companies",
+        "createLabel": "Create a new Company",
+        "createOrEditLabel": "Create or edit a Company",
+        "search": "Search for Company",
+        "notFound": "No Companies found"
+      },
+      "created": "A new Company is created with identifier {{ param }}",
+      "updated": "A Company is updated with identifier {{ param }}",
+      "deleted": "A Company is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Company {{ id }}?"
+      },
+      "detail": {
+        "title": "Company"
+      },
+      "name": "Name",
+      "address": "Address",
+      "logo": "Logo",
+      "email": "Email",
+      "startDate": "Start Date",
+      "numOfUsers": "Num Of Users",
+      "type": "Type",
+      "isActive": "Is Active",
+      "timeCreated": "Time Created",
+      "timeModified": "Time Modified",
+      "userId": "User Id",
+      "customerType": "Customer Type",
+      "customer": "Customer",
+      "store": "Store",
+      "department": "Department",
+      "jobs": "Jobs",
+      "jobType": "Job Type",
+      "employee": "Employee",
+      "item": "Item",
+      "itemGroup": "Item Group",
+      "unit": "Unit",
+      "invoice": "Invoice",
+      "invoiceLine": "Invoice Line",
+      "industry": "Industry",
+      "province": "Province"
+    }
+  }
+}

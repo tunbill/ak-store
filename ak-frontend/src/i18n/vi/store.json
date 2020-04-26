@@ -1,0 +1,28 @@
+{
+  "akApp": {
+    "store": {
+      "home": {
+        "title": "Danh sách Kho",
+        "createLabel": "Thêm mới Kho",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Kho",
+        "notFound": "Không tìm thấy Kho nào"
+      },
+      "created": "Một Kho mới được tạo với định danh {{ param }}",
+      "updated": "Một Kho cập nhật với định danh {{ param }}",
+      "deleted": "Một Kho đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Kho {{ id }}?"
+      },
+      "detail": {
+        "title": "Kho"
+      },
+      "companyId": "Company Id",
+      "code": "Mã Kho",
+      "name": "Tên Kho",
+      "description": "Mô tả",
+      "address": "Địa chỉ",
+      "isActive": "Hoạt động",
+      "item": "Item"
+    }
+  }
+}

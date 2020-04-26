@@ -1,0 +1,52 @@
+<h2 class="login-title">{{ 'login.title' | transloco }}</h2>
+
+<form
+  nz-form
+  [formGroup]="validateForm"
+  class="login-form"
+  (ngSubmit)="submitForm()"
+>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="{{'login.form.username.tip' | transloco}}">
+      <nz-input-group nzPrefixIcon="user">
+        <input
+          type="text"
+          nz-input
+          formControlName="username"
+          placeholder="{{'login.form.username.placeholder' | transloco}}"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="{{'login.form.password.tip' | transloco}}">
+      <nz-input-group nzPrefixIcon="lock">
+        <input
+          type="password"
+          nz-input
+          formControlName="password"
+          placeholder="{{'login.form.password.placeholder' | transloco}}"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <div class="flex-between">
+        <label nz-checkbox formControlName="rememberMe">
+          <span>{{'login.form.rememberme' | transloco}}</span>
+        </label>
+        <a class="login-form-forgot">{{'login.form.forgotpassword' | transloco}}</a>
+      </div>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <button nz-button class="login-form-button" [nzType]="'primary'">
+        {{ 'login.title' | transloco }}
+      </button>
+      {{ 'login.form.or' | transloco }}
+      <a routerLink="/account/register">{{ 'login.form.registernow' | transloco }}</a>
+    </nz-form-control>
+  </nz-form-item>
+</form>

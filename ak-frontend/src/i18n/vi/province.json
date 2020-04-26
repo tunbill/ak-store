@@ -1,0 +1,23 @@
+{
+  "akApp": {
+    "province": {
+      "home": {
+        "title": "Provinces",
+        "createLabel": "Thêm mới một Province",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Province",
+        "notFound": "No Provinces found"
+      },
+      "created": "Một Province mới được tạo với định danh {{ param }}",
+      "updated": "Một Province cập nhật với định danh {{ param }}",
+      "deleted": "Một Province đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Province {{ id }}?"
+      },
+      "detail": {
+        "title": "Province"
+      },
+      "name": "Name",
+      "company": "Company"
+    }
+  }
+}

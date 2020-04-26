@@ -1,0 +1,42 @@
+{
+  "akApp": {
+    "invoice": {
+      "home": {
+        "title": "Invoices",
+        "createLabel": "Create a new Invoice",
+        "createOrEditLabel": "Create or edit a Invoice",
+        "notFound": "No Invoices found"
+      },
+      "created": "A new Invoice is created with identifier {{ param }}",
+      "updated": "A Invoice is updated with identifier {{ param }}",
+      "deleted": "A Invoice is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Invoice {{ id }}?"
+      },
+      "detail": {
+        "title": "Invoice"
+      },
+      "companyId": "Company Id",
+      "invoiceNo": "Invoice No",
+      "invoiceDate": "Invoice Date",
+      "dueDate": "Due Date",
+      "billingAddress": "Billing Address",
+      "accountNumber": "Account Number",
+      "poNumber": "Po Number",
+      "notes": "Notes",
+      "productTotal": "Product Total",
+      "vatTotal": "Vat Total",
+      "discountTotal": "Discount Total",
+      "total": "Total",
+      "status": "Status",
+      "timeCreated": "Time Created",
+      "timeModified": "Time Modified",
+      "userIdCreated": "User Id Created",
+      "userIdModified": "User Id Modified",
+      "invoiceLine": "Invoice Line",
+      "customer": "Customer",
+      "terms": "Terms",
+      "employee": "Employee"
+    }
+  }
+}

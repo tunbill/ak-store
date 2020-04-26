@@ -1,0 +1,26 @@
+{
+  "akApp": {
+    "customerType": {
+      "home": {
+        "title": "Danh sách Loại Khách hàng",
+        "createLabel": "Thêm mới Loại Khách hàng",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Loại Khách hàng",
+        "notFound": "Không tìm thấy Loại Khách hàng nào"
+      },
+      "created": "Một Loại Khách hàng mới được tạo với định danh {{ param }}",
+      "updated": "Một Loại Khách hàng cập nhật với định danh {{ param }}",
+      "deleted": "Một Loại Khách hàng đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Loại Khách hàng {{ id }}?"
+      },
+      "detail": {
+        "title": "Loại Khách hàng"
+      },
+      "companyId": "Company Id",
+      "name": "Tên Loại Khách hàng",
+      "description": "Mô tả",
+      "isActive": "Hoạt động",
+      "customer": "Customer"
+    }
+  }
+}

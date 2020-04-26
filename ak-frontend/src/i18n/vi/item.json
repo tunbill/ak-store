@@ -1,0 +1,61 @@
+{
+  "akApp": {
+    "item": {
+      "home": {
+        "title": "Danh sách Hàng hoá Dịch vụ",
+        "createLabel": "Thêm mới Hàng hoá Dịch vụ",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Hàng hoá Dịch vụ",
+        "search": "Tìm theo Tên, Mã",
+        "notFound": "Không tìm thấy Hàng hoá Dịch vụ nào"
+      },
+      "created": "Một Hàng hoá Dịch vụ mới được tạo với định danh {{ param }}",
+      "updated": "Một Hàng hoá Dịch vụ cập nhật với định danh {{ param }}",
+      "deleted": "Một Hàng hoá Dịch vụ đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Hàng hoá Dịch vụ {{ id }}?"
+      },
+      "detail": {
+        "title": "Hàng hoá Dịch vụ"
+      },
+      "code": "Mã Hàng hoá Dịch vụ",
+      "name": "Tên Hàng hoá Dịch vụ",
+      "description": "Mô tả",
+      "type": "Dạng",
+      "skuNum": "Tồn kho tối thiểu",
+      "vatTax": "Thuế VAT",
+      "importTax": "Thuế Nhập khẩu",
+      "exportTax": "Thuế Xuất khẩu",
+      "inventoryPriceMethod": "Phương pháp tính giá tồn",
+      "accountItem": "TK Hàng hoá Dịch vụ",
+      "isAllowModified": "Cho phép thay đổi TK Hàng hoá Dịch vụ",
+      "accountCost": "TK Giá vốn",
+      "accountRevenue": "TK Doanh thu",
+      "accountInternalRevenue": "TK Doanh thu Nội bộ",
+      "accountSaleReturn": "TK Hàng bán trả lại",
+      "accountSalePrice": "TK Giá hàng bán",
+      "accountAgency": "TK Đại lý",
+      "accountRawProduct": "TK Sản phẩm dở dang",
+      "accountCostDifference": "TK Chênh lệch giá vốn",
+      "accountDiscount": "TK Chiết khấu",
+      "saleDesc": "Mô tả hàng bán",
+      "purchaseDesc": "Mô tả hàng mua",
+      "weight": "Trọng lượng",
+      "lenght": "Chiều dài",
+      "wide": "Chiều rộng",
+      "height": "Chiều cao",
+      "color": "Màu săc",
+      "specification": "Qui cách",
+      "itemImage": "Hình ảnh",
+      "isActive": "Hoạt động",
+      "timeCreated": "Time Created",
+      "timeModified": "Time Modified",
+      "userIdCreated": "User Id Created",
+      "userIdModified": "User Id Modified",
+      "invoiceLine": "Invoice Line",
+      "unit": "Đơn vị",
+      "itemGroup": "Nhóm Vật tư Hàng hoá",
+      "store": "Kho ngầm định",
+      "company": "Company"
+    }
+  }
+}

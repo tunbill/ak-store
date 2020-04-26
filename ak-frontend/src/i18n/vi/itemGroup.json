@@ -1,0 +1,27 @@
+{
+  "akApp": {
+    "itemGroup": {
+      "home": {
+        "title": "Danh sách Nhóm Háng hoá Dịch vụ",
+        "createLabel": "Thêm mới Nhóm Hàng hoá Dịch vụ",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Nhóm Hàng hoá Dịch vụ",
+        "notFound": "Không tìm thấy Nhóm Hàng hoá Dịch vụ nào "
+      },
+      "created": "Một Nhóm Hàng hoá Dịch vụ mới được tạo với định danh {{ param }}",
+      "updated": "Một Nhóm Hàng hoá Dịch vụ cập nhật với định danh {{ param }}",
+      "deleted": "Một Nhóm Hàng hoá Dịch vụ đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Nhóm Hàng hoá Dịch vụ {{ id }}?"
+      },
+      "detail": {
+        "title": "Nhóm Háng hoá Dịch vụ"
+      },
+      "code": "Mã Nhóm Háng hoá Dịch vụ",
+      "name": "Tên Nhóm Háng hoá Dịch vụ",
+      "item": "Item",
+      "description": "Ghi chú",
+      "isActive": "Hoạt động",
+      "company": "Company"
+    }
+  }
+}

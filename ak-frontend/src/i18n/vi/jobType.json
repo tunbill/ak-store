@@ -1,0 +1,27 @@
+{
+  "akApp": {
+    "jobType": {
+      "home": {
+        "title": "Job Types",
+        "createLabel": "Thêm mới một Job Type",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Job Type",
+        "notFound": "No Job Types found"
+      },
+      "created": "Một Job Type mới được tạo với định danh {{ param }}",
+      "updated": "Một Job Type cập nhật với định danh {{ param }}",
+      "deleted": "Một Job Type đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Job Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Job Type"
+      },
+      "companyId": "Company Id",
+      "code": "Code",
+      "name": "Name",
+      "description": "Mô tả",
+      "isActive": "Hoạt động",
+      "jobs": "Jobs"
+    }
+  }
+}

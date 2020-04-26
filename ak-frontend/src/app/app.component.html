@@ -1,0 +1,19 @@
+<ak-nav-layout
+  *ngIf="authenticationState$ | async; else unauth"
+  [languages]="languages"
+  [activeLanguage]="activeLanguage$ | async"
+  (selectLanguage)="onSelectLanguage($event)"
+  (logout)="doLogout()"
+>
+  <router-outlet></router-outlet>
+</ak-nav-layout>
+
+<ng-template #unauth>
+  <ak-unauthorized-nav-layout
+    [languages]="languages"
+    [activeLanguage]="activeLanguage$ | async"
+    (selectLanguage)="onSelectLanguage($event)"
+  >
+    <router-outlet></router-outlet>
+  </ak-unauthorized-nav-layout>
+</ng-template>

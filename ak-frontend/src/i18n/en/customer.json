@@ -1,0 +1,53 @@
+{
+  "akApp": {
+    "customer": {
+      "home": {
+        "title": "Customers",
+        "createLabel": "Create a new Customer",
+        "createOrEditLabel": "Create or edit a Customer",
+        "notFound": "No Customers found"
+      },
+      "created": "A new Customer is created with identifier {{ param }}",
+      "updated": "A Customer is updated with identifier {{ param }}",
+      "deleted": "A Customer is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Customer {{ id }}?"
+      },
+      "detail": {
+        "title": "Customer"
+      },
+      "companyId": "Company Id",
+      "isVendor": "Is Vendor",
+      "vendorId": "Vendor Id",
+      "code": "Code",
+      "companyName": "Company Name",
+      "address": "Address",
+      "phone": "Phone",
+      "mobile": "Mobile",
+      "fax": "Fax",
+      "email": "Email",
+      "website": "Website",
+      "taxCode": "Tax Code",
+      "accountNumber": "Account Number",
+      "bankAccount": "Bank Account",
+      "bankName": "Bank Name",
+      "balance": "Balance",
+      "totalBalance": "Total Balance",
+      "openBalance": "Open Balance",
+      "openBalanceDate": "Open Balance Date",
+      "creditLimit": "Credit Limit",
+      "notes": "Notes",
+      "contactName": "Contact Name",
+      "contactMobile": "Contact Mobile",
+      "contactEmail": "Contact Email",
+      "isActive": "Is Active",
+      "timeCreated": "Time Created",
+      "timeModified": "Time Modified",
+      "userIdCreated": "User Id Created",
+      "userIdModified": "User Id Modified",
+      "invoice": "Invoice",
+      "customerType": "Customer Type",
+      "terms": "Terms"
+    }
+  }
+}

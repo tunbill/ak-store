@@ -1,0 +1,33 @@
+{
+  "akApp": {
+    "jobs": {
+      "home": {
+        "title": "Danh sách Công việc",
+        "createLabel": "Thêm mới Công việc",
+        "createOrEditLabel": "Thêm mới hoặc cập nhật Công việc",
+        "notFound": "Không tìm thấy Công việc nào"
+      },
+      "created": "Một Công việc mới được tạo với định danh {{ param }}",
+      "updated": "Một Công việc cập nhật với định danh {{ param }}",
+      "deleted": "Một Công việc đã xóa với định danh {{ param }}",
+      "delete": {
+        "question": "Bạn có chắc là muốn xóa Công việc {{ id }}?"
+      },
+      "detail": {
+        "title": "Công việc"
+      },
+      "code": "Mã Công việc",
+      "name": "Tên Công việc",
+      "status": "Trạng thái",
+      "startDate": "Ngày Bắt đầu",
+      "endDate": "Ngày Kết thúc",
+      "estimate": "Dự toán",
+      "investor": "Nhà đầu tư",
+      "address": "Địa chỉ",
+      "notes": "Ghi chú",
+      "isActive": "Hoạt động",
+      "jobType": "Loại Công việc",
+      "company": "Company"
+    }
+  }
+}

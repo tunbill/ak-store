@@ -1,0 +1,21 @@
+<h2>User Management</h2>
+<button nz-button nzType="primary"  routerLink="/account/register" ><i nz-icon nzType="add"></i>Add new user</button>
+<nz-table>
+      <thead>
+        <tr>
+          <th>Login</th>
+          <th>Email</th>
+          <th>LangKey</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.login }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ data.langkey }}</td>
+          <td>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
